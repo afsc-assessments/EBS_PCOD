@@ -1,8 +1,6 @@
-﻿# adapted/generalized from Steve Barbeaux' files for
+# adapted/generalized from Steve Barbeaux' files for
 # generating SS files for EBS/AI Greenland Turbot
-# ZTA, 2021-10-07, R version 4.05.01 64 bit
 ### BS Pacific cod
-
 ## write SS3 files for stock assessment
 
 libs <- c("tidyverse", "dplyr","RODBC","mgcv","FSA","nlstools","data.table","ggplot2","sizeMat","devtools","r4ss","lubridate","rgdal")
@@ -12,10 +10,10 @@ if(length(libs[which(libs %in% rownames(installed.packages()) == FALSE )]) > 0) 
 lapply(libs, library, character.only = TRUE)
 
 
-afsc_user="sbarb"   ## enter afsc username
-afsc_pass="PnkFsh$$7890" ## enter afsc password
-akfin_user="sbarbeaux"  ## enter AKFIN username
-akfin_pass="$tockmen12" ## enter AKFIN password
+afsc_user=""   ## enter afsc username
+afsc_pass="" ## enter afsc password
+akfin_user=""  ## enter AKFIN username
+akfin_pass="" ## enter AKFIN password
 
 
 AFSC=odbcConnect("AFSC",afsc_user,afsc_pass,believeNRows=FALSE)
