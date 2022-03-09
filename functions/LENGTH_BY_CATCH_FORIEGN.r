@@ -6,6 +6,10 @@
 ## and month by the blend catch information.  There are a number of sample size measures attempted, 
 ## but none used except the number of hauls, these are then reduced to average to the averagenumber of stations
 ## from the bottom trawl survey data.  
+## ICC is only exploratory and uses the intra-correlation coeffient to calculate input sample size if marked FALSE it is not calculated.
+## Exports length compostitions for both single combined fishery and POT, Longline, Trawl fishery category in the output.
+##  FLENGTH<-LENGTH_BY_CATCH_ICC_BS_FOREIGN()
+## FLENGTH[[1]] would be the combined fishery length comps and FLENGTH[[2]] would be separate 
 
 LENGTH_BY_CATCH_ICC_BS_FOREIGN<-function(fsh_sp_str=202 ,foriegn_sp_label = "'PACIFIC COD'",ly=new_year,ICC=FALSE){
   require(RODBC)
