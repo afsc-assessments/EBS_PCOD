@@ -1,13 +1,7 @@
-# username='afsc username'  ## enter your AFSC username and password
-# password= 'afsc password'
-
-# library(RODBC)
-# AFSC=odbcConnect("AFSC",username,password,believeNRows=FALSE)     ## open a connection to AFSC the function requires an open connection to AFSC and pulls data directly from the database
-
-
  ## Function to calculate annual alpha and beta residuals for length weight relationship from observer data which incorporates seasonal variation
  ## species is the observer species code, area is EBS, AI, or GOA, K is the degrees of freedom for the GAM splines, Alpha_series 
  ##  is the environmental series number for Stock Synthesis and Beta_series is the environmental series number
+ ##  Based on method used by Thompson et al. 2021 BS Pacific cod assessment. 
  ## 
 
 
