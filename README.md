@@ -1,2 +1,2 @@
 # EBS_PCOD
-Eastern Bering Sea Stock Assessment
+Eastern Bering Sea Pacific cod Stock Assessment Repository
