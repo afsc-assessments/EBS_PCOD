@@ -5,8 +5,11 @@
 ## number from the species composition data and to the total catch for the area, gear,
 ## and month by the blend catch information.  There are a number of sample size measures attempted, 
 ## but none used except the number of hauls, these are then reduced to average to the averagenumber of stations
-## from the bottom trawl survey data.  
-
+## from the bottom trawl survey data. 
+## ICC is only exploratory and uses the intra-correlation coeffient to calculate input sample size, it takes a bit of time to do, if marked FALSE it is not calculated.
+## Exports length compostitions for both single combined fishery and POT, Longline, Trawl fishery category in the output.
+## FLENGTH<-LENGTH_BY_CATCH_ICC_BS_FOREIGN()
+## FLENGTH[[1]] would be the combined fishery length comps and FLENGTH[[2]] would be separate 
 
 
 LENGTH_BY_CATCH_ICC_BS<-function(fsh_sp_str=fsh_sp_str ,fsh_sp_label=fsh_sp_label, ly=final_year, ICC=FALSE ){
@@ -112,7 +115,7 @@ LENGTH_BY_CATCH_ICC_BS<-function(fsh_sp_str=fsh_sp_str ,fsh_sp_label=fsh_sp_labe
 
 
   x<-Length[,list(FREQ_YAGMH=sum(SUM_FREQUENCY),EX_NUMBER=max(NUMB),AVE_WEIGHT_1=max(EXTRAPOLATED_WEIGHT)/max(NUMB)),by=c("AREA2","MONTH_WED","GEAR","YEAR","CRUISE","PERMIT","VES_AKR_ADFG","HAUL")]
-  x2<-x[,list(AVE_WEIGHT_YAGM=mean(AVE_WEIGHT_1)),by=c("AREA2","MONTH_WED","GEAR","YEAR")]
+  x2<-x[,list(AVE_WEIGHT_YAGM=mean(AVE_WEIGHT_1)),by=c("AREA2","MONTH_WED","GEAR","YEAR")]   ## average weight for strata area/month/gear/year
   x<-merge(x,x2,all.x=T,by=c("AREA2","MONTH_WED","GEAR","YEAR"))
   x<-merge(Length,x,all.x=T,by=c("AREA2","MONTH_WED","GEAR","YEAR","CRUISE","PERMIT","VES_AKR_ADFG","HAUL"))
 
