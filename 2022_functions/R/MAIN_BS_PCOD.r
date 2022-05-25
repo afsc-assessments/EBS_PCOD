@@ -184,25 +184,6 @@ new_data <- SBSS_GET_ALL_DATA(new_data           = new_data,
 
 
 
-
-new_data           = new_data;
-                              new_file           = new_SS_dat_filename;
-                              new_year           = new_SS_dat_year;
-                              sp_area            = sp_area;
-                              fsh_sp_label       = fsh_sp_label;
-                              fsh_sp_area        = fsh_sp_area;
-                              fsh_sp_str         = fsh_sp_str;
-                              fsh_start_yr       = fsh_start_yr;
-                              srv_sp_str         = srv_sp_str;
-                              srv_start_yr       = srv_start_yr;
-                              len_bins           = len_bins;
-                              max_age            = max_age;
-                              is_new_SS_DAT_file = is_new_SS_DAT_file;
-		              AUXFCOMP           = 1;
-                              ONE_FLEET          =TRUE;
-                              LL_DAT             =FALSE;
-                              ICC_T              =FALSE
-
 # write out SS DAT file
 
 SS_writedat_3.30(new_data,new_SS_dat_filename,overwrite=T)
@@ -216,7 +197,3 @@ SS_writedat_3.30(new_data,new_SS_dat_filename,overwrite=T)
 test_dat <- SS_readdat_3.30(new_SS_dat_filename,verbose=TRUE)
 
 ## ctrl file needs to be edited manually due to complexity at this time.
-
-close(AFSC)
-close(CHINA)
-
