@@ -1,10 +1,3 @@
-# username='afsc username'  ## enter your AFSC username and password
-# password= 'afsc password'
-
-# library(RODBC)
-# AFSC=odbcConnect("AFSC",username,password,believeNRows=FALSE)     ## open a connection to AFSC the function requires an open connection to AFSC and pulls data directly from the database
-
-
  ## Function to calculate annual alpha and beta residuals for length weight relationship from observer data which incorporates seasonal variation
  ## species is the observer species code, area is EBS, AI, or GOA, K is the degrees of freedom for the GAM splines, Alpha_series 
  ##  is the environmental series number for Stock Synthesis and Beta_series is the environmental series number
@@ -12,77 +5,23 @@
 
 
 get_lengthweight <- function(species=202,area='BS',K=12, Alpha_series=2, Beta_series=3) {
+  
+     if(area=="BS") location <- "between 500 and 539"
+     if(area=="AI") location <- "between 540 and 543"
+     if(area=="GOA") location <- "between 600 and 700"
  
-    require(data.table)
-    require(ggplot2)
-    require(reshape2)
-    require(rgdal)
-    require(dplyr)
-    require(lubridate)
-    require(reshape)
-     
-     if(area=="BS") location <- "500 and 539"
-     if(area=="AI") location <- "540 and 543"
-     if(area=="GOA") location <- "600 and 700"
- 
-
-    LW1<-paste0("SELECT
-        obsint.debriefed_age.species,
-        obsint.debriefed_age.year,
-        TO_CHAR(obsint.debriefed_age.haul_offload_date, 'mm') AS month,
-        obsint.debriefed_age.haul_offload_date,
-        obsint.debriefed_age.cruise,
-        obsint.debriefed_age.vessel,
-        obsint.debriefed_age.gear,
-        obsint.debriefed_age.sex,
-        obsint.debriefed_age.length,
-        obsint.debriefed_age.weight
-    FROM
-        obsint.debriefed_age
-    WHERE
-        obsint.debriefed_age.species =",species,
-        "AND obsint.debriefed_age.length IS NOT NULL
-        AND obsint.debriefed_age.weight IS NOT NULL
-        AND obsint.debriefed_age.nmfs_area BETWEEN ",location,
-    "ORDER BY
-        obsint.debriefed_age.year,
-        obsint.debriefed_age.cruise,
-        obsint.debriefed_age.vessel,
-        obsint.debriefed_age.length,
-        obsint.debriefed_age.weight")
-
-
-
-    LW2<-paste0("SELECT
-        norpac.foreign_age.species,
-        norpac.foreign_age.year,
-        TO_CHAR(norpac.foreign_age.dt, 'mm') AS month,
-        norpac.foreign_age.dt,
-        norpac.foreign_age.cruise,
-        norpac.foreign_age.vessel,
-        norpac.foreign_fishing_operation.vessel_type_code,
-        norpac.foreign_age.sex,
-        norpac.foreign_age.length,
-        norpac.foreign_age.indiv_weight
-    FROM
-        norpac.foreign_age
-        INNER JOIN norpac.foreign_haul ON norpac.foreign_age.haul_join = norpac.foreign_haul.haul_join
-        AND norpac.foreign_age.cruise = norpac.foreign_haul.cruise
-        AND norpac.foreign_age.vessel = norpac.foreign_haul.vessel
-        INNER JOIN norpac.foreign_fishing_operation ON norpac.foreign_haul.cruise = norpac.foreign_fishing_operation.cruise
-        AND norpac.foreign_haul.vessel = norpac.foreign_fishing_operation.vessel
-    WHERE
-        norpac.foreign_age.species = ",species,
-        "AND norpac.foreign_haul.generic_area BETWEEN ", location,
-    "ORDER BY
-        norpac.foreign_age.year,
-        norpac.foreign_age.cruise,
-        norpac.foreign_age.vessel,
-        norpac.foreign_age.length,
-        norpac.foreign_age.indiv_weight")
-
-    data_LW<- data.table(sqlQuery(afsc,LW1,as.is=T))
-    data_LW2<- data.table(sqlQuery(afsc,LW2,as.is=T))
+  dwt = readLines('sql/dom_age_wt.sql')
+  dwt = sql_filter(sql_precode = "IN", x = species, sql_code = dwt, flag = '-- insert species')
+  dwt = sql_add(x = location, sql_code = dwt, flag = '-- insert location')
+  data_LW=sql_run(afsc, dwt) %>% 
+    dplyr::rename_all(toupper)
+   
+  fwt = readLines('sql/for_age_wt.sql')
+  fwt = sql_filter(sql_precode = "IN", x = species, sql_code = fwt, flag = '-- insert species')
+  fwt = sql_add(x = location, sql_code = fwt, flag = '-- insert location')
+  data_LW2=sql_run(afsc, fwt) %>% 
+    dplyr::rename_all(toupper)
+  
     names(data_LW2)<-names(data_LW)
 
     data_LW<-rbind(data_LW2,data_LW)
