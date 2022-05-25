@@ -26,4 +26,4 @@ SELECT
         norpac.foreign_age.cruise,
         norpac.foreign_age.vessel,
         norpac.foreign_age.length,
-        norpac.foreign_age.indiv_weight")
+        norpac.foreign_age.indiv_weight
