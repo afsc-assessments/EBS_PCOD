@@ -1,7 +1,8 @@
 # adapted/generalized from Steve Barbeaux' files for
 # generating SS files for EBS/AI Greenland Turbot
 # ZTA, 2021-10-07, R version 4.05.01 64 bit
-### BS Pacific cod
+# SJB, 2022-05-25, R version 4.0.5 (2021-03-31) 64 bit 
+### Data file generation for BS Pacific cod 2022
 
 ## write SS3 files for stock assessment
 
@@ -22,10 +23,6 @@ akfin_pwd  = ""   ## enter AKFIN password
                       UID = afsc_user, PWD = afsc_pwd)
   akfin = DBI::dbConnect(odbc::odbc(), "akfin",
                       UID = akfin_user, PWD = akfin_pwd)
-
-#afsc  = odbcConnect("AFSC",afsc_user,afsc_pass,believeNRows=FALSE)
-#akfin = odbcConnect("AKFIN",akfin_user,akfin_pass,believeNRows=FALSE)
-
 
 ## DEFINE ALL CONSTANTS FOR THIS RUN
 
