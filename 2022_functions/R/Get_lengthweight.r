@@ -38,7 +38,7 @@ get_lengthweight <- function(species=202,area='BS',K=12, Alpha_series=2, Beta_se
     data_LW<-data_LW[WEIGHT > 0.01]   ## removing more outliers
     data_LW<-data_LW[WEIGHT < 40]
 
-    if(species == 202 & area =='EBS') {  ## Pcod in EBS
+    if(species == 202 & area =='BS') {  ## Pcod in EBS
         data_LW<-data_LW[CRUISE!=1798]   ## cruises have severe outliers on weight at length
         data_LW<-data_LW[CRUISE!=14737]
         data_LW<-data_LW[CRUISE!=14874]
