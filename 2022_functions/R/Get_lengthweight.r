@@ -1,9 +1,3 @@
- ## Function to calculate annual alpha and beta residuals for length weight relationship from observer data which incorporates seasonal variation
- ## species is the observer species code, area is EBS, AI, or GOA, K is the degrees of freedom for the GAM splines, Alpha_series 
- ##  is the environmental series number for Stock Synthesis and Beta_series is the environmental series number
- ## 
-
-
 get_lengthweight <- function(species=202,area='BS',K=12, Alpha_series=2, Beta_series=3) {
   
      if(area=="BS") location <- "between 500 and 539"
@@ -13,13 +7,13 @@ get_lengthweight <- function(species=202,area='BS',K=12, Alpha_series=2, Beta_se
   dwt = readLines('sql/dom_age_wt.sql')
   dwt = sql_filter(sql_precode = "IN", x = species, sql_code = dwt, flag = '-- insert species')
   dwt = sql_add(x = location, sql_code = dwt, flag = '-- insert location')
-  data_LW=sql_run(afsc, dwt) %>% 
+  data_LW=sql_run(afsc, dwt) %>% data.table() %>%
     dplyr::rename_all(toupper)
    
   fwt = readLines('sql/for_age_wt.sql')
   fwt = sql_filter(sql_precode = "IN", x = species, sql_code = fwt, flag = '-- insert species')
   fwt = sql_add(x = location, sql_code = fwt, flag = '-- insert location')
-  data_LW2=sql_run(afsc, fwt) %>% 
+  data_LW2=sql_run(afsc, fwt) %>% data.table() %>%
     dplyr::rename_all(toupper)
   
     names(data_LW2)<-names(data_LW)
@@ -106,4 +100,3 @@ get_lengthweight <- function(species=202,area='BS',K=12, Alpha_series=2, Beta_se
     environ <- data.table(rbind(env2,env3))
     environ
 }
-

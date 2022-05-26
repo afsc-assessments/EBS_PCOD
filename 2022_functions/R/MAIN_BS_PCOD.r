@@ -1,8 +1,7 @@
 # adapted/generalized from Steve Barbeaux' files for
 # generating SS files for EBS/AI Greenland Turbot
 # ZTA, 2021-10-07, R version 4.05.01 64 bit
-# SJB, 2022-05-25, R version 4.0.5 (2021-03-31) 64 bit 
-### Data file generation for BS Pacific cod 2022
+### BS Pacific cod
 
 ## write SS3 files for stock assessment
 
@@ -23,6 +22,10 @@ akfin_pwd  = ""   ## enter AKFIN password
                       UID = afsc_user, PWD = afsc_pwd)
   akfin = DBI::dbConnect(odbc::odbc(), "akfin",
                       UID = akfin_user, PWD = akfin_pwd)
+
+#afsc  = odbcConnect("AFSC",afsc_user,afsc_pass,believeNRows=FALSE)
+#akfin = odbcConnect("AKFIN",akfin_user,akfin_pass,believeNRows=FALSE)
+
 
 ## DEFINE ALL CONSTANTS FOR THIS RUN
 
@@ -181,6 +184,25 @@ new_data <- SBSS_GET_ALL_DATA(new_data           = new_data,
 
 
 
+
+new_data           = new_data;
+                              new_file           = new_SS_dat_filename;
+                              new_year           = new_SS_dat_year;
+                              sp_area            = sp_area;
+                              fsh_sp_label       = fsh_sp_label;
+                              fsh_sp_area        = fsh_sp_area;
+                              fsh_sp_str         = fsh_sp_str;
+                              fsh_start_yr       = fsh_start_yr;
+                              srv_sp_str         = srv_sp_str;
+                              srv_start_yr       = srv_start_yr;
+                              len_bins           = len_bins;
+                              max_age            = max_age;
+                              is_new_SS_DAT_file = is_new_SS_DAT_file;
+		              AUXFCOMP           = 1;
+                              ONE_FLEET          =TRUE;
+                              LL_DAT             =FALSE;
+                              ICC_T              =FALSE
+
 # write out SS DAT file
 
 SS_writedat_3.30(new_data,new_SS_dat_filename,overwrite=T)
@@ -194,3 +216,7 @@ SS_writedat_3.30(new_data,new_SS_dat_filename,overwrite=T)
 test_dat <- SS_readdat_3.30(new_SS_dat_filename,verbose=TRUE)
 
 ## ctrl file needs to be edited manually due to complexity at this time.
+
+close(AFSC)
+close(CHINA)
+
