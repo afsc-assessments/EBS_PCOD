@@ -152,7 +152,7 @@ if (!file.access(test_file,mode=4))
    }
 
 ## Source the main data gathering function, one function to rule them all...
-setwd(paste(working_dir,"\\Functions\\new_scripts\\R",sep=""))
+setwd(paste(working_dir,"\\Functions\\R",sep=""))
 source("SBSS_GET_ALL_DATA_EBS_PCOD_cor.r")
 
 ## change working directory to main level.
