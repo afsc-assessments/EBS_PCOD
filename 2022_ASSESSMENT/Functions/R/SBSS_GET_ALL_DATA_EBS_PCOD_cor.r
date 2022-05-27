@@ -333,7 +333,7 @@ SBSS_GET_ALL_DATA <- function(new_data     = new_data,
            } else { stop("Not a valid survey")}
     
         bsage = readLines('sql/survey_age.sql')
- 	bsage = sql_filter(sql_precode = "<=", x = ly, sql_code = bsage, flag = '-- insert year')
+ 	bsage = sql_filter(sql_precode = "<=", x = new_year, sql_code = bsage, flag = '-- insert year')
  	bsage = sql_filter(sql_precode = "IN", x = survey, sql_code = bsage, flag = '-- insert survey')
         bsage = sql_filter(sql_precode = "IN", x = srv_sp_str, sql_code = bsage, flag = '-- insert species')
 
