@@ -1,6 +1,6 @@
 # adapted/generalized from Steve Barbeaux' files for
 # generating SS files for EBS/AI Greenland Turbot
-# SJB, 2022-05-26, R version 4.05.01 64 bit
+# SJB, 2022-05-27, R version 4.05.01 64 bit
 ### BS Pacific cod
 
 ## write SS3 files for stock assessment
@@ -33,7 +33,7 @@ akfin_pwd  = ""   ## enter AKFIN password
 is_new_SS_DAT_file <- FALSE
 
 # this assumes that the FUNCTIONS subdirectory is in the working directory
-working_dir <- "C:/WORKING_FOLDER/2022 Stock Assessments/EBS Pcod"
+working_dir <- "C:/WORKING_FOLDER/EBS_PCOD/2022_ASSESSMENT"
 
 # previous SS DAT filename, if it exists
 old_SS_dat_filename <- "BSPcod22A.dat"
@@ -92,7 +92,7 @@ max_age <- 20
 
 ## Get all the functions for pulling BS Pcod data
 
-setwd(paste(working_dir,"\\Functions\\new_scripts\\R",sep=""))
+setwd(paste(working_dir,"\\Functions\\R",sep=""))
 
 source_files=c("BIN_LEN_DATA.r","FORMAT_AGE_MEANS1.r", "GET_BS_ACOMP1.r","GET_BS_BIOM.r","GET_BS_LCOMP1.r",             
      "GET_SURV_AGE_cor.r", "LENGTH_BY_CATCH_BS.r","Get_lengthweight.r","utils.r") 
@@ -102,7 +102,7 @@ lapply(source_files, source)
 
 
 ## Get all the alternative data that isn't in AKFIN or AFSC databases
-setwd(paste(working_dir,"\\Functions\\new_scripts\\ALT_DATA",sep=""))
+setwd(paste(working_dir,"\\Functions\\ALT_DATA",sep=""))
 
 test_file <- "OLD_SEAS_GEAR_CATCH_BS.csv"
 if (!file.access(test_file,mode=4))
@@ -138,7 +138,7 @@ test_file <- "ALL_STATE_LENGTHS.csv"
 
 ## get VAST index and age comps files
 
-setwd(paste(working_dir,"\\Functions\\new_scripts\\ALT_DATA\\VAST",sep=""))
+setwd(paste(working_dir,"\\Functions\\ALT_DATA\\VAST",sep=""))
 test_file <- "Table_for_SS3.csv"
 if (!file.access(test_file,mode=4))
    {
@@ -157,7 +157,7 @@ source("SBSS_GET_ALL_DATA_EBS_PCOD_cor.r")
 
 ## change working directory to main level.
 
-setwd(paste(working_dir,"\\Functions\\new_scripts", sep=""))
+setwd(paste(working_dir,"\\Functions", sep=""))
 
  if (!is_new_SS_DAT_file && !file.access(old_SS_dat_filename,mode=4))
   {
@@ -190,11 +190,6 @@ new_data <- SBSS_GET_ALL_DATA(new_data           = new_data,
 # write out SS DAT file
 
 SS_writedat_3.30(new_data,new_SS_dat_filename,overwrite=T)
-
-
-# Add_climate(Old_datafile=new_SS_dat_filename, New_datafile=new_SS_dat_filename, dir1=paste0(working_dir,"/functions/ALT_DATA",dir2=working_dir)
-
-
 
 # test that the new file is readable
 test_dat <- SS_readdat_3.30(new_SS_dat_filename,verbose=TRUE)
