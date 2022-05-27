@@ -1,6 +1,6 @@
 # adapted/generalized from Steve Barbeaux' files for
 # generating SS files for EBS/AI Greenland Turbot
-# ZTA, 2021-10-07, R version 4.05.01 64 bit
+# SJB, 2022-05-26, R version 4.05.01 64 bit
 ### BS Pacific cod
 
 ## write SS3 files for stock assessment
@@ -90,7 +90,7 @@ len_bins <- seq(min_size,max_size,bin_width)
 max_age <- 20
 
 
-## Get all the functions for pulling GOA Pcod data
+## Get all the functions for pulling BS Pcod data
 
 setwd(paste(working_dir,"\\Functions\\new_scripts\\R",sep=""))
 
@@ -110,20 +110,6 @@ if (!file.access(test_file,mode=4))
     OLD_SEAS_GEAR_CATCH<-read.csv("OLD_SEAS_GEAR_CATCH_BS.csv",header=T)
    }
 
-setwd(paste(working_dir,"\\Functions\\new_scripts\\ALT_DATA\\VAST",sep=""))
-test_file <- "Table_for_SS3.csv"
-if (!file.access(test_file,mode=4))
-   {
-    VAST_abundance<-read.csv(test_file,header=T)
-   }
-
-test_file <- "proportions.csv"
-if (!file.access(test_file,mode=4))
-   {
-    VAST_AGECOMP<-read.csv(test_file,header=T)
-   }
-
-setwd(paste(working_dir,"\\Functions\\new_scripts\\ALT_DATA",sep=""))
 test_file <- "Larval_indices.csv"
 if (!file.access(test_file,mode=4))
 {
@@ -150,9 +136,26 @@ test_file <- "ALL_STATE_LENGTHS.csv"
  }
 
 
-## get all data for data file
+## get VAST index and age comps files
+
+setwd(paste(working_dir,"\\Functions\\new_scripts\\ALT_DATA\\VAST",sep=""))
+test_file <- "Table_for_SS3.csv"
+if (!file.access(test_file,mode=4))
+   {
+    VAST_abundance<-read.csv(test_file,header=T)
+   }
+
+test_file <- "proportions.csv"
+if (!file.access(test_file,mode=4))
+   {
+    VAST_AGECOMP<-read.csv(test_file,header=T)
+   }
+
+## Source the main data gathering function, one function to rule them all...
 setwd(paste(working_dir,"\\Functions\\new_scripts\\R",sep=""))
 source("SBSS_GET_ALL_DATA_EBS_PCOD_cor.r")
+
+## change working directory to main level.
 
 setwd(paste(working_dir,"\\Functions\\new_scripts", sep=""))
 
