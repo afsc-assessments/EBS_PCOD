@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1653684808868.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "9133056",
+    "id" : "BA3F5E2F",
+    "lastKnownWriteTime" : 1653684857,
+    "last_content_update" : 1653684858191,
+    "path" : "C:/WORKING_FOLDER/EBS_PCOD/2022_ASSESSMENT/Functions/R/MAIN_BS_PCOD.r",
+    "project_path" : "2022_ASSESSMENT/Functions/R/MAIN_BS_PCOD.r",
+    "properties" : {
+        "cursorPosition" : "15,38",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
