@@ -188,7 +188,7 @@
 #
 #_Q_parms(if_any);Qunits_are_ln(q)
 #_          LO            HI          INIT         PRIOR         PR_SD       PR_type      PHASE    env-var    use_dev   dev_mnyr   dev_mxyr     dev_PH      Block    Blk_Fxn  #  parm_name
-          -0.2           0.2     -0.199999             0             0             0          4          0          0          0          0          0          0          0  #  LnQ_base_Survey(2)
+          -1           1     -0.199999             0             0             0          4          0          0          0          0          0          0          0  #  LnQ_base_Survey(2)
              0            10      0.129015             0             0             0          7          0          0          0          0          0          0          0  #  Q_extraSD_Survey(2)
 #_no timevary Q parameters
 #

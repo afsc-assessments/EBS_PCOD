@@ -23,7 +23,7 @@ Model_19_12.ctl
 #
 0 # MCeval burn interval
 2 # MCeval thin interval
-0.1 # jitter initial parm value by this fraction
+0 # jitter initial parm value by this fraction
 -1 # min yr for sdreport outputs (-1 for styr); #_1975
 -2 # max yr for sdreport outputs (-1 for endyr+1; -2 for endyr+Nforecastyrs); #_2031
 0 # N individual STD years 
