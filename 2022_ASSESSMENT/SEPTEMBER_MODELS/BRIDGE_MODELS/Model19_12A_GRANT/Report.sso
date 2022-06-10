@@ -5,9 +5,9 @@
 #_User_info_available_at:https://vlab.noaa.gov/group/stock-synthesis
 #_Source_code_at:_https://github.com/nmfs-stock-synthesis/stock-synthesis
 
-StartTime: Fri Jun 03 14:24:22 2022
-EndTime: Fri Jun 03 14:36:26 2022
-This run took: 0 hours, 12 minutes, 4 seconds.
+StartTime: Wed Jun 08 09:45:19 2022
+EndTime: Wed Jun 08 10:01:49 2022
+This run took: 0 hours, 16 minutes, 30 seconds.
 Data_File: Base_2.dat
 Control_File: Model_19_12a.ctl
 
