@@ -188,7 +188,7 @@
 #
 #_Q_parms(if_any);Qunits_are_ln(q)
 #_          LO            HI          INIT         PRIOR         PR_SD       PR_type      PHASE    env-var    use_dev   dev_mnyr   dev_mxyr     dev_PH      Block    Blk_Fxn  #  parm_name
-          -10           10     -0.157048             0             0             0          4          0          0          0          0          0          0          0  #  LnQ_base_Survey(2)
+           -10            10     -0.157048             0             0             0          4          0          0          0          0          0          0          0  #  LnQ_base_Survey(2)
              0            10        0.1533             0             0             0          7          0          0          0          0          0          0          0  #  Q_extraSD_Survey(2)
 #_no timevary Q parameters
 #
@@ -239,8 +239,8 @@
 #
 #_          LO            HI          INIT         PRIOR         PR_SD       PR_type      PHASE    env-var    use_dev   dev_mnyr   dev_mxyr     dev_PH      Block    Blk_Fxn  #  parm_name
 # 1   Fishery LenSelex
-            10            80       74.1003          -999          -999             0          1          0          2       1977       2021          1          0          0  #  Size_DblN_peak_Fishery(1)
-           -10            10      -3.84918          -999          -999             0          1          0          2       1977       2021          1          0          0  #  Size_DblN_top_logit_Fishery(1)
+            10            80       74.1003          -999          -999             0          1          0          0       1977       2021          0          0          0  #  Size_DblN_peak_Fishery(1)
+           -10            10      -3.84918          -999          -999             0          1          0          0       1977       2021          0          0          0  #  Size_DblN_top_logit_Fishery(1)
            -10            10       5.94603          -999          -999             0          1          0          2       1977       2021          1          0          0  #  Size_DblN_ascend_se_Fishery(1)
            -10            10      -9.79532          -999          -999             0         -3          0          0          0          0          0          0          0  #  Size_DblN_descend_se_Fishery(1)
            -10            10           -10          -999          -999             0         -3          0          0          0          0          0          0          0  #  Size_DblN_start_logit_Fishery(1)
@@ -261,17 +261,13 @@
            -10            10     0.0597854             0          -999             0          4          0          0          0          0          0          0          0  #  ln(DM_theta)_3
 # timevary selex parameters 
 #_          LO            HI          INIT         PRIOR         PR_SD       PR_type    PHASE  #  parm_name
-         1e-06            10          0.01             0             0             0      -9  # Size_DblN_peak_Fishery(1)_dev_se
-         -0.99          0.99             0             0             0             0      -9  # Size_DblN_peak_Fishery(1)_dev_autocorr
-         1e-06            10           0.3             0             0             0      -9  # Size_DblN_top_logit_Fishery(1)_dev_se
-         -0.99          0.99             0             0             0             0      -9  # Size_DblN_top_logit_Fishery(1)_dev_autocorr
-         1e-06            10          0.28             0             0             0      -9  # Size_DblN_ascend_se_Fishery(1)_dev_se
+         1e-06            10          0.236             0             0             0      -9  # Size_DblN_ascend_se_Fishery(1)_dev_se
          -0.99          0.99             0             0             0             0      -9  # Size_DblN_ascend_se_Fishery(1)_dev_autocorr
-         1e-06            10          0.05             0             0             0      -9  # Size_DblN_end_logit_Fishery(1)_dev_se
+         1e-06            10          1.255             0             0             0      -9  # Size_DblN_end_logit_Fishery(1)_dev_se
          -0.99          0.99             0             0             0             0      -9  # Size_DblN_end_logit_Fishery(1)_dev_autocorr
-         1e-06            10         0.001             0             0             0      -9  # Age_DblN_peak_Survey(2)_dev_se
+         1e-06            10          1.235             0             0             0      -9  # Age_DblN_peak_Survey(2)_dev_se
          -0.99          0.99             0             0             0             0      -9  # Age_DblN_peak_Survey(2)_dev_autocorr
-         1e-06            10          0.82             0             0             0      -9  # Age_DblN_ascend_se_Survey(2)_dev_se
+         1e-06            10          1.11             0             0             0      -9  # Age_DblN_ascend_se_Survey(2)_dev_se
          -0.99          0.99             0             0             0             0      -9  # Age_DblN_ascend_se_Survey(2)_dev_autocorr
 # info on dev vectors created for selex parms are reported with other devs after tag parameter section 
 #
@@ -309,7 +305,7 @@
 #_Factor  Fleet  Value
       4      1         1
       4      2         8
-      5      2         1
+      5      2         2
  -9999   1    0  # terminator
 #
 1 #_maxlambdaphase
