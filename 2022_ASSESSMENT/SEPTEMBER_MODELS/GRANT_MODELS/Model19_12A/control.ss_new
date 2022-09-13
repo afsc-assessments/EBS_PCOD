@@ -23,12 +23,12 @@
 #_Cond 1.0 # first age that moves (real age at begin of season, not integer) also cond on do_migration>0
 #_Cond 1 1 1 2 4 10 # example move definition for seas=1, morph=1, source=1 dest=2, age1=4, age2=10
 #
-2 #_Nblock_Patterns
- 1 2 #_blocks_per_pattern 
+3 #_Nblock_Patterns
+ 1 1 1 #_blocks_per_pattern 
 # begin and end years of blocks
  1976 1976
- 1977 2007 2008 2021
-#
+ 1977 2007
+ 1977 1980 #
 # controls for all timevary parameters 
 3 #_time-vary parm bound check (1=warn relative to base parm bounds; 3=no bound check); Also see env (3) and dev (5) options to constrain with base bounds
 #
@@ -78,8 +78,8 @@
  0 10 3.57544 0 0 0 2 0 0 0 0 0 0 0 # SD_young_Fem_GP_1
  0 20 9.48982 0 0 0 2 0 0 0 0 0 0 0 # SD_old_Fem_GP_1
 # Sex: 1  BioPattern: 1  WtLen
- -10 10 5.40706e-06 0 0 0 -1 202 0 0 0 0 0 0 # Wtlen_1_Fem_GP_1
- -10 10 3.19601 0 0 0 -1 203 0 0 0 0 0 0 # Wtlen_2_Fem_GP_1
+ -10 10 5.40706e-06 0 0 0 -1 0 0 0 0 0 0 0 # Wtlen_1_Fem_GP_1
+ -10 10 3.19601 0 0 0 -1 0 0 0 0 0 0 0 # Wtlen_2_Fem_GP_1
 # Sex: 1  BioPattern: 1  Maturity&Fecundity
  -10 100 58 0 0 0 -1 0 0 0 0 0 0 0 # Mat50%_Fem_GP_1
  -10 10 -0.132 0 0 0 -1 0 0 0 0 0 0 0 # Mat_slope_Fem_GP_1
@@ -107,12 +107,8 @@
 #_ LO HI INIT PRIOR PR_SD PR_type  PHASE
  1e-06 10 0.1804 0 0 0 -1 # L_at_Amin_Fem_GP_1_dev_se
  -0.99 0.99 0 0 0 0 -1 # L_at_Amin_Fem_GP_1_dev_autocorr
- -10 10 1 0 0 -1 -1 # Wtlen_1_Fem_GP_1_ENV_add
- -10 10 1 0 0 -1 -1 # Wtlen_2_Fem_GP_1_ENV_add
  -10 10 0.34976 0 0 0 2 # AgeKeyParm2_BLK2delta_1977
- -10 10 0.00620947 0 0 0 2 # AgeKeyParm2_BLK2delta_2008
  -10 10 1.00475 0 0 0 2 # AgeKeyParm3_BLK2delta_1977
- -10 10 -1.48786 0 0 0 2 # AgeKeyParm3_BLK2delta_2008
 # info on dev vectors created for MGparms are reported with other devs after tag parameter section 
 #
 #_seasonal_effects_on_biology_parms
@@ -256,8 +252,8 @@
 # 2   Survey AgeSelex
 #_Dirichlet parameters
 #_multiple_fleets_can_refer_to_same_parm;_but_list_cannot_have_gaps
-           -10            10       9.98916             0          -999             0         -4          0          0          0          0          0          0          0  #  ln(DM_theta)_1
-           -10            10       9.98396             0          -999             0         -4          0          0          0          0          0          0          0  #  ln(DM_theta)_2
+           -10            10       0             0          -999             0         -4          0          0          0          0          0          0          0  #  ln(DM_theta)_1
+           -10            10       0             0          -999             0         -4          0          0          0          0          0          0          0  #  ln(DM_theta)_2
            -10            10     -0.326081             0          -999             0          4          0          0          0          0          0          0          0  #  ln(DM_theta)_3
 # timevary selex parameters 
 #_          LO            HI          INIT         PRIOR         PR_SD       PR_type    PHASE  #  parm_name
@@ -302,7 +298,7 @@
  #_7=mult_by_generalized_sizecomp
 #_Factor  Fleet  Value
       4      1         1
-      4      2         1
+      4      2         8
       5      1         1
  -9999   1    0  # terminator
 #

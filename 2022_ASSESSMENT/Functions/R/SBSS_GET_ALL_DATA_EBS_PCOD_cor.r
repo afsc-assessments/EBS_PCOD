@@ -376,7 +376,7 @@ SBSS_GET_ALL_DATA <- function(new_data     = new_data,
 
 
 ## format survey mean weight-at-age data for SS3
-  AGE_WEIGHT_SS <- data.frame(FORMAT_AGE_MEANS1(srv_age_samples=data.table(Age_w)[!is.na(WEIGHT)&!is.na(AGE)],max_age=max_age,type="W",seas=1,gender=3,growpattern=1,birthseas=1,flt=-2))
+  AGE_WEIGHT_SS <- data.frame(FORMAT_AGE_MEANS1(srv_age_samples=data.table(Age_w)[!is.na(WEIGHT)&!is.na(AGE)],max_age=max_age,type="W",seas=7,gender=3,growpattern=1,birthseas=1,flt=-1))
   names(AGE_WEIGHT_SS) <- c("#Year","Seas","Gender","GrowPattern","Birthseas","Fleet",seq(1,max_age,1))
   print("Formatting AGE Means done")
 

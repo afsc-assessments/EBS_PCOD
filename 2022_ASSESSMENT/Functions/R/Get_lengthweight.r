@@ -1,4 +1,4 @@
-get_lengthweight <- function(species=202,area='BS',K=12, Alpha_series=2, Beta_series=3) {
+get_lengthweight <- function(species=202,area='BS',K=7, Alpha_series=2, Beta_series=3) {
   
      if(area=="BS") location <- "between 500 and 539"
      if(area=="AI") location <- "between 540 and 543"
@@ -59,9 +59,13 @@ get_lengthweight <- function(species=202,area='BS',K=12, Alpha_series=2, Beta_se
     lm4 <- gam(logW~YEAR*logL+s(WEEK1,by=logL,bs="cc",k=K)+s(WEEK1,bs="cc",k=K),data=data_LW)
 
 ## plot results for review    
-    #windows()
-    #par(mfrow=c(2,2))
-    #plot(lm4,all.terms=T,resid=T,shade=T,shade.col="red")
+     windows()
+     par(mfrow=c(2,2))
+    ## plot(lm4,all.terms=T,resid=T,shade=T,shade.col="red")
+     plot(lm4,all.terms=T,select=1,resid=T,shade=T,shade.col="red",scale=0,ylim=c(0,0.7))
+     plot(lm4,all.terms=T,select=2,resid=T,shade=T,shade.col="red",scale=0,ylim=c(-2,2))
+     plot(lm4,all.terms=T,select=3,resid=T,shade=T,shade.col="red")
+     plot(lm4,all.terms=T,select=4,resid=T,shade=T,shade.col="red")
 
 ## harvest the annual alpha and beta residuals
     data2=data.frame(expand.grid(YEAR=unique(data_LW$YEAR),WEEK1=2:52,LENGTH=seq(10,120,1)))

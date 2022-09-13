@@ -8,6 +8,6 @@
 This file contains warnings, suggestions and notes generated as files are read and processed
 
 1  Early recdev biasadj is >2 times ratio of rmse to sigmaR
-2 Final gradient: 0.0525513 is larger than final_conv: 0.0001
+2 Final gradient: 0.0424722 is larger than final_conv: 0.0001
 3  Time-vary parms not bound checked
 N warnings: 3
