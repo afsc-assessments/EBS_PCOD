@@ -12,10 +12,10 @@ if(length(libs[which(libs %in% rownames(installed.packages()) == FALSE )]) > 0) 
 lapply(libs, library, character.only = TRUE)
 
 
-afsc_user  = "sbarb"   ## enter afsc username
-afsc_pwd   = "PnkFsh$$8901"    ## enter afsc password
-akfin_user = "sbarbeaux"  ## enter AKFIN username
-akfin_pwd  = "$tockmen12"   ## enter AKFIN password
+afsc_user  = "xxxxxxx"   ## enter afsc username
+afsc_pwd   = "xxxxxxx"    ## enter afsc password
+akfin_user = "xxxxxxx"  ## enter AKFIN username
+akfin_pwd  = "xxxxxxx"   ## enter AKFIN password
 
 
   afsc = DBI::dbConnect(odbc::odbc(), "afsc",
