@@ -344,7 +344,7 @@ LENGTH_BY_CATCH<-function(species=fsh_sp_str ,species_catch=fsh_sp_label, for_sp
   catch= readLines('sql/dom_catch.sql')
   catch = sql_filter(sql_precode = "<=", x = ly, sql_code = catch, flag = '-- insert year')
   catch = sql_filter(sql_precode = "IN", x = species_catch, sql_code = catch, flag = '-- insert species_catch')
-  catch = sql_filter(sql_precode = "IN", x = fsh_sp_area, sql_code = catch, flag = '-- insert subarea')
+  catch = sql_filter(sql_precode = "IN", x = sp_area, sql_code = catch, flag = '-- insert subarea')
  
  
   CATCH=sql_run(akfin, catch) %>% 
@@ -353,9 +353,9 @@ LENGTH_BY_CATCH<-function(species=fsh_sp_str ,species_catch=fsh_sp_label, for_sp
 ## pull blend information on foreign catch  1977-1990
 ## note that this does not include domestic catch for this time period and is limited to reported foriegn catch
 
-  if(fsh_sp_area=='BS') foreign_catch_area <- "LIKE '%BERING%'"
-  if(fsh_sp_area=='AI') foreign_catch_area <- "LIKE '%ALEUTIANS%'"
-  if(fsh_sp_area=='GOA') foreign_catch_area <- "IN ('KODIAK','YAKUTAT', 'SHUMAGIN','S.E. ALASKA', 'SHELIKOF STR.','CHIRIKOF')"
+  if(sp_area=='BS') foreign_catch_area <- "LIKE '%BERING%'"
+  if(sp_area=='AI') foreign_catch_area <- "LIKE '%ALEUTIANS%'"
+  if(sp_area=='GOA') foreign_catch_area <- "IN ('KODIAK','YAKUTAT', 'SHUMAGIN','S.E. ALASKA', 'SHELIKOF STR.','CHIRIKOF')"
 
   fcatch= readLines('sql/for_catch.sql')
   fcatch = sql_filter(sql_precode = "IN", x = for_species_catch, sql_code = fcatch, flag = '-- insert species_catch')

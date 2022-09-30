@@ -13,9 +13,9 @@ lapply(libs, library, character.only = TRUE)
 
 
 afsc_user  = "sbarb"   ## enter afsc username
-afsc_pwd   = "PnkFsh$$8901"    ## enter afsc password
+afsc_pwd   = "*******"    ## enter afsc password
 akfin_user = "sbarbeaux"  ## enter AKFIN username
-akfin_pwd  = "$tockmen12"   ## enter AKFIN password
+akfin_pwd  = "******"   ## enter AKFIN password
 
 
   afsc = DBI::dbConnect(odbc::odbc(), "afsc",
