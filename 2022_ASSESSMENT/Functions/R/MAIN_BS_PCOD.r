@@ -12,6 +12,7 @@ if(length(libs[which(libs %in% rownames(installed.packages()) == FALSE )]) > 0) 
 lapply(libs, library, character.only = TRUE)
 
 
+<<<<<<< HEAD
 afsc_user  = "sbarb"   ## enter afsc username
 afsc_pwd   = "*******"    ## enter afsc password
 akfin_user = "sbarbeaux"  ## enter AKFIN username
