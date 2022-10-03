@@ -1,13 +1,13 @@
 SELECT
-    			haehnr.nbs_sizecomp.year,
-    			haehnr.nbs_sizecomp.length / 10 AS length,
-    			haehnr.nbs_sizecomp.total AS NBS_TOTAL
-		FROM
-    			haehnr.nbs_sizecomp
-		WHERE
-    			haehnr.nbs_sizecomp.species_code
-          -- insert species
-    			AND haehnr.nbs_sizecomp.stratum > 9999
-		ORDER BY
-   			haehnr.nbs_sizecomp.year,
-    			length
+    haehnr.sizecomp_nbs_stratum.year,
+    haehnr.sizecomp_nbs_stratum.length/10 AS LENGTH,
+    haehnr.sizecomp_nbs_stratum.total AS NBS_TOTAL
+FROM
+    haehnr.sizecomp_nbs_stratum
+WHERE
+    haehnr.sizecomp_nbs_stratum.species_code
+    -- insert species
+    AND haehnr.sizecomp_nbs_stratum.stratum > 9999
+ORDER BY
+    haehnr.sizecomp_nbs_stratum.year,
+    haehnr.sizecomp_nbs_stratum.length

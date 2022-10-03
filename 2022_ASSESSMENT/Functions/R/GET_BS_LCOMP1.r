@@ -1,22 +1,22 @@
 GET_BS_LCOMP1<-function(species="21720",bins=seq(3.5,119.5,1),bin=TRUE,SS=TRUE,seas=1,flt=3,gender=1,part=0){
 
-  Count1 = readLines('sql/count_EBS.sql')
-  Count1 = sql_filter(sql_precode = "IN", x =srv_sp_str , sql_code = Count1, flag = '-- insert species')
-  Count1 = sql_run(afsc, Count1) %>% data.table() %>%
+  Count = readLines('sql/count_EBS.sql')
+  Count = sql_filter(sql_precode = "IN", x =species , sql_code = Count, flag = '-- insert species')
+  Count = sql_run(afsc, Count) %>% data.table() %>%
       dplyr::rename_all(toupper)
 
-  Count2 = readLines('sql/count_NBS.sql')
-  Count2 = sql_filter(sql_precode = "IN", x =srv_sp_str , sql_code = Count2, flag = '-- insert species')
-  Count2 = sql_run(afsc, Count2) %>% data.table() %>% 
-      dplyr::rename_all(toupper)
+ # Count2 = readLines('sql/count_NBS.sql')
+ # Count2 = sql_filter(sql_precode = "IN", x =srv_sp_str , sql_code = Count2, flag = '-- insert species')
+ # Count2 = sql_run(afsc, Count2) %>% data.table() %>% 
+ #     dplyr::rename_all(toupper)
 
-  Count1$YEAR<-trunc(Count1$CRUISE/100)
-  Count2$YEAR<-trunc(Count2$CRUISE/100)
-  Count1<- Count1[,list(EBS_HAULS=sum(HAULS)),by="YEAR"]
-  Count2<- Count2[,list(NBS_HAULS=sum(NBS_HAULS)),by="YEAR"]
-  Count <- merge(Count1,Count2,all=T)
-  Count[is.na(NBS_HAULS)]$NBS_HAULS<-0
-  Count$HAULS<-Count$EBS_HAULS+Count$NBS_HAULS
+  #Count1$YEAR<-Count1$CRUISE
+  # Count2$YEAR<-trunc(Count2$CRUISE/100)
+  # Count1<- Count1[,list(EBS_HAULS=sum(HAULS)),by="YEAR"]
+  # Count2<- Count2[,list(NBS_HAULS=sum(NBS_HAULS)),by="YEAR"]
+  #Count <- merge(Count1,Count2,all=T)
+  #Count[is.na(NBS_HAULS)]$NBS_HAULS<-0
+  #Count$HAULS<-Count$EBS_HAULS+Count$NBS_HAULS
 
 
 
@@ -41,9 +41,9 @@ GET_BS_LCOMP1<-function(species="21720",bins=seq(3.5,119.5,1),bin=TRUE,SS=TRUE,s
   lcomp<-merge(lcomp1,lcomp2,all=T)
    
   lcomp[is.na(NBS_TOTAL)]$NBS_TOTAL<-0
-  lcomp$TOTAL<-lcomp$EBS_TOTAL+lcomp$NBS_TOTAL
+ lcomp$TOTAL<-lcomp$EBS_TOTAL+lcomp$NBS_TOTAL
    
-  lcomp<-data.table(YEAR=lcomp$YEAR,LENGTH=lcomp$LENGTH,TOTAL=lcomp$TOTAL)
+ lcomp<-data.table(YEAR=lcomp$YEAR,LENGTH=lcomp$LENGTH,TOTAL=lcomp$TOTAL)
    
    
    ## create grid for zero fill and merge with data 

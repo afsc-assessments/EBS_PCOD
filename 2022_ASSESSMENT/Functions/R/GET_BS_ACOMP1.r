@@ -1,49 +1,40 @@
 GET_BS_ACOMP1<-function(srv_sp_str="21720",max_age=12,Seas=1,FLT=4,Gender=1,Part=0,Ageerr=0,Lgin_lo=1,Lgin_hi=120,Nsamp=100,VAST=TRUE,vast_file="Proportions.csv"){
   ## create sql query
+  species = srv_sp_str
+  Count = readLines('sql/count_EBS.sql')
+  Count = sql_filter(sql_precode = "IN", x =srv_sp_str , sql_code = Count, flag = '-- insert species')
+  Count = sql_run(afsc, Count) %>% data.table() %>%
+      dplyr::rename_all(toupper)
 
-  EBS_Count<-paste0("
-		SELECT
-    			haehnr.length_ebsshelf.species_code,
-    			COUNT(DISTINCT haehnr.length_ebsshelf.hauljoin) AS HAULS,
-    			haehnr.length_ebsshelf.cruise
-		FROM
-    			haehnr.length_ebsshelf
-		WHERE
-    			haehnr.length_ebsshelf.species_code = ",srv_sp_str,
-		"GROUP BY
-    			haehnr.length_ebsshelf.species_code,
-    			haehnr.length_ebsshelf.cruise
-		ORDER BY
-    			haehnr.length_ebsshelf.cruise")
 
-	NBS_Count<-paste0("
-		SELECT
-    			haehnr.length_nbs.species_code,
-    			COUNT(DISTINCT haehnr.length_nbs.hauljoin) AS nbs_hauls,
-    			haehnr.length_nbs.cruise
-		FROM
-    			haehnr.length_nbs
-		WHERE
-   			 haehnr.length_nbs.species_code = ",srv_sp_str,
-		"GROUP BY
-   			 haehnr.length_nbs.species_code,
-    			haehnr.length_nbs.cruise
-		ORDER BY
-   			 haehnr.length_nbs.cruise")
+# NBS_Count<-paste0("
+#		SELECT
+#    			afsc.race_length_nbs.species_code,
+#    			COUNT(DISTINCT afsc.race_length_nbs.hauljoin) AS nbs_hauls,
+#    			afsc.race_length_nbs.cruise
+#		FROM
+#    			afsc.race_length_nbs
+#		WHERE
+#   			 afsc.race_length_nbs.species_code = ",srv_sp_str,
+#		"GROUP BY
+#   			 afsc.race_length_nbs.species_code,
+#    			afsc.race_length_nbs.cruise
+#		ORDER BY
+#   			 afsc.race_length_nbs.cruise")
 		
 
-  Count1 = data.table(sqlQuery(AFSC,EBS_Count))
-  Count2 = data.table(sqlQuery(AFSC,NBS_Count))
+#   Count = data.table(sqlQuery(AFSC,EBS_Count))
+#  Count2 = data.table(sqlQuery(AFSC,NBS_Count))
          
 	
 
-  Count1$YEAR<-trunc(Count1$CRUISE/100)
-  Count2$YEAR<-trunc(Count2$CRUISE/100)
-  Count1<- Count1[,list(EBS_HAULS=sum(HAULS)),by="YEAR"]
-  Count2<- Count2[,list(NBS_HAULS=sum(NBS_HAULS)),by="YEAR"]
-  Count <- merge(Count1,Count2,all=T)
-  Count[is.na(NBS_HAULS)]$NBS_HAULS<-0
-  Count$HAULS<-Count$EBS_HAULS+Count$NBS_HAULS
+#  Count1$YEAR<-trunc(Count1$CRUISE/100)
+#  Count2$YEAR<-trunc(Count2$CRUISE/100)
+#  Count1<- Count1[,list(EBS_HAULS=sum(HAULS)),by="YEAR"]
+#  Count2<- Count2[,list(NBS_HAULS=sum(NBS_HAULS)),by="YEAR"]
+#  Count <- merge(Count1,Count2,all=T)
+#  Count[is.na(NBS_HAULS)]$NBS_HAULS<-0
+#  Count$HAULS<-Count$EBS_HAULS+Count$NBS_HAULS
 	
        
 	if(!VAST) {

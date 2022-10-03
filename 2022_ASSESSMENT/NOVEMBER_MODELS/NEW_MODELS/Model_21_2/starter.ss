@@ -6,7 +6,7 @@
 #_Source_code_at:_https://github.com/nmfs-stock-synthesis/stock-synthesis
 
 #C starter comment here
-BSPcod22_MAY_plus_fishery_CPUE.dat
+BSPcod22_OCT_plus_fishery_CPUE.dat
 Model_21_2.ctl
 0 # 0=use init values in control file; 1=use ss.par
 1 # run display detail (0,1,2)

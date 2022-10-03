@@ -6,9 +6,9 @@
 #_Source_code_at:_https://github.com/nmfs-stock-synthesis/stock-synthesis
 
 #C starter comment here
-BSPcod22_MAY.dat
+BSPcod22_OCT.dat
 Model_21_1.ctl
-1 # 0=use init values in control file; 1=use ss.par
+0 # 0=use init values in control file; 1=use ss.par
 1 # run display detail (0,1,2)
 1 # detailed output (0=minimal for data-limited, 1=high (w/ wtatage.ss_new), 2=brief, 3=custom) 
 # custom report options: -100 to start with minimal; -101 to start with all; -number to remove, +number to add, -999 to end

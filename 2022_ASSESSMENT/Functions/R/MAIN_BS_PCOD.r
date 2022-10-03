@@ -14,9 +14,9 @@ lapply(libs, library, character.only = TRUE)
 
 <<<<<<< HEAD
 afsc_user  = "sbarb"   ## enter afsc username
-afsc_pwd   = "*******"    ## enter afsc password
+afsc_pwd   = "BluFsh$$7890"    ## enter afsc password
 akfin_user = "sbarbeaux"  ## enter AKFIN username
-akfin_pwd  = "******"   ## enter AKFIN password
+akfin_pwd  = "$tockmen12"   ## enter AKFIN password
 
 
   afsc = DBI::dbConnect(odbc::odbc(), "afsc",
@@ -37,10 +37,10 @@ is_new_SS_DAT_file <- FALSE
 working_dir <- "C:/WORKING_FOLDER/EBS_PCOD/2022_ASSESSMENT"
 
 # previous SS DAT filename, if it exists
-old_SS_dat_filename <- "BSPcod22A.dat"
+old_SS_dat_filename <- "BSPcod22_MAY.dat"
 
 # current SS DAT filename
-new_SS_dat_filename <- "BSPcod22_MAY.dat"
+new_SS_dat_filename <- "BSPcod22_OCT.dat"
 
 # the most recent year of data to be used
 new_SS_dat_year <- 2022
@@ -96,7 +96,7 @@ max_age <- 20
 setwd(paste(working_dir,"\\Functions\\R",sep=""))
 
 source_files=c("BIN_LEN_DATA.r","FORMAT_AGE_MEANS1.r", "GET_BS_ACOMP1.r","GET_BS_BIOM.r","GET_BS_LCOMP1.r",             
-     "GET_SURV_AGE_cor.r", "LENGTH_BY_CATCH_BS.r","Get_lengthweight.r","utils.r") 
+     "GET_SURV_AGE_cor.r", "LENGTH_BY_CATCH_BS.r","LENGTH_BY_CATCH_BS_short.r","Get_lengthweight.r","utils.r") 
 
 
 lapply(source_files, source)

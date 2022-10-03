@@ -156,7 +156,7 @@ SBSS_GET_ALL_DATA <- function(new_data     = new_data,
  
 ## ----- Get Fishery catch at size composition data -----
     
-  FISHLCOMP<-LENGTH_BY_CATCH(species=fsh_sp_str ,species_catch=fsh_sp_label, for_species_catch=for_sp_label,sp_area=fsh_sp_area ,ly=final_year, SEX=FALSE, PORT=TRUE)
+  FISHLCOMP<-LENGTH_BY_CATCH_short(species=fsh_sp_str ,species_catch=fsh_sp_label, for_species_catch=for_sp_label,sp_area=fsh_sp_area ,ly=final_year, SEX=FALSE, PORT=TRUE)
 
   if(ONE_FLEET){
 
@@ -181,9 +181,7 @@ SBSS_GET_ALL_DATA <- function(new_data     = new_data,
     x[,3]<-1
     x[,4]<-0
     x[,5]<-0
-    x[,6]<-Nsamp$nsamp
-
-     ##round(Nsamp$nsamp/(mean(Nsamp$nsamp)/mean(SRV_LCOMP_SS$Nsamp)))  ## scale number of hauls to survey number of stations...
+    x[,6]<-round(Nsamp$nsamp/(mean(Nsamp$nsamp)/mean(SRV_LCOMP_SS$Nsamp)))  ## scale number of hauls to survey number of stations...
 
     for(i in 1:nyr)
         {
@@ -315,7 +313,7 @@ SBSS_GET_ALL_DATA <- function(new_data     = new_data,
  #    }
 
 #  if(VAST){
-     agecompV <- data.table(VAST_AGECOMP)[Region=='Both']
+     agecompV <- data.table(VAST_AGECOMP)[Region=='Both'&Year!=2020]
      years=unique(agecompV$Year)
      ACOMP<-data.frame(YEAR=agecompV$Year,month=7,fleet=2,sex=0,part=0,ageerr=1,lbin_lo=1,lbin_hi=120,Nsamp=data.table(SRV_LCOMP_SS)[Year%in%years]$Nsamp,agecompV[,c(2:14)])
      new_data$agebin_vector<-c(0:12)

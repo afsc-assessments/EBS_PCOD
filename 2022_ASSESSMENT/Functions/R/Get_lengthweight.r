@@ -41,8 +41,8 @@ get_lengthweight <- function(species=202,area='BS',K=7, Alpha_series=2, Beta_ser
 
 ## plot data for review 
    
-    d<-ggplot(data_LW,aes(x=LENGTH,y=WEIGHT,color=YEAR))+geom_point()
-    print(d)
+#    d<-ggplot(data_LW,aes(x=LENGTH,y=WEIGHT,color=YEAR))+geom_point()
+#    print(d)
 
 ## overall linear model for length weight
 
@@ -52,20 +52,20 @@ get_lengthweight <- function(species=202,area='BS',K=7, Alpha_series=2, Beta_ser
     beta1<-coef(lm1)[2]
 
 ## Gam for annual residuals while considering seasonal (weekly) changes in length weight
-    library(mgcv)
+  
     data_LW$YEAR1<-as.numeric(as.character(data_LW$YEAR))
     data_LW$WEEK1<-as.numeric(as.character(data_LW$WEEK))
 
-    lm4 <- gam(logW~YEAR*logL+s(WEEK1,by=logL,bs="cc",k=K)+s(WEEK1,bs="cc",k=K),data=data_LW)
+    lm4 <- mgcv::gam(logW~YEAR*logL+s(WEEK1,by=logL,bs="cc",k=K)+s(WEEK1,bs="cc",k=K),data=data_LW)
 
 ## plot results for review    
-     windows()
-     par(mfrow=c(2,2))
+#     windows()
+#     par(mfrow=c(2,2))
     ## plot(lm4,all.terms=T,resid=T,shade=T,shade.col="red")
-     plot(lm4,all.terms=T,select=1,resid=T,shade=T,shade.col="red",scale=0,ylim=c(0,0.7))
-     plot(lm4,all.terms=T,select=2,resid=T,shade=T,shade.col="red",scale=0,ylim=c(-2,2))
-     plot(lm4,all.terms=T,select=3,resid=T,shade=T,shade.col="red")
-     plot(lm4,all.terms=T,select=4,resid=T,shade=T,shade.col="red")
+#     plot(lm4,all.terms=T,select=1,resid=T,shade=T,shade.col="red",scale=0,ylim=c(0,0.7))
+#     plot(lm4,all.terms=T,select=2,resid=T,shade=T,shade.col="red",scale=0,ylim=c(-2,2))
+#     plot(lm4,all.terms=T,select=3,resid=T,shade=T,shade.col="red")
+#     plot(lm4,all.terms=T,select=4,resid=T,shade=T,shade.col="red")
 
 ## harvest the annual alpha and beta residuals
     data2=data.frame(expand.grid(YEAR=unique(data_LW$YEAR),WEEK1=2:52,LENGTH=seq(10,120,1)))

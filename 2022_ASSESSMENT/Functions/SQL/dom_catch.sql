@@ -10,7 +10,7 @@ FROM COUNCIL.COMPREHENSIVE_BLEND_CA
 WHERE COUNCIL.COMPREHENSIVE_BLEND_CA.FMP_SUBAREA
          -- insert subarea 
       AND COUNCIL.COMPREHENSIVE_BLEND_CA.YEAR 
-         -- insert year
+         -- insert years
       AND COUNCIL.COMPREHENSIVE_BLEND_CA.SPECIES_GROUP_CODE 
          -- insert species_catch
 GROUP BY 
