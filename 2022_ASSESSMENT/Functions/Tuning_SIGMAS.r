@@ -28,22 +28,26 @@ get_Sigma<-function(dire=paste0(getwd(),"/MODEL19_12")) {
 	test1$NEW<-round(test1$OLD*(1+(1-0.5)*test1$OBJ_FUNC),4)
 	test1$PARAMETERS<-c("SR_sigmaR",parameters)
 	RMSE <- sqrt(crossprod(test1$OBJ_FUNC)/length(para1))
-	print(RMSE)
+	print(paste0("RMSE = ",RMSE))
 	test1<-list(RMSE=RMSE,TEST=test1)
 	test1
 }
 
 
-do_tune<-function(direct=paste0(getwd(),"/MODEL19_12"), SUCCESS=0.001){
-	
+do_tune<-function(mod="MODEL19_12a", ctlfile1="Model_19_12a.ctl", SUCCESS=0.001, runs=20){
+	require(r4ss)
+	require(data.table)
+	test3<-vector("list",length=runs)
+	direct<-paste0(getwd(),"/",mod)
 	test2<-get_Sigma(dire=direct)
 	success <- test2$RMSE <= SUCCESS
-    
+    count=1
     while(!success){
+    	print(paste0("This is run ",count))
         SS_changepars(
   		dir = direct,
   		ctlfile = "control.ss_new",
-  		newctlfile = "Model_19_12.ctl",
+  		newctlfile = ctlfile1,
   		strings = test2$TEST$PARAMETERS,
   		newvals = test2$TEST$NEW,
  	 	)
@@ -57,11 +61,56 @@ do_tune<-function(direct=paste0(getwd(),"/MODEL19_12"), SUCCESS=0.001){
 		)
 
     	test2<-get_Sigma(dire=direct)
+    	print(test2$TEST)
+    	test3[[count]]<-test2
+    	count<-count+1
     	success <- test2$RMSE <= SUCCESS
+    	success <- count == runs
 		}
-	test2
+	test3
 }
 
+tuned19.12_GRANT=do_tune(mod="MODEL19_12",ctlfile="Model_19_12.ctl")
 
-tuned19.12_new=do_tune()
+
+tuned19.12a_GRANT=do_tune(mod="MODEL19_12A",ctlfile="Model_19_12a.ctl")
+
+tuned21.1_GRANT=do_tune(mod="MODEL_21_1",ctlfile="Model_21_1.ctl")
+
+tuned21.2_new=do_GRANT(mod="MODEL_21_2",ctlfile="Model_21_2.ctl")
+
+
+
+ 
+setwd("C:/WORKING_FOLDER/EBS_PCOD/2022_ASSESSMENT/NOVEMBER_MODELS/GRANT_MODELS")
+models=c("Model19_12","Model19_12A","Model_21_1","Model_21_2")
+
+x2<-vector("list",length=4)
+for(i in 1:length(models)){
+    x<-get_Sigma(dire=paste0(getwd(),"/",models[i]))
+    x2[[i]]<-data.table(MODEL=models[i],RMSE=x$RMSE,SIGMA=x$TEST$OLD,PARAMETER=x$TEST$PARAMETERS)
+ 
+ }
+
+ x3<-do.call(rbind,x2)
+ x3$MODEL<-paste0(X3$MODEL,"_THOMPSON")
+
+
+setwd("C:/WORKING_FOLDER/EBS_PCOD/2022_ASSESSMENT/NOVEMBER_MODELS/NEW_MODELS")
+models=c("Model19_12","Model19_12A","Model_21_1","Model_21_2")
+
+models2<-c("Model 22.1","Model 22.2","Model 22.3","Model 22.4",)
+
+x2<-vector("list",length=4)
+for(i in 1:length(models)){
+    x<-get_Sigma(dire=paste0(getwd(),"/",models[i]))
+    x2[[i]]<-data.table(MODEL=models2[i],RMSE=x$RMSE,SIGMA=x$TEST$OLD,PARAMETER=x$TEST$PARAMETERS)
+ 
+ }
+
+ x4<-do.call(rbind,x2)
+ x4$MODEL<-paste0(X4$MODEL,"_NEW")
+
+ SIGMAS= rbind(x3,x4)
+
 

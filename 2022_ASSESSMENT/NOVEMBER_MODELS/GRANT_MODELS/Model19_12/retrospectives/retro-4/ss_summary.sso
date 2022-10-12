@@ -1,0 +1,1033 @@
+#V3.30.20.00;_safe;_compile_date:_Sep 30 2022;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_13.0
+BSPcod22_OCT.dat #_DataFile 
+Model_19_12.ctl #_Control 
+Run_Date: Fri Oct  7 12:54:54 2022
+Final_phase: 4  N_iterations: 2083
+#_LIKELIHOOD 
+Label logL*Lambda
+TOTAL_LogL 9957.69
+Catch 2.0471e-11
+Equil_catch 0.00155578
+Survey -86.2541
+Length_comp 9214.76
+Age_comp 732.703
+Recruitment -2.65702
+InitEQ_regime 5.67348
+Sum_recdevs -2.95699
+Forecast_Recruitment 0
+Parm_priors 0
+Parm_softbounds 0.00401876
+Parm_devs 93.4598
+F_Ballpark 0
+Crash_Pen 0
+#_PARAMETERS
+#label value se active? range
+#_BIOLOGY
+NatM_uniform_Fem_GP_1 0.354964 0 Act 0.354963
+L_at_Amin_Fem_GP_1 14.8384 0 Act 0.483844
+L_at_Amax_Fem_GP_1 113.068 0 Act 0.589645
+VonBert_K_Fem_GP_1 0.115461 0 Act 0.115461
+Richards_Fem_GP_1 1.46381 0 Act 0.146381
+SD_young_Fem_GP_1 3.48533 0 Act 0.348533
+SD_old_Fem_GP_1 9.73297 0 Act 0.486648
+Wtlen_1_Fem_GP_1 5.40706e-06 0 Fix 0.5
+Wtlen_2_Fem_GP_1 3.19601 0 Fix 0.6598
+Mat50%_Fem_GP_1 58 0 Fix 0.618182
+Mat_slope_Fem_GP_1 -0.132 0 Fix 0.4934
+Eggs/kg_inter_Fem_GP_1 1 0 Fix 0.55
+Eggs/kg_slope_wt_Fem_GP_1 0 0 Fix 0.5
+CohortGrowDev 1 0 Fix 0.0909091
+AgeKeyParm1 1 0 Fix 0.55
+AgeKeyParm2 0 0 Fix 0.5
+AgeKeyParm3 0 0 Fix 0.5
+AgeKeyParm4 0 0 Fix 0.5
+AgeKeyParm5 0.085 0 Fix 0.50425
+AgeKeyParm6 1.692 0 Fix 0.5846
+AgeKeyParm7 0 0 Fix 0.5
+FracFemale_GP_1 0.5 0 Fix 0.499999
+L_at_Amin_Fem_GP_1_dev_se 0.1746 0 Fix 0.0174599
+L_at_Amin_Fem_GP_1_dev_autocorr 0 0 Fix 0.5
+Wtlen_1_Fem_GP_1_ENV_add 1 0 Fix 0.55
+Wtlen_2_Fem_GP_1_ENV_add 1 0 Fix 0.55
+AgeKeyParm2_BLK2delta_1977 0.34331 0 Act 0.517165
+AgeKeyParm2_BLK2delta_2008 0.00633289 0 Act 0.500317
+AgeKeyParm3_BLK2delta_1977 1.0395 0 Act 0.551975
+AgeKeyParm3_BLK2delta_2008 -1.58298 0 Act 0.420851
+#_SPAWN_RECR
+SR_LN(R0) 13.1847 0 Act 0.296175
+SR_BH_steep 1 0 Fix 0.55
+SR_sigmaR 0.6642 0 Fix 0.53321
+SR_regime 0 0 Fix 0.5
+SR_autocorr 0 0 Fix 0.5
+SR_regime_BLK1add_1976 -0.965556 0 Act 0.451722
+Early_InitAge_20 -0.0135098 0 Act 0.498649
+Early_InitAge_19 -0.00790496 0 Act 0.499209
+Early_InitAge_18 -0.0124186 0 Act 0.498758
+Early_InitAge_17 -0.0191783 0 Act 0.498082
+Early_InitAge_16 -0.0296424 0 Act 0.497036
+Early_InitAge_15 -0.0459699 0 Act 0.495403
+Early_InitAge_14 -0.0699858 0 Act 0.493001
+Early_InitAge_13 -0.105219 0 Act 0.489478
+Early_InitAge_12 -0.154778 0 Act 0.484522
+Early_InitAge_11 -0.221787 0 Act 0.477821
+Early_InitAge_10 -0.30719 0 Act 0.469281
+Early_InitAge_9 -0.407883 0 Act 0.459212
+Early_InitAge_8 -0.516225 0 Act 0.448377
+Early_InitAge_7 -0.613555 0 Act 0.438644
+Early_InitAge_6 -0.662783 0 Act 0.433722
+Early_InitAge_5 -0.587847 0 Act 0.441215
+Early_InitAge_4 -0.247021 0 Act 0.475298
+Early_InitAge_3 0.243833 0 Act 0.524383
+Early_InitAge_2 0.165675 0 Act 0.516567
+Early_InitAge_1 0.656399 0 Act 0.56564
+Main_RecrDev_1977 1.01177 0 Act 0.601177
+Main_RecrDev_1978 0.54767 0 Act 0.554767
+Main_RecrDev_1979 0.638279 0 Act 0.563828
+Main_RecrDev_1980 -0.87355 0 Act 0.412645
+Main_RecrDev_1981 -0.765496 0 Act 0.42345
+Main_RecrDev_1982 0.924225 0 Act 0.592422
+Main_RecrDev_1983 -0.608017 0 Act 0.439198
+Main_RecrDev_1984 0.815124 0 Act 0.581512
+Main_RecrDev_1985 0.0181133 0 Act 0.501811
+Main_RecrDev_1986 -0.563796 0 Act 0.44362
+Main_RecrDev_1987 -1.69653 0 Act 0.330347
+Main_RecrDev_1988 -0.296343 0 Act 0.470366
+Main_RecrDev_1989 0.387709 0 Act 0.538771
+Main_RecrDev_1990 0.363898 0 Act 0.53639
+Main_RecrDev_1991 -0.161261 0 Act 0.483874
+Main_RecrDev_1992 0.733838 0 Act 0.573384
+Main_RecrDev_1993 -0.156966 0 Act 0.484303
+Main_RecrDev_1994 -0.367565 0 Act 0.463243
+Main_RecrDev_1995 -0.436794 0 Act 0.456321
+Main_RecrDev_1996 0.780187 0 Act 0.578019
+Main_RecrDev_1997 -0.115627 0 Act 0.488437
+Main_RecrDev_1998 -0.325194 0 Act 0.467481
+Main_RecrDev_1999 0.520009 0 Act 0.552001
+Main_RecrDev_2000 0.236134 0 Act 0.523613
+Main_RecrDev_2001 -0.692681 0 Act 0.430732
+Main_RecrDev_2002 -0.154128 0 Act 0.484587
+Main_RecrDev_2003 -0.289367 0 Act 0.471063
+Main_RecrDev_2004 -0.572139 0 Act 0.442786
+Main_RecrDev_2005 -0.30175 0 Act 0.469825
+Main_RecrDev_2006 0.750669 0 Act 0.575067
+Main_RecrDev_2007 -0.217911 0 Act 0.478209
+Main_RecrDev_2008 1.09759 0 Act 0.609759
+Main_RecrDev_2009 -0.829781 0 Act 0.417022
+Main_RecrDev_2010 0.595698 0 Act 0.55957
+Main_RecrDev_2011 0.915332 0 Act 0.591533
+Main_RecrDev_2012 0.0477447 0 Act 0.504774
+Main_RecrDev_2013 1.03016 0 Act 0.603016
+Main_RecrDev_2014 -0.689219 0 Act 0.431078
+Main_RecrDev_2015 -0.37301 0 Act 0.462699
+Main_RecrDev_2016 -0.886499 0 Act 0.41135
+Main_RecrDev_2017 0.0407907 0 Act 0.504079
+Main_RecrDev_2018 -0.0813062 0 Act 0.491869
+Late_RecrDev_2019 0 0 Fix 0.5
+Late_RecrDev_2020 0 0 Fix 0.5
+Late_RecrDev_2021 0 0 Fix 0.5
+Late_RecrDev_2022 0 0 Fix 0.5
+ForeRecr_2023 0 0 Fix 0.5
+ForeRecr_2024 0 0 Fix 0.5
+ForeRecr_2025 0 0 Fix 0.5
+ForeRecr_2026 0 0 Fix 0.5
+ForeRecr_2027 0 0 Fix 0.5
+ForeRecr_2028 0 0 Fix 0.5
+ForeRecr_2029 0 0 Fix 0.5
+ForeRecr_2030 0 0 Fix 0.5
+ForeRecr_2031 0 0 Fix 0.5
+ForeRecr_2032 0 0 Fix 0.5
+ForeRecr_2033 0 0 Fix 0.5
+ForeRecr_2034 0 0 Fix 0.5
+ForeRecr_2035 0 0 Fix 0.5
+ForeRecr_2036 0 0 Fix 0.5
+ForeRecr_2037 0 0 Fix 0.5
+#_Init_F
+InitF_seas_1_flt_1Fishery 0.114791 0 Act 0.11479
+#_Catchability
+LnQ_base_Survey(2) -0.00523209 0 Act 0.499128
+LnQ_base_Survey(2)_dev_se 0.0765 0 Fix 0.0076499
+LnQ_base_Survey(2)_dev_autocorr 0 0 Fix 0.5
+#_Selectivity
+Size_DblN_peak_Fishery(1) 74.168 0 Act 0.916686
+Size_DblN_top_logit_Fishery(1) -4.64047 0 Act 0.267977
+Size_DblN_ascend_se_Fishery(1) 6.02599 0 Act 0.8013
+Size_DblN_descend_se_Fishery(1) 7.09583 0 Act 0.854791
+Size_DblN_start_logit_Fishery(1) -10 0 Fix 0
+Size_DblN_end_logit_Fishery(1) 7.05894 0 Act 0.852947
+Size_DblN_peak_Survey(2) 21.3243 0 Act 0.161776
+Size_DblN_top_logit_Survey(2) 10 0 Fix 1
+Size_DblN_ascend_se_Survey(2) 3.58777 0 Act 0.679388
+Size_DblN_descend_se_Survey(2) 10 0 Fix 1
+Size_DblN_start_logit_Survey(2) -10 0 Fix 0
+Size_DblN_end_logit_Survey(2) 10 0 Fix 1
+ln(DM_theta)_Len_P1 9.98997 0 Fix 0.999498
+ln(DM_theta)_Len_P2 9.98477 0 Fix 0.999238
+ln(DM_theta)_Age_P3 0.0533545 0 Act 0.502668
+Size_DblN_ascend_se_Fishery(1)_dev_se 0.1593 0 Fix 0.0159299
+Size_DblN_ascend_se_Fishery(1)_dev_autocorr 0 0 Fix 0.5
+Size_DblN_end_logit_Fishery(1)_dev_se 0.7615 0 Fix 0.0761499
+Size_DblN_end_logit_Fishery(1)_dev_autocorr 0 0 Fix 0.5
+Size_DblN_peak_Survey(2)_dev_se 0.2258 0 Fix 0.0225799
+Size_DblN_peak_Survey(2)_dev_autocorr 0 0 Fix 0.5
+Size_DblN_ascend_se_Survey(2)_dev_se 0.8414 0 Fix 0.0841399
+Size_DblN_ascend_se_Survey(2)_dev_autocorr 0 0 Fix 0.5
+#_Parm_Dev
+L_at_Amin_Fem_GP_1_DEVmult_1977 0.295258 0 ACT 0.514763
+L_at_Amin_Fem_GP_1_DEVmult_1978 0.0117854 0 ACT 0.500589
+L_at_Amin_Fem_GP_1_DEVmult_1979 0.23871 0 ACT 0.511935
+L_at_Amin_Fem_GP_1_DEVmult_1980 0.0744062 0 ACT 0.50372
+L_at_Amin_Fem_GP_1_DEVmult_1981 -1.03226 0 ACT 0.448387
+L_at_Amin_Fem_GP_1_DEVmult_1982 -0.905302 0 ACT 0.454735
+L_at_Amin_Fem_GP_1_DEVmult_1983 0.842977 0 ACT 0.542149
+L_at_Amin_Fem_GP_1_DEVmult_1984 0.109675 0 ACT 0.505484
+L_at_Amin_Fem_GP_1_DEVmult_1985 -1.56487 0 ACT 0.421756
+L_at_Amin_Fem_GP_1_DEVmult_1986 0.0812675 0 ACT 0.504063
+L_at_Amin_Fem_GP_1_DEVmult_1987 -0.419381 0 ACT 0.479031
+L_at_Amin_Fem_GP_1_DEVmult_1988 -0.784551 0 ACT 0.460772
+L_at_Amin_Fem_GP_1_DEVmult_1989 -0.675296 0 ACT 0.466235
+L_at_Amin_Fem_GP_1_DEVmult_1990 -0.0505131 0 ACT 0.497474
+L_at_Amin_Fem_GP_1_DEVmult_1991 0.310737 0 ACT 0.515537
+L_at_Amin_Fem_GP_1_DEVmult_1992 0.0818899 0 ACT 0.504094
+L_at_Amin_Fem_GP_1_DEVmult_1993 0.376799 0 ACT 0.51884
+L_at_Amin_Fem_GP_1_DEVmult_1994 -0.210105 0 ACT 0.489495
+L_at_Amin_Fem_GP_1_DEVmult_1995 -0.170777 0 ACT 0.491461
+L_at_Amin_Fem_GP_1_DEVmult_1996 -0.0525806 0 ACT 0.497371
+L_at_Amin_Fem_GP_1_DEVmult_1997 -0.14317 0 ACT 0.492841
+L_at_Amin_Fem_GP_1_DEVmult_1998 -0.839505 0 ACT 0.458025
+L_at_Amin_Fem_GP_1_DEVmult_1999 -1.12482 0 ACT 0.443759
+L_at_Amin_Fem_GP_1_DEVmult_2000 0.640951 0 ACT 0.532048
+L_at_Amin_Fem_GP_1_DEVmult_2001 0.273781 0 ACT 0.513689
+L_at_Amin_Fem_GP_1_DEVmult_2002 0.599627 0 ACT 0.529981
+L_at_Amin_Fem_GP_1_DEVmult_2003 0.189676 0 ACT 0.509484
+L_at_Amin_Fem_GP_1_DEVmult_2004 1.12938 0 ACT 0.556469
+L_at_Amin_Fem_GP_1_DEVmult_2005 -0.226869 0 ACT 0.488657
+L_at_Amin_Fem_GP_1_DEVmult_2006 -0.299405 0 ACT 0.48503
+L_at_Amin_Fem_GP_1_DEVmult_2007 -0.951433 0 ACT 0.452428
+L_at_Amin_Fem_GP_1_DEVmult_2008 -0.962981 0 ACT 0.451851
+L_at_Amin_Fem_GP_1_DEVmult_2009 -0.803064 0 ACT 0.459847
+L_at_Amin_Fem_GP_1_DEVmult_2010 0.199263 0 ACT 0.509963
+L_at_Amin_Fem_GP_1_DEVmult_2011 -1.10812 0 ACT 0.444594
+L_at_Amin_Fem_GP_1_DEVmult_2012 0.354206 0 ACT 0.51771
+L_at_Amin_Fem_GP_1_DEVmult_2013 -0.286408 0 ACT 0.48568
+L_at_Amin_Fem_GP_1_DEVmult_2014 0.141717 0 ACT 0.507086
+L_at_Amin_Fem_GP_1_DEVmult_2015 1.44737 0 ACT 0.572369
+L_at_Amin_Fem_GP_1_DEVmult_2016 1.64614 0 ACT 0.582307
+L_at_Amin_Fem_GP_1_DEVmult_2017 1.14492 0 ACT 0.557246
+L_at_Amin_Fem_GP_1_DEVmult_2018 2.42159 0 ACT 0.621079
+L_at_Amin_Fem_GP_1_DEVmult_2019 6.92779e-14 0 ACT 0.5
+L_at_Amin_Fem_GP_1_DEVmult_2020 -3.18146e-12 0 ACT 0.5
+L_at_Amin_Fem_GP_1_DEVmult_2021 9.59233e-14 0 ACT 0.5
+L_at_Amin_Fem_GP_1_DEVmult_2022 -7.86926e-13 0 ACT 0.5
+LnQ_base_Survey(2)_DEVadd_1982 0.518631 0 ACT 0.525932
+LnQ_base_Survey(2)_DEVadd_1983 1.17915 0 ACT 0.558958
+LnQ_base_Survey(2)_DEVadd_1984 -1.28483 0 ACT 0.435758
+LnQ_base_Survey(2)_DEVadd_1985 1.00873 0 ACT 0.550436
+LnQ_base_Survey(2)_DEVadd_1986 0.290079 0 ACT 0.514504
+LnQ_base_Survey(2)_DEVadd_1987 0.791209 0 ACT 0.53956
+LnQ_base_Survey(2)_DEVadd_1988 -0.235883 0 ACT 0.488206
+LnQ_base_Survey(2)_DEVadd_1989 -0.972938 0 ACT 0.451353
+LnQ_base_Survey(2)_DEVadd_1990 -0.845081 0 ACT 0.457746
+LnQ_base_Survey(2)_DEVadd_1991 -1.32521 0 ACT 0.43374
+LnQ_base_Survey(2)_DEVadd_1992 -1.62656 0 ACT 0.418672
+LnQ_base_Survey(2)_DEVadd_1993 0.58403 0 ACT 0.529201
+LnQ_base_Survey(2)_DEVadd_1994 4.20124 0 ACT 0.710062
+LnQ_base_Survey(2)_DEVadd_1995 1.64142 0 ACT 0.582071
+LnQ_base_Survey(2)_DEVadd_1996 1.69646 0 ACT 0.584823
+LnQ_base_Survey(2)_DEVadd_1997 8.74492e-05 0 ACT 0.500004
+LnQ_base_Survey(2)_DEVadd_1998 0.215162 0 ACT 0.510758
+LnQ_base_Survey(2)_DEVadd_1999 -0.978403 0 ACT 0.45108
+LnQ_base_Survey(2)_DEVadd_2000 -1.22891 0 ACT 0.438554
+LnQ_base_Survey(2)_DEVadd_2001 1.76881 0 ACT 0.588441
+LnQ_base_Survey(2)_DEVadd_2002 -0.180153 0 ACT 0.490992
+LnQ_base_Survey(2)_DEVadd_2003 0.670388 0 ACT 0.533519
+LnQ_base_Survey(2)_DEVadd_2004 -0.0539163 0 ACT 0.497304
+LnQ_base_Survey(2)_DEVadd_2005 0.32697 0 ACT 0.516348
+LnQ_base_Survey(2)_DEVadd_2006 -0.704311 0 ACT 0.464784
+LnQ_base_Survey(2)_DEVadd_2007 -2.25296 0 ACT 0.387352
+LnQ_base_Survey(2)_DEVadd_2008 -3.07048 0 ACT 0.346476
+LnQ_base_Survey(2)_DEVadd_2009 -2.33203 0 ACT 0.383398
+LnQ_base_Survey(2)_DEVadd_2010 -1.29265 0 ACT 0.435367
+LnQ_base_Survey(2)_DEVadd_2011 0.619319 0 ACT 0.530966
+LnQ_base_Survey(2)_DEVadd_2012 -0.160818 0 ACT 0.491959
+LnQ_base_Survey(2)_DEVadd_2013 -1.64303 0 ACT 0.417849
+LnQ_base_Survey(2)_DEVadd_2014 1.82752 0 ACT 0.591376
+LnQ_base_Survey(2)_DEVadd_2015 0.916472 0 ACT 0.545824
+LnQ_base_Survey(2)_DEVadd_2016 1.27405 0 ACT 0.563702
+LnQ_base_Survey(2)_DEVadd_2017 -1.03116 0 ACT 0.448442
+LnQ_base_Survey(2)_DEVadd_2018 1.69077 0 ACT 0.584539
+LnQ_base_Survey(2)_DEVadd_2019 0 0 ACT 0.5
+LnQ_base_Survey(2)_DEVadd_2020 0 0 ACT 0.5
+LnQ_base_Survey(2)_DEVadd_2021 0 0 ACT 0.5
+LnQ_base_Survey(2)_DEVadd_2022 0 0 ACT 0.5
+Size_DblN_ascend_se_Fishery(1)_DEVadd_1977 0.467417 0 ACT 0.523371
+Size_DblN_ascend_se_Fishery(1)_DEVadd_1978 -0.0342002 0 ACT 0.49829
+Size_DblN_ascend_se_Fishery(1)_DEVadd_1979 -0.1978 0 ACT 0.49011
+Size_DblN_ascend_se_Fishery(1)_DEVadd_1980 0.563461 0 ACT 0.528173
+Size_DblN_ascend_se_Fishery(1)_DEVadd_1981 0.573218 0 ACT 0.528661
+Size_DblN_ascend_se_Fishery(1)_DEVadd_1982 -0.0931677 0 ACT 0.495342
+Size_DblN_ascend_se_Fishery(1)_DEVadd_1983 0.0789022 0 ACT 0.503945
+Size_DblN_ascend_se_Fishery(1)_DEVadd_1984 1.67349 0 ACT 0.583674
+Size_DblN_ascend_se_Fishery(1)_DEVadd_1985 1.7926 0 ACT 0.58963
+Size_DblN_ascend_se_Fishery(1)_DEVadd_1986 2.0921 0 ACT 0.604605
+Size_DblN_ascend_se_Fishery(1)_DEVadd_1987 0.992977 0 ACT 0.549649
+Size_DblN_ascend_se_Fishery(1)_DEVadd_1988 1.50949 0 ACT 0.575475
+Size_DblN_ascend_se_Fishery(1)_DEVadd_1989 0.599248 0 ACT 0.529962
+Size_DblN_ascend_se_Fishery(1)_DEVadd_1990 -0.565278 0 ACT 0.471736
+Size_DblN_ascend_se_Fishery(1)_DEVadd_1991 -0.432579 0 ACT 0.478371
+Size_DblN_ascend_se_Fishery(1)_DEVadd_1992 0.241243 0 ACT 0.512062
+Size_DblN_ascend_se_Fishery(1)_DEVadd_1993 0.537412 0 ACT 0.526871
+Size_DblN_ascend_se_Fishery(1)_DEVadd_1994 -0.023176 0 ACT 0.498841
+Size_DblN_ascend_se_Fishery(1)_DEVadd_1995 0.528158 0 ACT 0.526408
+Size_DblN_ascend_se_Fishery(1)_DEVadd_1996 -1.01426 0 ACT 0.449287
+Size_DblN_ascend_se_Fishery(1)_DEVadd_1997 -0.190547 0 ACT 0.490473
+Size_DblN_ascend_se_Fishery(1)_DEVadd_1998 -0.962556 0 ACT 0.451872
+Size_DblN_ascend_se_Fishery(1)_DEVadd_1999 -0.679372 0 ACT 0.466031
+Size_DblN_ascend_se_Fishery(1)_DEVadd_2000 -0.270359 0 ACT 0.486482
+Size_DblN_ascend_se_Fishery(1)_DEVadd_2001 -0.984567 0 ACT 0.450772
+Size_DblN_ascend_se_Fishery(1)_DEVadd_2002 0.466 0 ACT 0.5233
+Size_DblN_ascend_se_Fishery(1)_DEVadd_2003 -0.110066 0 ACT 0.494497
+Size_DblN_ascend_se_Fishery(1)_DEVadd_2004 0.486491 0 ACT 0.524325
+Size_DblN_ascend_se_Fishery(1)_DEVadd_2005 -0.0608495 0 ACT 0.496958
+Size_DblN_ascend_se_Fishery(1)_DEVadd_2006 -0.233393 0 ACT 0.48833
+Size_DblN_ascend_se_Fishery(1)_DEVadd_2007 0.40435 0 ACT 0.520217
+Size_DblN_ascend_se_Fishery(1)_DEVadd_2008 0.750937 0 ACT 0.537547
+Size_DblN_ascend_se_Fishery(1)_DEVadd_2009 -0.243278 0 ACT 0.487836
+Size_DblN_ascend_se_Fishery(1)_DEVadd_2010 -0.409459 0 ACT 0.479527
+Size_DblN_ascend_se_Fishery(1)_DEVadd_2011 -0.558955 0 ACT 0.472052
+Size_DblN_ascend_se_Fishery(1)_DEVadd_2012 -0.0605178 0 ACT 0.496974
+Size_DblN_ascend_se_Fishery(1)_DEVadd_2013 0.293795 0 ACT 0.51469
+Size_DblN_ascend_se_Fishery(1)_DEVadd_2014 -0.427134 0 ACT 0.478643
+Size_DblN_ascend_se_Fishery(1)_DEVadd_2015 -1.84272 0 ACT 0.407864
+Size_DblN_ascend_se_Fishery(1)_DEVadd_2016 -2.26549 0 ACT 0.386726
+Size_DblN_ascend_se_Fishery(1)_DEVadd_2017 -1.76133 0 ACT 0.411933
+Size_DblN_ascend_se_Fishery(1)_DEVadd_2018 -0.632716 0 ACT 0.468364
+Size_DblN_ascend_se_Fishery(1)_DEVadd_2019 4.33431e-13 0 ACT 0.5
+Size_DblN_ascend_se_Fishery(1)_DEVadd_2020 -1.82254e-12 0 ACT 0.5
+Size_DblN_ascend_se_Fishery(1)_DEVadd_2021 2.0961e-12 0 ACT 0.5
+Size_DblN_ascend_se_Fishery(1)_DEVadd_2022 3.39284e-12 0 ACT 0.5
+Size_DblN_end_logit_Fishery(1)_DEVadd_1977 -0.000184998 0 ACT 0.499991
+Size_DblN_end_logit_Fishery(1)_DEVadd_1978 -0.000188369 0 ACT 0.499991
+Size_DblN_end_logit_Fishery(1)_DEVadd_1979 -0.000153734 0 ACT 0.499992
+Size_DblN_end_logit_Fishery(1)_DEVadd_1980 -2.50653e-05 0 ACT 0.499999
+Size_DblN_end_logit_Fishery(1)_DEVadd_1981 2.63016e-06 0 ACT 0.5
+Size_DblN_end_logit_Fishery(1)_DEVadd_1982 4.916e-05 0 ACT 0.500002
+Size_DblN_end_logit_Fishery(1)_DEVadd_1983 7.84648e-06 0 ACT 0.5
+Size_DblN_end_logit_Fishery(1)_DEVadd_1984 -1.66458e-05 0 ACT 0.499999
+Size_DblN_end_logit_Fishery(1)_DEVadd_1985 -9.345e-05 0 ACT 0.499995
+Size_DblN_end_logit_Fishery(1)_DEVadd_1986 -0.000140387 0 ACT 0.499993
+Size_DblN_end_logit_Fishery(1)_DEVadd_1987 4.9227e-05 0 ACT 0.500002
+Size_DblN_end_logit_Fishery(1)_DEVadd_1988 -0.000101832 0 ACT 0.499995
+Size_DblN_end_logit_Fishery(1)_DEVadd_1989 8.34504e-05 0 ACT 0.500004
+Size_DblN_end_logit_Fishery(1)_DEVadd_1990 0.000437279 0 ACT 0.500022
+Size_DblN_end_logit_Fishery(1)_DEVadd_1991 -2.97619e-05 0 ACT 0.499998
+Size_DblN_end_logit_Fishery(1)_DEVadd_1992 -0.000242724 0 ACT 0.499988
+Size_DblN_end_logit_Fishery(1)_DEVadd_1993 0.000136522 0 ACT 0.500007
+Size_DblN_end_logit_Fishery(1)_DEVadd_1994 -0.000678312 0 ACT 0.499966
+Size_DblN_end_logit_Fishery(1)_DEVadd_1995 -0.00091396 0 ACT 0.499954
+Size_DblN_end_logit_Fishery(1)_DEVadd_1996 0.00101539 0 ACT 0.500051
+Size_DblN_end_logit_Fishery(1)_DEVadd_1997 0.000384306 0 ACT 0.500019
+Size_DblN_end_logit_Fishery(1)_DEVadd_1998 0.000592358 0 ACT 0.50003
+Size_DblN_end_logit_Fishery(1)_DEVadd_1999 0.00049501 0 ACT 0.500025
+Size_DblN_end_logit_Fishery(1)_DEVadd_2000 0.000370202 0 ACT 0.500018
+Size_DblN_end_logit_Fishery(1)_DEVadd_2001 -6.91317e-05 0 ACT 0.499997
+Size_DblN_end_logit_Fishery(1)_DEVadd_2002 -0.000800872 0 ACT 0.49996
+Size_DblN_end_logit_Fishery(1)_DEVadd_2003 -0.000667529 0 ACT 0.499967
+Size_DblN_end_logit_Fishery(1)_DEVadd_2004 0.000222216 0 ACT 0.500011
+Size_DblN_end_logit_Fishery(1)_DEVadd_2005 -3.67254e-05 0 ACT 0.499998
+Size_DblN_end_logit_Fishery(1)_DEVadd_2006 0.00120883 0 ACT 0.50006
+Size_DblN_end_logit_Fishery(1)_DEVadd_2007 0.00130878 0 ACT 0.500065
+Size_DblN_end_logit_Fishery(1)_DEVadd_2008 0.000982361 0 ACT 0.500049
+Size_DblN_end_logit_Fishery(1)_DEVadd_2009 -0.000721041 0 ACT 0.499964
+Size_DblN_end_logit_Fishery(1)_DEVadd_2010 -0.00064646 0 ACT 0.499968
+Size_DblN_end_logit_Fishery(1)_DEVadd_2011 -0.000504354 0 ACT 0.499975
+Size_DblN_end_logit_Fishery(1)_DEVadd_2012 -0.000248773 0 ACT 0.499988
+Size_DblN_end_logit_Fishery(1)_DEVadd_2013 -0.000536491 0 ACT 0.499973
+Size_DblN_end_logit_Fishery(1)_DEVadd_2014 -0.000596857 0 ACT 0.49997
+Size_DblN_end_logit_Fishery(1)_DEVadd_2015 -0.000653631 0 ACT 0.499967
+Size_DblN_end_logit_Fishery(1)_DEVadd_2016 -0.000505691 0 ACT 0.499975
+Size_DblN_end_logit_Fishery(1)_DEVadd_2017 -0.000284905 0 ACT 0.499986
+Size_DblN_end_logit_Fishery(1)_DEVadd_2018 -0.00017866 0 ACT 0.499991
+Size_DblN_end_logit_Fishery(1)_DEVadd_2019 1.81011e-12 0 ACT 0.5
+Size_DblN_end_logit_Fishery(1)_DEVadd_2020 -1.32161e-12 0 ACT 0.5
+Size_DblN_end_logit_Fishery(1)_DEVadd_2021 1.78701e-12 0 ACT 0.5
+Size_DblN_end_logit_Fishery(1)_DEVadd_2022 2.86349e-12 0 ACT 0.5
+Size_DblN_peak_Survey(2)_DEVmult_1982 -0.448788 0 ACT 0.477561
+Size_DblN_peak_Survey(2)_DEVmult_1983 -0.180005 0 ACT 0.491
+Size_DblN_peak_Survey(2)_DEVmult_1984 1.04967 0 ACT 0.552484
+Size_DblN_peak_Survey(2)_DEVmult_1985 0.348155 0 ACT 0.517408
+Size_DblN_peak_Survey(2)_DEVmult_1986 -0.617352 0 ACT 0.469132
+Size_DblN_peak_Survey(2)_DEVmult_1987 -0.0245028 0 ACT 0.498775
+Size_DblN_peak_Survey(2)_DEVmult_1988 0.0627782 0 ACT 0.503139
+Size_DblN_peak_Survey(2)_DEVmult_1989 0.380743 0 ACT 0.519037
+Size_DblN_peak_Survey(2)_DEVmult_1990 -0.364857 0 ACT 0.481757
+Size_DblN_peak_Survey(2)_DEVmult_1991 0.881727 0 ACT 0.544086
+Size_DblN_peak_Survey(2)_DEVmult_1992 -0.361542 0 ACT 0.481923
+Size_DblN_peak_Survey(2)_DEVmult_1993 0.0983507 0 ACT 0.504918
+Size_DblN_peak_Survey(2)_DEVmult_1994 0.60569 0 ACT 0.530284
+Size_DblN_peak_Survey(2)_DEVmult_1995 0.555102 0 ACT 0.527755
+Size_DblN_peak_Survey(2)_DEVmult_1996 0.4249 0 ACT 0.521245
+Size_DblN_peak_Survey(2)_DEVmult_1997 0.767022 0 ACT 0.538351
+Size_DblN_peak_Survey(2)_DEVmult_1998 1.99914 0 ACT 0.599957
+Size_DblN_peak_Survey(2)_DEVmult_1999 0.135355 0 ACT 0.506768
+Size_DblN_peak_Survey(2)_DEVmult_2000 -0.697842 0 ACT 0.465108
+Size_DblN_peak_Survey(2)_DEVmult_2001 -0.649915 0 ACT 0.467504
+Size_DblN_peak_Survey(2)_DEVmult_2002 0.0306614 0 ACT 0.501533
+Size_DblN_peak_Survey(2)_DEVmult_2003 0.218904 0 ACT 0.510945
+Size_DblN_peak_Survey(2)_DEVmult_2004 0.153161 0 ACT 0.507658
+Size_DblN_peak_Survey(2)_DEVmult_2005 -0.104973 0 ACT 0.494751
+Size_DblN_peak_Survey(2)_DEVmult_2006 -1.44809 0 ACT 0.427595
+Size_DblN_peak_Survey(2)_DEVmult_2007 -2.28097 0 ACT 0.385952
+Size_DblN_peak_Survey(2)_DEVmult_2008 -1.51895 0 ACT 0.424053
+Size_DblN_peak_Survey(2)_DEVmult_2009 -0.784365 0 ACT 0.460782
+Size_DblN_peak_Survey(2)_DEVmult_2010 -0.509266 0 ACT 0.474537
+Size_DblN_peak_Survey(2)_DEVmult_2011 -0.15097 0 ACT 0.492451
+Size_DblN_peak_Survey(2)_DEVmult_2012 -1.71659 0 ACT 0.414171
+Size_DblN_peak_Survey(2)_DEVmult_2013 0.855142 0 ACT 0.542757
+Size_DblN_peak_Survey(2)_DEVmult_2014 -0.214784 0 ACT 0.489261
+Size_DblN_peak_Survey(2)_DEVmult_2015 0.366229 0 ACT 0.518311
+Size_DblN_peak_Survey(2)_DEVmult_2016 1.00002 0 ACT 0.550001
+Size_DblN_peak_Survey(2)_DEVmult_2017 0.831979 0 ACT 0.541599
+Size_DblN_peak_Survey(2)_DEVmult_2018 1.30897 0 ACT 0.565449
+Size_DblN_peak_Survey(2)_DEVmult_2019 0 0 ACT 0.5
+Size_DblN_peak_Survey(2)_DEVmult_2020 0 0 ACT 0.5
+Size_DblN_peak_Survey(2)_DEVmult_2021 0 0 ACT 0.5
+Size_DblN_peak_Survey(2)_DEVmult_2022 0 0 ACT 0.5
+Size_DblN_ascend_se_Survey(2)_DEVadd_1982 -0.77655 0 ACT 0.461172
+Size_DblN_ascend_se_Survey(2)_DEVadd_1983 0.367135 0 ACT 0.518357
+Size_DblN_ascend_se_Survey(2)_DEVadd_1984 0.876801 0 ACT 0.54384
+Size_DblN_ascend_se_Survey(2)_DEVadd_1985 0.409201 0 ACT 0.52046
+Size_DblN_ascend_se_Survey(2)_DEVadd_1986 -0.346128 0 ACT 0.482694
+Size_DblN_ascend_se_Survey(2)_DEVadd_1987 -0.149634 0 ACT 0.492518
+Size_DblN_ascend_se_Survey(2)_DEVadd_1988 -0.103081 0 ACT 0.494846
+Size_DblN_ascend_se_Survey(2)_DEVadd_1989 0.0881513 0 ACT 0.504408
+Size_DblN_ascend_se_Survey(2)_DEVadd_1990 0.0596528 0 ACT 0.502983
+Size_DblN_ascend_se_Survey(2)_DEVadd_1991 1.24419 0 ACT 0.56221
+Size_DblN_ascend_se_Survey(2)_DEVadd_1992 -0.267066 0 ACT 0.486647
+Size_DblN_ascend_se_Survey(2)_DEVadd_1993 0.667091 0 ACT 0.533355
+Size_DblN_ascend_se_Survey(2)_DEVadd_1994 0.499353 0 ACT 0.524968
+Size_DblN_ascend_se_Survey(2)_DEVadd_1995 0.320987 0 ACT 0.516049
+Size_DblN_ascend_se_Survey(2)_DEVadd_1996 -0.0937765 0 ACT 0.495311
+Size_DblN_ascend_se_Survey(2)_DEVadd_1997 0.756351 0 ACT 0.537818
+Size_DblN_ascend_se_Survey(2)_DEVadd_1998 1.96516 0 ACT 0.598258
+Size_DblN_ascend_se_Survey(2)_DEVadd_1999 0.150314 0 ACT 0.507516
+Size_DblN_ascend_se_Survey(2)_DEVadd_2000 -0.731241 0 ACT 0.463438
+Size_DblN_ascend_se_Survey(2)_DEVadd_2001 -0.358345 0 ACT 0.482083
+Size_DblN_ascend_se_Survey(2)_DEVadd_2002 0.00144863 0 ACT 0.500072
+Size_DblN_ascend_se_Survey(2)_DEVadd_2003 0.242105 0 ACT 0.512105
+Size_DblN_ascend_se_Survey(2)_DEVadd_2004 0.0817014 0 ACT 0.504085
+Size_DblN_ascend_se_Survey(2)_DEVadd_2005 -0.190121 0 ACT 0.490494
+Size_DblN_ascend_se_Survey(2)_DEVadd_2006 -1.31102 0 ACT 0.434449
+Size_DblN_ascend_se_Survey(2)_DEVadd_2007 -2.38257 0 ACT 0.380871
+Size_DblN_ascend_se_Survey(2)_DEVadd_2008 -1.65601 0 ACT 0.4172
+Size_DblN_ascend_se_Survey(2)_DEVadd_2009 0.324194 0 ACT 0.51621
+Size_DblN_ascend_se_Survey(2)_DEVadd_2010 -0.694166 0 ACT 0.465292
+Size_DblN_ascend_se_Survey(2)_DEVadd_2011 -0.216952 0 ACT 0.489152
+Size_DblN_ascend_se_Survey(2)_DEVadd_2012 -1.06798 0 ACT 0.446601
+Size_DblN_ascend_se_Survey(2)_DEVadd_2013 0.942279 0 ACT 0.547114
+Size_DblN_ascend_se_Survey(2)_DEVadd_2014 -0.219053 0 ACT 0.489047
+Size_DblN_ascend_se_Survey(2)_DEVadd_2015 0.310996 0 ACT 0.51555
+Size_DblN_ascend_se_Survey(2)_DEVadd_2016 0.65101 0 ACT 0.53255
+Size_DblN_ascend_se_Survey(2)_DEVadd_2017 0.454596 0 ACT 0.52273
+Size_DblN_ascend_se_Survey(2)_DEVadd_2018 0.149892 0 ACT 0.507495
+Size_DblN_ascend_se_Survey(2)_DEVadd_2019 0 0 ACT 0.5
+Size_DblN_ascend_se_Survey(2)_DEVadd_2020 0 0 ACT 0.5
+Size_DblN_ascend_se_Survey(2)_DEVadd_2021 0 0 ACT 0.5
+Size_DblN_ascend_se_Survey(2)_DEVadd_2022 0 0 ACT 0.5
+#_Derived_Quantities
+#_Spawn_Bio
+SSB_Virgin 1.36811e+06 0
+SSB_Initial 341000 0
+SSB_1977 179975 0
+SSB_1978 176052 0
+SSB_1979 186279 0
+SSB_1980 234342 0
+SSB_1981 359176 0
+SSB_1982 558968 0
+SSB_1983 704555 0
+SSB_1984 764562 0
+SSB_1985 814997 0
+SSB_1986 799328 0
+SSB_1987 772481 0
+SSB_1988 796455 0
+SSB_1989 758829 0
+SSB_1990 719583 0
+SSB_1991 600102 0
+SSB_1992 457598 0
+SSB_1993 424919 0
+SSB_1994 424223 0
+SSB_1995 448878 0
+SSB_1996 442877 0
+SSB_1997 421281 0
+SSB_1998 370432 0
+SSB_1999 349719 0
+SSB_2000 353750 0
+SSB_2001 387576 0
+SSB_2002 421054 0
+SSB_2003 436539 0
+SSB_2004 452328 0
+SSB_2005 441624 0
+SSB_2006 390765 0
+SSB_2007 335497 0
+SSB_2008 288811 0
+SSB_2009 252396 0
+SSB_2010 252284 0
+SSB_2011 309514 0
+SSB_2012 368751 0
+SSB_2013 412956 0
+SSB_2014 424238 0
+SSB_2015 441066 0
+SSB_2016 501847 0
+SSB_2017 568261 0
+SSB_2018 601529 0
+SSB_2019 587930 0
+SSB_2020 505254 0
+SSB_2021 426875 0
+SSB_2022 394452 0
+SSB_2023 382449 0
+SSB_2024 427082 0
+SSB_2025 468320 0
+SSB_2026 495144 0
+SSB_2027 508026 0
+SSB_2028 512433 0
+SSB_2029 513123 0
+SSB_2030 512701 0
+SSB_2031 512200 0
+SSB_2032 511884 0
+SSB_2033 511737 0
+SSB_2034 511687 0
+SSB_2035 511679 0
+SSB_2036 511684 0
+SSB_2037 511689 0
+#_Recruitment
+Recr_Virgin 532161 0
+Recr_Initial 202632 0
+Recr_1977 1.17396e+06 0
+Recr_1978 738067 0
+Recr_1979 808065 0
+Recr_1980 178184 0
+Recr_1981 198516 0
+Recr_1982 1.07555e+06 0
+Recr_1983 232374 0
+Recr_1984 964383 0
+Recr_1985 434622 0
+Recr_1986 242880 0
+Recr_1987 78243.9 0
+Recr_1988 317355 0
+Recr_1989 628964 0
+Recr_1990 614164 0
+Recr_1991 363254 0
+Recr_1992 889094 0
+Recr_1993 364818 0
+Recr_1994 295539 0
+Recr_1995 275771 0
+Recr_1996 931272 0
+Recr_1997 380215 0
+Recr_1998 308330 0
+Recr_1999 717931 0
+Recr_2000 540502 0
+Recr_2001 213510 0
+Recr_2002 365855 0
+Recr_2003 319577 0
+Recr_2004 240862 0
+Recr_2005 315644 0
+Recr_2006 904185 0
+Recr_2007 343248 0
+Recr_2008 1.27915e+06 0
+Recr_2009 186156 0
+Recr_2010 774380 0
+Recr_2011 1.06603e+06 0
+Recr_2012 447694 0
+Recr_2013 1.19574e+06 0
+Recr_2014 214250 0
+Recr_2015 293934 0
+Recr_2016 175891 0
+Recr_2017 444591 0
+Recr_2018 393491 0
+Recr_2019 532161 0
+Recr_2020 532161 0
+Recr_2021 532161 0
+Recr_2022 532161 0
+Recr_2023 532161 0
+Recr_2024 532161 0
+Recr_2025 532161 0
+Recr_2026 532161 0
+Recr_2027 532161 0
+Recr_2028 532161 0
+Recr_2029 532161 0
+Recr_2030 532161 0
+Recr_2031 532161 0
+Recr_2032 532161 0
+Recr_2033 532161 0
+Recr_2034 532161 0
+Recr_2035 532161 0
+Recr_2036 532161 0
+Recr_2037 532161 0
+#_SPR Basis=  1-SPR
+SPRratio_1977 0.44929 0
+SPRratio_1978 0.515133 0
+SPRratio_1979 0.415357 0
+SPRratio_1980 0.342624 0
+SPRratio_1981 0.346992 0
+SPRratio_1982 0.273938 0
+SPRratio_1983 0.334152 0
+SPRratio_1984 0.407454 0
+SPRratio_1985 0.442339 0
+SPRratio_1986 0.4313 0
+SPRratio_1987 0.4542 0
+SPRratio_1988 0.541243 0
+SPRratio_1989 0.512859 0
+SPRratio_1990 0.516352 0
+SPRratio_1991 0.639762 0
+SPRratio_1992 0.650138 0
+SPRratio_1993 0.580169 0
+SPRratio_1994 0.642158 0
+SPRratio_1995 0.707958 0
+SPRratio_1996 0.667404 0
+SPRratio_1997 0.722878 0
+SPRratio_1998 0.65728 0
+SPRratio_1999 0.649937 0
+SPRratio_2000 0.641663 0
+SPRratio_2001 0.600096 0
+SPRratio_2002 0.63487 0
+SPRratio_2003 0.638367 0
+SPRratio_2004 0.645369 0
+SPRratio_2005 0.658722 0
+SPRratio_2006 0.669931 0
+SPRratio_2007 0.66427 0
+SPRratio_2008 0.707741 0
+SPRratio_2009 0.733452 0
+SPRratio_2010 0.704341 0
+SPRratio_2011 0.745098 0
+SPRratio_2012 0.732498 0
+SPRratio_2013 0.721905 0
+SPRratio_2014 0.718499 0
+SPRratio_2015 0.695557 0
+SPRratio_2016 0.676131 0
+SPRratio_2017 0.635228 0
+SPRratio_2018 0.585451 0
+SPRratio_2019 0.581273 0
+SPRratio_2020 0.588474 0
+SPRratio_2021 0.561312 0
+SPRratio_2022 0.644037 0
+SPRratio_2023 0.51861 0
+SPRratio_2024 0.552255 0
+SPRratio_2025 0.578813 0
+SPRratio_2026 0.594006 0
+SPRratio_2027 0.60071 0
+SPRratio_2028 0.602581 0
+SPRratio_2029 0.602725 0
+SPRratio_2030 0.602163 0
+SPRratio_2031 0.601676 0
+SPRratio_2032 0.601457 0
+SPRratio_2033 0.601256 0
+SPRratio_2034 0.60129 0
+SPRratio_2035 0.601277 0
+SPRratio_2036 0.601302 0
+SPRratio_2037 0.601154 0
+#_F Basis= _abs_F;_with_F=sum(full_Fs)
+F_1977 0.173142 0
+F_1978 0.22466 0
+F_1979 0.158305 0
+F_1980 0.112472 0
+F_1981 0.115082 0
+F_1982 0.0866177 0
+F_1983 0.113474 0
+F_1984 0.142386 0
+F_1985 0.157505 0
+F_1986 0.148662 0
+F_1987 0.175344 0
+F_1988 0.229231 0
+F_1989 0.219705 0
+F_1990 0.23889 0
+F_1991 0.378351 0
+F_1992 0.368426 0
+F_1993 0.282117 0
+F_1994 0.372773 0
+F_1995 0.463586 0
+F_1996 0.459668 0
+F_1997 0.537416 0
+F_1998 0.425753 0
+F_1999 0.407444 0
+F_2000 0.389756 0
+F_2001 0.342584 0
+F_2002 0.350148 0
+F_2003 0.367742 0
+F_2004 0.368255 0
+F_2005 0.399877 0
+F_2006 0.432536 0
+F_2007 0.406699 0
+F_2008 0.470273 0
+F_2009 0.57351 0
+F_2010 0.50631 0
+F_2011 0.611344 0
+F_2012 0.548698 0
+F_2013 0.509966 0
+F_2014 0.526781 0
+F_2015 0.529493 0
+F_2016 0.500658 0
+F_2017 0.402927 0
+F_2018 0.310992 0
+F_2019 0.294454 0
+F_2020 0.309832 0
+F_2021 0.280194 0
+F_2022 0.3766 0
+F_2023 0.230805 0
+F_2024 0.259677 0
+F_2025 0.286352 0
+F_2026 0.303703 0
+F_2027 0.312036 0
+F_2028 0.314887 0
+F_2029 0.315334 0
+F_2030 0.31506 0
+F_2031 0.314736 0
+F_2032 0.314532 0
+F_2033 0.314437 0
+F_2034 0.314405 0
+F_2035 0.314399 0
+F_2036 0.314402 0
+F_2037 0.314406 0
+#_Depletion Basis=  250%*B_MSY
+Bratio_1977 0.140106 0
+Bratio_1978 0.137052 0
+Bratio_1979 0.145014 0
+Bratio_1980 0.182429 0
+Bratio_1981 0.27961 0
+Bratio_1982 0.435142 0
+Bratio_1983 0.548478 0
+Bratio_1984 0.595192 0
+Bratio_1985 0.634455 0
+Bratio_1986 0.622256 0
+Bratio_1987 0.601357 0
+Bratio_1988 0.62002 0
+Bratio_1989 0.590729 0
+Bratio_1990 0.560177 0
+Bratio_1991 0.467164 0
+Bratio_1992 0.356229 0
+Bratio_1993 0.330789 0
+Bratio_1994 0.330247 0
+Bratio_1995 0.34944 0
+Bratio_1996 0.344768 0
+Bratio_1997 0.327957 0
+Bratio_1998 0.288372 0
+Bratio_1999 0.272247 0
+Bratio_2000 0.275385 0
+Bratio_2001 0.301718 0
+Bratio_2002 0.32778 0
+Bratio_2003 0.339835 0
+Bratio_2004 0.352126 0
+Bratio_2005 0.343793 0
+Bratio_2006 0.3042 0
+Bratio_2007 0.261176 0
+Bratio_2008 0.224832 0
+Bratio_2009 0.196484 0
+Bratio_2010 0.196397 0
+Bratio_2011 0.240949 0
+Bratio_2012 0.287063 0
+Bratio_2013 0.321476 0
+Bratio_2014 0.330258 0
+Bratio_2015 0.343358 0
+Bratio_2016 0.390675 0
+Bratio_2017 0.442377 0
+Bratio_2018 0.468275 0
+Bratio_2019 0.457689 0
+Bratio_2020 0.393328 0
+Bratio_2021 0.332311 0
+Bratio_2022 0.307071 0
+Bratio_2023 0.297727 0
+Bratio_2024 0.332473 0
+Bratio_2025 0.364575 0
+Bratio_2026 0.385457 0
+Bratio_2027 0.395485 0
+Bratio_2028 0.398916 0
+Bratio_2029 0.399454 0
+Bratio_2030 0.399124 0
+Bratio_2031 0.398735 0
+Bratio_2032 0.398489 0
+Bratio_2033 0.398375 0
+Bratio_2034 0.398336 0
+Bratio_2035 0.398329 0
+Bratio_2036 0.398333 0
+Bratio_2037 0.398337 0
+#_Mgmt_Quantity
+SSB_unfished 1.28456e+06 0
+Totbio_unfished 1.79608e+06 0
+SmryBio_unfished 1.74668e+06 0
+Recr_unfished 532161 0
+SSB_Btgt 449597 0
+SPR_Btgt 0.35 0
+annF_Btgt 0.385365 0
+Dead_Catch_Btgt 181469 0
+SSB_SPR 513825 0
+annF_SPR 0.315788 0
+Dead_Catch_SPR 170075 0
+SSB_MSY 513825 0
+SPR_MSY 0.4 0
+annF_MSY 0.315788 0
+Dead_Catch_MSY 170075 0
+Ret_Catch_MSY 170075 0
+B_MSY/SSB_unfished 0.4 0
+ForeCatch_2023 99244 0
+ForeCatch_2024 124937 0
+ForeCatch_2025 149158 0
+ForeCatch_2026 164905 0
+ForeCatch_2027 172195 0
+ForeCatch_2028 174447 0
+ForeCatch_2029 174618 0
+ForeCatch_2030 174252 0
+ForeCatch_2031 173915 0
+ForeCatch_2032 173721 0
+ForeCatch_2033 173637 0
+ForeCatch_2034 173611 0
+ForeCatch_2035 173609 0
+ForeCatch_2036 173613 0
+ForeCatch_2037 173617 0
+OFLCatch_2023 132111 0
+OFLCatch_2024 149217 0
+OFLCatch_2025 162920 0
+OFLCatch_2026 170784 0
+OFLCatch_2027 174048 0
+OFLCatch_2028 174893 0
+OFLCatch_2029 174843 0
+OFLCatch_2030 174612 0
+OFLCatch_2031 174435 0
+OFLCatch_2032 174341 0
+OFLCatch_2033 174304 0
+OFLCatch_2034 174295 0
+OFLCatch_2035 174295 0
+OFLCatch_2036 174298 0
+OFLCatch_2037 174300 0
+#_Extra_stdev
+ln(SPB)_1977 12.1006 0
+ln(SPB)_1999 12.7649 0
+ln(SPB)_2022 12.8853 0
+SmryBio_Virgin 1.85359e+06 0.0
+SmryBio_Initial 511164 0.0
+SmryBio_1977 290132 0.0
+SmryBio_1978 299685 0.0
+SmryBio_1979 348854 0.0
+SmryBio_1980 601994 0.0
+SmryBio_1981 869116 0.0
+SmryBio_1982 1.16397e+06 0.0
+SmryBio_1983 1.19702e+06 0.0
+SmryBio_1984 1.12897e+06 0.0
+SmryBio_1985 1.26682e+06 0.0
+SmryBio_1986 1.20927e+06 0.0
+SmryBio_1987 1.26974e+06 0.0
+SmryBio_1988 1.2711e+06 0.0
+SmryBio_1989 1.14217e+06 0.0
+SmryBio_1990 988117 0.0
+SmryBio_1991 812034 0.0
+SmryBio_1992 721344 0.0
+SmryBio_1993 803718 0.0
+SmryBio_1994 781339 0.0
+SmryBio_1995 861951 0.0
+SmryBio_1996 857323 0.0
+SmryBio_1997 738641 0.0
+SmryBio_1998 613827 0.0
+SmryBio_1999 690023 0.0
+SmryBio_2000 731307 0.0
+SmryBio_2001 730248 0.0
+SmryBio_2002 796201 0.0
+SmryBio_2003 825256 0.0
+SmryBio_2004 779706 0.0
+SmryBio_2005 722900 0.0
+SmryBio_2006 635288 0.0
+SmryBio_2007 547772 0.0
+SmryBio_2008 482383 0.0
+SmryBio_2009 554145 0.0
+SmryBio_2010 576244 0.0
+SmryBio_2011 792115 0.0
+SmryBio_2012 785158 0.0
+SmryBio_2013 823044 0.0
+SmryBio_2014 897038 0.0
+SmryBio_2015 884452 0.0
+SmryBio_2016 1.07525e+06 0.0
+SmryBio_2017 1.05045e+06 0.0
+SmryBio_2018 961937 0.0
+SmryBio_2019 850454 0.0
+SmryBio_2020 741655 0.0
+SmryBio_2021 674614 0.0
+SmryBio_2022 678377 0.0
+SmryBio_2023 704400 0.0
+SmryBio_2024 797009 0.0
+SmryBio_2025 849397 0.0
+SmryBio_2026 877727 0.0
+SmryBio_2027 888854 0.0
+SmryBio_2028 891348 0.0
+SmryBio_2029 890810 0.0
+SmryBio_2030 889790 0.0
+SmryBio_2031 889058 0.0
+SmryBio_2032 888678 0.0
+SmryBio_2033 888531 0.0
+SmryBio_2034 888487 0.0
+SmryBio_2035 888489 0.0
+SmryBio_2036 888497 0.0
+SmryBio_2037 888506 0.0
+#_survey_stdev 40
+Survey_1982 13.4607 0 #exp(): 701275 q: 1.03504
+Survey_1983 13.6109 0 #exp(): 814994 q: 1.08869
+Survey_1984 13.5148 0 #exp(): 740327 q: 0.901656
+Survey_1985 13.6801 0 #exp(): 873318 q: 1.07459
+Survey_1986 13.6861 0 #exp(): 878618 q: 1.0171
+Survey_1987 13.5924 0 #exp(): 800055 q: 1.05685
+Survey_1988 13.2185 0 #exp(): 550427 q: 0.976992
+Survey_1989 12.8364 0 #exp(): 375638 q: 0.923429
+Survey_1990 13.0978 0 #exp(): 487873 q: 0.932505
+Survey_1991 13.1982 0 #exp(): 539375 q: 0.898876
+Survey_1992 13.3031 0 #exp(): 599020 q: 0.878391
+Survey_1993 13.6021 0 #exp(): 807847 q: 1.04023
+Survey_1994 13.8431 0 #exp(): 1.02799e+06 q: 1.37185
+Survey_1995 13.4404 0 #exp(): 687245 q: 1.12788
+Survey_1996 13.247 0 #exp(): 566367 q: 1.13264
+Survey_1997 13.1682 0 #exp(): 523440 q: 0.994788
+Survey_1998 13.322 0 #exp(): 610463 q: 1.01129
+Survey_1999 13.2088 0 #exp(): 545121 q: 0.923043
+Survey_2000 13.2151 0 #exp(): 548607 q: 0.905522
+Survey_2001 13.7567 0 #exp(): 942882 q: 1.13892
+Survey_2002 13.3694 0 #exp(): 640141 q: 0.981166
+Survey_2003 13.2921 0 #exp(): 592506 q: 1.04713
+Survey_2004 13.1152 0 #exp(): 496449 q: 0.990687
+Survey_2005 13.1126 0 #exp(): 495118 q: 1.01998
+Survey_2006 13.0185 0 #exp(): 450691 q: 0.942601
+Survey_2007 13.378 0 #exp(): 645633 q: 0.837291
+Survey_2008 13.1962 0 #exp(): 538338 q: 0.78653
+Survey_2009 13.544 0 #exp(): 762214 q: 0.832242
+Survey_2010 13.5719 0 #exp(): 783783 q: 0.901117
+Survey_2011 13.6484 0 #exp(): 846117 q: 1.04305
+Survey_2012 13.873 0 #exp(): 1.05922e+06 q: 0.982618
+Survey_2013 13.6097 0 #exp(): 813957 q: 0.877285
+Survey_2014 13.9121 0 #exp(): 1.10136e+06 q: 1.14405
+Survey_2015 13.8427 0 #exp(): 1.02758e+06 q: 1.06703
+Survey_2016 13.6095 0 #exp(): 813825 q: 1.09662
+Survey_2017 13.1894 0 #exp(): 534673 q: 0.919325
+Survey_2018 13.0889 0 #exp(): 483555 q: 1.13214
+Survey_2019 13.3564 0 #exp(): 631849 q: 0.994782
+Survey_2021 13.3145 0 #exp(): 605899 q: 0.994782
+Survey_2022 13.3796 0 #exp(): 646697 q: 0.994782
+#_Biomass
+TotBio_Virgin 1.90667e+06 0.0
+TotBio_Initial 531373 0.0
+TotBio_1977 310807 0.0
+TotBio_1978 333329 0.0
+TotBio_1979 458791 0.0
+TotBio_1980 666732 0.0
+TotBio_1981 920837 0.0
+TotBio_1982 1.17831e+06 0.0
+TotBio_1983 1.22553e+06 0.0
+TotBio_1984 1.23518e+06 0.0
+TotBio_1985 1.28973e+06 0.0
+TotBio_1986 1.28749e+06 0.0
+TotBio_1987 1.30707e+06 0.0
+TotBio_1988 1.28783e+06 0.0
+TotBio_1989 1.15007e+06 0.0
+TotBio_1990 1.0207e+06 0.0
+TotBio_1991 873077 0.0
+TotBio_1992 771516 0.0
+TotBio_1993 848615 0.0
+TotBio_1994 853975 0.0
+TotBio_1995 889833 0.0
+TotBio_1996 887473 0.0
+TotBio_1997 767593 0.0
+TotBio_1998 677870 0.0
+TotBio_1999 716762 0.0
+TotBio_2000 769093 0.0
+TotBio_2001 806778 0.0
+TotBio_2002 851048 0.0
+TotBio_2003 847156 0.0
+TotBio_2004 823748 0.0
+TotBio_2005 750360 0.0
+TotBio_2006 656689 0.0
+TotBio_2007 577089 0.0
+TotBio_2008 542110 0.0
+TotBio_2009 585367 0.0
+TotBio_2010 688173 0.0
+TotBio_2011 811238 0.0
+TotBio_2012 854465 0.0
+TotBio_2013 904643 0.0
+TotBio_2014 938924 0.0
+TotBio_2015 1.01121e+06 0.0
+TotBio_2016 1.10406e+06 0.0
+TotBio_2017 1.0825e+06 0.0
+TotBio_2018 995780 0.0
+TotBio_2019 895966 0.0
+TotBio_2020 777478 0.0
+TotBio_2021 721545 0.0
+TotBio_2022 721352 0.0
+TotBio_2023 756430 0.0
+TotBio_2024 834566 0.0
+TotBio_2025 890461 0.0
+TotBio_2026 920897 0.0
+TotBio_2027 933176 0.0
+TotBio_2028 936261 0.0
+TotBio_2029 936021 0.0
+TotBio_2030 935142 0.0
+TotBio_2031 934481 0.0
+TotBio_2032 934136 0.0
+TotBio_2033 934002 0.0
+TotBio_2034 933969 0.0
+TotBio_2035 933972 0.0
+TotBio_2036 933982 0.0
+TotBio_2037 933990 0.0
+TotCatch_Virgin 0 0.0
+TotCatch_Initial 42526.1 0.0
+TotCatch_1977 33335 0.0
+TotCatch_1978 42543 0.0
+TotCatch_1979 33761 0.0
+TotCatch_1980 35058 0.0
+TotCatch_1981 56507 0.0
+TotCatch_1982 61104 0.0
+TotCatch_1983 94801 0.0
+TotCatch_1984 125103 0.0
+TotCatch_1985 143447 0.0
+TotCatch_1986 135605 0.0
+TotCatch_1987 149903 0.0
+TotCatch_1988 203071 0.0
+TotCatch_1989 178323 0.0
+TotCatch_1990 172067 0.0
+TotCatch_1991 210241 0.0
+TotCatch_1992 164210 0.0
+TotCatch_1993 133186 0.0
+TotCatch_1994 172263 0.0
+TotCatch_1995 228498 0.0
+TotCatch_1996 209067 0.0
+TotCatch_1997 232601 0.0
+TotCatch_1998 158529 0.0
+TotCatch_1999 145867 0.0
+TotCatch_2000 151376 0.0
+TotCatch_2001 142542 0.0
+TotCatch_2002 166555 0.0
+TotCatch_2003 175443 0.0
+TotCatch_2004 183748 0.0
+TotCatch_2005 182940 0.0
+TotCatch_2006 168818 0.0
+TotCatch_2007 140129 0.0
+TotCatch_2008 139802 0.0
+TotCatch_2009 147174 0.0
+TotCatch_2010 142844 0.0
+TotCatch_2011 209201 0.0
+TotCatch_2012 232623 0.0
+TotCatch_2013 236691 0.0
+TotCatch_2014 238718 0.0
+TotCatch_2015 232829 0.0
+TotCatch_2016 247620 0.0
+TotCatch_2017 237851 0.0
+TotCatch_2018 199867 0.0
+TotCatch_2019 178904 0.0
+TotCatch_2020 155665 0.0
+TotCatch_2021 121749 0.0
+TotCatch_2022 152146 0.0
+TotCatch_2023 99244 0.0
+TotCatch_2024 124937 0.0
+TotCatch_2025 149158 0.0
+TotCatch_2026 164905 0.0
+TotCatch_2027 172195 0.0
+TotCatch_2028 174447 0.0
+TotCatch_2029 174618 0.0
+TotCatch_2030 174252 0.0
+TotCatch_2031 173915 0.0
+TotCatch_2032 173721 0.0
+TotCatch_2033 173637 0.0
+TotCatch_2034 173611 0.0
+TotCatch_2035 173609 0.0
+TotCatch_2036 173613 0.0
+TotCatch_2037 173617 0.0

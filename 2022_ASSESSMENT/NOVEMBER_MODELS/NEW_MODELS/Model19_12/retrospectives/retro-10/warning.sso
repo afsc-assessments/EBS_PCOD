@@ -1,5 +1,5 @@
 Warning 1 Adjustment:  recdev_end: 2020 > retro_yr: 2012 reset 
 Warning 2 : Early recdev biasadj is >2 times ratio of rmse to sigmaR
-Warning 3 : Final gradient: 0.905497 is larger than final_conv: 0.0001
+Warning 3 : Final gradient: 0.463862 is larger than final_conv: 0.0001
 Warning 4 : Time-vary parms not bound checked
  4 warnings 

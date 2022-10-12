@@ -1,0 +1,3 @@
+Warning 1 : Final gradient: 7.39041 is larger than final_conv: 0.0001
+Warning 2 : Time-vary parms not bound checked
+ 2 warnings 

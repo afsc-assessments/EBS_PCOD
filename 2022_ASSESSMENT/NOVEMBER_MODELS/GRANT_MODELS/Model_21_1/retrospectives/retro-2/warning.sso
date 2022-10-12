@@ -1,0 +1,5 @@
+Warning 1 : Block:2 2 ends in: 2022 after retroyr+1:  2021
+Warning 2 : Maximum pop size bin:_119.5; is within 5% of L at maxage for sex: 1; Gpat: 1 settle: 1; L= 122.21
+Warning 3 : Final gradient: 1.21855 is larger than final_conv: 0.0001
+Warning 4 : Time-vary parms not bound checked
+ 4 warnings 
