@@ -1,5 +1,6 @@
 # Model results for 2022 Eastern Bering Sea Pacific cod stock assessments
 r4ss plots (updated 12 October 2022 to reflect the final models):
+* [Model 19.12](FIGURES/R4SS_FIGURES/MODEL19.12/plots)
 * [North](North) 
 * [South](South)
 * [Model 19.12](FIGURES/R4SS_FIGURES/MODEL19.12/plots) 
