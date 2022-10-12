@@ -16,7 +16,7 @@ GET_BS_BIOM <- function(srv_sp_str="21720")
                  "AND afsc.race_biomass_ebsshelf_plusnw.SPECIES_CODE in (",srv_sp_str,") \n ",
                 "ORDER BY afsc.race_biomass_ebsshelf_plusnw.YEAR",sep="")
 
-    biom <- sqlQuery(akfin,test)
+    biom <- sql_run(akfin,test)
 
     # this calculation assumes that YEAR is the first column for biom
     sum.biom <- aggregate(biom[,-1],by=list(YEAR=biom$YEAR),FUN=sum)
