@@ -431,11 +431,11 @@ for(i in 1:2){
 
  hccomps.sma = ss3diags::SSretroComps(retroModels)
  #make comparison plot
- pdf(paste0(nam2,"_retrospective_comparison_plots.pdf"),width=10,height=6)
+ pdf(paste0(nam1[i],"_",nam2[j],"_retrospective_comparison_plots.pdf"),width=10,height=6)
  print(SSplotComparisons(retroSummary, endyrvec = endyrvec, new = FALSE))
  dev.off()
  
- pdf(paste0(nam2,"_plots.pdf"),width=10,height=6)
+ pdf(paste0(nam1[i],"_",nam2[j],"_plots.pdf"),width=10,height=6)
  par(mfrow=c(1,1))
  print(SSplotRetroRecruits(retroSummary, endyrvec = endyrvec, cohorts = 2012:2022, relative = TRUE, legend = FALSE))
  #second without scaling
@@ -459,7 +459,7 @@ for(i in 1:2){
  print(SSplotRetro(retroSummary,subplot="F",add=T,legendcex=0.8,tickEndYr=F,xylabs=F,legendloc = "bottomleft",xmin=2012,uncertainty = T,legend = F,forecast = T,legendsp = 0.9))
  dev.off()
 
- pdf(paste0(nam2,"_moreplots.pdf"),width=6,height=10)
+ pdf(paste0(nam1[i],"_",nam2[j],"_moreplots.pdf"),width=6,height=10)
  
 
  sspar(mfrow=c(4,1))
