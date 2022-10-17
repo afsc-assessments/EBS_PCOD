@@ -1,8 +1,8 @@
 
 ## Recr, F, SSB, Bratio
-TEST<-function(models=models,endyr=2019,lab='Recr'){
+TEST<-function(models=models,endyr=2022,lab='Recr'){
 
-	ssb<-data.frame(YEAR=c(1977:2031),value=data.table(models[[1]]$derived_quants)[Label%like%paste0(lab,"_19")|Label%like%paste0(lab,"_20")]$Value,sd=data.table(models[[1]]$derived_quants)[Label%like%paste0(lab,"_19")|Label%like%paste0(lab,"_20")]$StdDev)
+	ssb<-data.frame(YEAR=c(1977:2037),value=data.table(models[[1]]$derived_quants)[Label%like%paste0(lab,"_19")|Label%like%paste0(lab,"_20")]$Value,sd=data.table(models[[1]]$derived_quants)[Label%like%paste0(lab,"_19")|Label%like%paste0(lab,"_20")]$StdDev)
 	ssb<-subset(ssb,YEAR%in%1977:endyr)
 	N_SSB<-nrow(ssb)
 	sab<-matrix(ncol=13,nrow=N_SSB)
@@ -12,7 +12,7 @@ TEST<-function(models=models,endyr=2019,lab='Recr'){
 	j<-c(11:2)
 	for(i in 1:10){
  		x<-data.table(models[[i+1]]$derived_quants)[Label%like%paste0(lab,"_19")|Label%like%paste0(lab,"_20")]
- 		x$YEAR<-1977:2031
+ 		x$YEAR<-1977:2037
  		x<-x[YEAR%in%c(1977:(endyr-i))]
    		sab[1:(N_SSB-i),j[i]]<- x$Value
 
@@ -25,7 +25,7 @@ TEST<-function(models=models,endyr=2019,lab='Recr'){
 
 
 ## Recr, F, SSB, Bratio
-wt<-function(Models=Models1,e1=2021,lab1='SSB', weights=WT){
+wt<-function(Models=Models1,e1=2022,lab1='SSB', weights=WT){
 	require(data.table)
 	require(ggplot2)
 	rt<-vector("list",length=length(Models))
@@ -57,25 +57,32 @@ wt<-function(Models=Models1,e1=2021,lab1='SSB', weights=WT){
 
 
 
-## WT=c(0.2459,0.2213,0.1803,0.1311,0.2213)
+## WT=c(0.2842,0.3158,0.2316,0.1684)
 ## calculating ensemble values for values in the derived quants file.
 
-ensemble<-function(models=Models1,lab="ForeCatch_2021",weights=WT){
-
+ensemble<-function(models=mods1,lab="ForeCatch_2023",weights=WT){
+   nmods<-nrow(summary(models))
 	MSY=array()
-	for(j in 1:5){
-		models1<-models[[j]]
-		MSY[j]<-data.table(models1[[1]]$derived_quants)[Label==lab]$Value*weights[j]
+	for(j in 1:nmods){
+		MSY[j]<-data.table(models[[j]]$derived_quants)[Label==lab]$Value*weights[j]
 	}
        MSY<-sum(MSY)/sum(weights)
        MSY
    }
 
-
+#ensemble_SD<-function(models=mods1,lab="ForeCatch_2023",weights=WT){
+#   nmods<-nrow(summary(models))
+#	MSY=array()
+#	for(j in 1:nmods){
+#		MSY[j]<-(data.table(models[[j]]$derived_quants)[Label==lab]$StdDev^2)*weights[j]
+#	}
+#      MSY<-sum(MSY)/sum(weights)
+#      MSY
+#   }
         
 
 
-get_models<-function(dir="C:/WORKING_FOLDER/EBS_COD_CIE2021/2020_Models", retros=c('retrospectives19_12a','retrospectives19_12','retrospectives20_8a','retrospectives20_9VAST_NVQ','retrospectives21_CIE')){
+get_models<-function(dir="C:/WORKING_FOLDER/EBS_COD/2022_ASSESSMENT/NOVEMBER_MODELS/GRANT_MODELS", retros=c('MODEL19_12/retrospectives','MODEL19_12A/retrospectives','MODEL_21_1/retrospectives','MODEL_21_2/retrospectives')){
 	require(data.table)
 	require(ggplot2)
 		
@@ -96,8 +103,7 @@ get_models<-function(dir="C:/WORKING_FOLDER/EBS_COD_CIE2021/2020_Models", retros
 
 
 
-
-Plot_ensembleRetro<-function(SAB=RW,lab="Recruit Age-0",CI=FALSE){
+Plot_ensembleRetro<-function(SAB=RW,lab="SSB",CI=FALSE){
 
 	names(SAB)[1]<-'YEAR'
 	x<-SAB[,2:13]
@@ -118,11 +124,11 @@ Plot_ensembleRetro<-function(SAB=RW,lab="Recruit Age-0",CI=FALSE){
 			points(SAB$YEAR,UCI,type="l",lty=3,col="red",lwd=2)
 		}
 
-		text(2004,x,"2020",pos=4,col="black")
+		text(2004,x,"2022",pos=4,col="black")
 		for(i in 1:10) {
 			lines(SAB$YEAR,SAB[,(l1-i)],lwd=1.75,col=colors[i])
 		}
-		k=seq(2019,2010,-1)
+		k=seq(2021,2012,-1)
 		for(j in 1:10){
 			text(2004,(x-j*(x/20)),paste(k[j]),pos=4,col=colors[j])
 		}
@@ -148,3 +154,115 @@ Plot_ensembleRetro<-function(SAB=RW,lab="Recruit Age-0",CI=FALSE){
 			mtext("Year",side=1,line=4.6,cex=1.)
 		}
 
+
+
+
+
+library(stringr)
+setwd("C:/WORKING_FOLDER/EBS_PCOD/2022_ASSESSMENT/NOVEMBER_MODELS")
+mods<-c("GRANT_MODELS/Model19_12","GRANT_MODELS/Model19_12A","GRANT_MODELS/Model_21_1","GRANT_MODELS/Model_21_2")
+mods1<-SSgetoutput(dirvec=mods)
+
+
+	labels<-mods1[[1]]$derived_quants$Label
+    EDQ<-matrix(ncol=3,nrow=length(labels))
+    EDQ[,1]<-labels
+  	
+  	   for(j in 1:length(labels)){
+		  EDQ[j,2]<- as.numeric(ensemble(mods1,lab=labels[j]))
+		}
+
+mods<-c("NEW_MODELS/Model19_12","NEW_MODELS/Model19_12A","NEW_MODELS/Model_21_1","NEW_MODELS/Model_21_2")
+mods1<-SSgetoutput(dirvec=mods)
+
+for(j in 1:length(labels)){
+		  EDQ[j,3]<- as.numeric(ensemble(mods1,lab=labels[j]))
+		}
+
+
+    nam=c("Thompson","New")
+
+    EDQ_Thompson<-data.table(EDQ)
+	names(EDQ_Thompson)<-c("Label",nam)
+	EDQ<-melt(EDQ_Thompson,"Label")
+     EDQ$value=as.numeric(EDQ$value)
+	 EDQ$YEAR=as.numeric(stringr::str_sub(EDQ$Label,start=-4))
+	 EDQ$ITEM=do.call(rbind,str_split(EDQ$Label,"_"))[,1]
+
+
+
+    items<-unique(EDQ[!is.na(YEAR)]$ITEM)
+    pdf("ensembles.pdf",width=10,height=6)
+    for(i in 1:length(items)){
+	d=ggplot(EDQ[ITEM==items[i]& !is.na(YEAR)],aes(x=YEAR,y=value,color=variable))+geom_line()+geom_point()+theme_bw(base_size=16)+labs(y=items[i],x='Year',title=items[i])
+    print(d)
+    }
+    dev.off()
+
+    SSB<-EDQ[ITEM=='SSB'&!is.na(YEAR)]
+    SSB$PERC=0
+    SSB_UN<-EDQ[Label=='SSB_unfished']
+    SSB[variable=='New']$PERC<-SSB[variable=='New']$value/SSB_UN[variable=='New']$value
+    SSB[variable=='Thompson']$PERC<-SSB[variable=='Thompson']$value/SSB_UN[variable=='Thompson']$value
+
+    d=ggplot(SSB[YEAR<2025,aes(x=YEAR,y=PERC,color=variable))+geom_line()+geom_point()+theme_bw(base_size=16)+labs(y="SSB%",x='Year',title="SSB%")
+    print(d)
+ 
+
+
+
+
+profiles_19.12<-Do_AK_Scenarios(DIR="C:/WORKING_FOLDER/EBS_PCOD/2022_ASSESSMENT/NOVEMBER_MODELS/GRANT_MODELS/Model19_12/PROJ",CYR=2022,SYR=1977,SEXES=1,FLEETS=c(1),Scenario2=1,S2_F=0.4,do_fig=TRUE)
+profiles_19.12A<-Do_AK_Scenarios(DIR="C:/WORKING_FOLDER/EBS_PCOD/2022_ASSESSMENT/NOVEMBER_MODELS/GRANT_MODELS/Model19_12A/PROJ",CYR=2022,SYR=1977,SEXES=1,FLEETS=c(1),Scenario2=1,S2_F=0.4,do_fig=TRUE)
+profiles_21.1<-Do_AK_Scenarios(DIR="C:/WORKING_FOLDER/EBS_PCOD/2022_ASSESSMENT/NOVEMBER_MODELS/GRANT_MODELS/Model_21_1/PROJ",CYR=2022,SYR=1977,SEXES=1,FLEETS=c(1),Scenario2=1,S2_F=0.4,do_fig=TRUE)
+profiles_21.2<-Do_AK_Scenarios(DIR="C:/WORKING_FOLDER/EBS_PCOD/2022_ASSESSMENT/NOVEMBER_MODELS/GRANT_MODELS/Model_21_2/PROJ",CYR=2022,SYR=1977,SEXES=1,FLEETS=c(1),Scenario2=1,S2_F=0.4,do_fig=TRUE)
+
+
+
+profiles_NEW_19.12<-Do_AK_Scenarios(DIR="C:/WORKING_FOLDER/EBS_PCOD/2022_ASSESSMENT/NOVEMBER_MODELS/NEW_MODELS/Model19_12/PROJ",CYR=2022,SYR=1977,SEXES=1,FLEETS=c(1),Scenario2=1,S2_F=0.4,do_fig=TRUE)
+profiles_NEW_19.12A<-Do_AK_Scenarios(DIR="C:/WORKING_FOLDER/EBS_PCOD/2022_ASSESSMENT/NOVEMBER_MODELS/NEW_MODELS/Model19_12A/PROJ",CYR=2022,SYR=1977,SEXES=1,FLEETS=c(1),Scenario2=1,S2_F=0.4,do_fig=TRUE)
+profiles_NEW_21.1<-Do_AK_Scenarios(DIR="C:/WORKING_FOLDER/EBS_PCOD/2022_ASSESSMENT/NOVEMBER_MODELS/NEW_MODELS/Model_21_1/PROJ",CYR=2022,SYR=1977,SEXES=1,FLEETS=c(1),Scenario2=1,S2_F=0.4,do_fig=TRUE)
+profiles_NEW_21.2<-Do_AK_Scenarios(DIR="C:/WORKING_FOLDER/EBS_PCOD/2022_ASSESSMENT/NOVEMBER_MODELS/NEW_MODELS/Model_21_2/PROJ",CYR=2022,SYR=1977,SEXES=1,FLEETS=c(1),Scenario2=1,S2_F=0.4,do_fig=TRUE)
+
+
+
+
+
+
+WT=c(0.2842,0.3158,0.2316,0.1684)
+
+SSB<-profiles_NEW_19.12$Tables$SSB[,2:8]*WT[1]+profiles_NEW_19.12A$Tables$SSB[,2:8]*WT[2]+profiles_NEW_21.1$Tables$SSB[,2:8]*WT[3]+profiles_NEW_21.2$Tables$SSB[,2:8]*WT[4]
+Catch<-profiles_NEW_19.12$Tables$Catch[,2:8]*WT[1]+profiles_NEW_19.12A$Tables$Catch[,2:8]*WT[2]+profiles_NEW_21.1$Tables$Catch[,2:8]*WT[3]+profiles_NEW_21.2$Tables$Catch[,2:8]*WT[4]
+F<-profiles_NEW_19.12$Tables$F[,2:8]*WT[1]+profiles_NEW_19.12A$Tables$F[,2:8]*WT[2]+profiles_NEW_21.1$Tables$F[,2:8]*WT[3]+profiles_NEW_21.2$Tables$F[,2:8]*WT[4]
+
+SSB<-data.table(Yr=profiles_NEW_19.12$Tables$SSB$Yr,SSB)
+F<-data.table(Yr=profiles_NEW_19.12$Tables$SSB$Yr,F)
+Catch<-data.table(Yr=profiles_NEW_19.12$Tables$SSB$Yr,Catch)
+
+
+Two_year<-profiles_NEW_19.12$Two_year[,2:10]*WT[1]+profiles_NEW_19.12A$Two_year[,2:10]*WT[2]+profiles_NEW_21.1$Two_year[,2:10]*WT[3]+profiles_NEW_21.2$Two_year[,2:10]*WT[4]
+Two_year<-data.table(Yr=profiles_NEW_19.12$Two_year$Yr,Two_year)
+
+profiles_Ensemble_NEW<-list(SSB=SSB,Catch=Catch,F=F,Two_year=Two_year)
+
+
+
+
+SSB<-profiles_19.12$Tables$SSB[,2:8]*WT[1]+profiles_19.12A$Tables$SSB[,2:8]*WT[2]+profiles_21.1$Tables$SSB[,2:8]*WT[3]+profiles_21.2$Tables$SSB[,2:8]*WT[4]
+Catch<-profiles_19.12$Tables$Catch[,2:8]*WT[1]+profiles_19.12A$Tables$Catch[,2:8]*WT[2]+profiles_21.1$Tables$Catch[,2:8]*WT[3]+profiles_21.2$Tables$Catch[,2:8]*WT[4]
+F<-profiles_19.12$Tables$F[,2:8]*WT[1]+profiles_19.12A$Tables$F[,2:8]*WT[2]+profiles_21.1$Tables$F[,2:8]*WT[3]+profiles_21.2$Tables$F[,2:8]*WT[4]
+
+SSB<-data.table(Yr=profiles_19.12$Tables$SSB$Yr,SSB)
+F<-data.table(Yr=profiles_19.12$Tables$SSB$Yr,F)
+Catch<-data.table(Yr=profiles_19.12$Tables$SSB$Yr,Catch)
+
+
+Two_year<-profiles_19.12$Two_year[,2:10]*WT[1]+profiles_19.12A$Two_year[,2:10]*WT[2]+profiles_21.1$Two_year[,2:10]*WT[3]+profiles_21.2$Two_year[,2:10]*WT[4]
+Two_year<-data.table(Yr=profiles_19.12$Two_year$Yr,Two_year)
+
+profiles_Ensemble_GRANT<-list(SSB=SSB,Catch=Catch,F=F,Two_year=Two_year)
+
+
+
+
+## ss -hess_step -binp ss.bar

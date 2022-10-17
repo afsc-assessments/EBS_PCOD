@@ -46,7 +46,7 @@ ensemble_param<-function(models=mods1,lab=" ",weights=WT){
        MSY
    }
 
-graph_ensemble_params<- function(models=mods1,label=" ",WT=c(0.2842,0.3158,0.2316,0.1684),PLOT=F){
+graph_ensemble_params<- function(models=mods1,label=" ",WT=c(0.2842,0.3158,0.2316,0.1684),PLOT=T){
 	dis<-vector("list",length=5)
 	for ( i in 1:4){
 		dis1=rnorm(100000*WT[i],data.table(models[[i]]$parameters)[Label==label]$Value,data.table(models[[i]]$parameters)[Label==label]$Parm_StDev)
@@ -76,7 +76,7 @@ graph_ensemble_params<- function(models=mods1,label=" ",WT=c(0.2842,0.3158,0.231
 VIOLIN_PLOT_ENSEMBLE<-function(models=mods1,label="SSB",FY=2022,WT=WT){
 
 	LABEL=data.table(models[[1]]$derived_quants)[Label%like%label]$Label
-	YEAR=as.numeric(str_sub(LABEL,start=-4))
+	YEAR=as.numeric(stringr::str_sub(LABEL,start=-4))
     LABEL<-data.table(YEAR=YEAR,LABEL=LABEL)
     LABEL<-LABEL[!is.na(YEAR)]
 

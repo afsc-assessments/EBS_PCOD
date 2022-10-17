@@ -1,5 +1,5 @@
 old_biom<-function(data1){
-  titl=expression("Female spawning biomass (t " %*%"10"^3 ~")" )
+  titl="Female spawning biomass (t)"
   nyr<-ncol(data1)-1
   
   data2<-melt(data1,"YEAR")

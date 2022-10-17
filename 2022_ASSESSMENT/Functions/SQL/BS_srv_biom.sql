@@ -1,12 +1,12 @@
-SELECT afsc.race_biomass_ebsshelf_plusnw.YEAR as YEAR,
-                afsc.race_biomass_ebsshelf_plusnw.BIOMASS as BIOM,
-                afsc.race_biomass_ebsshelf_plusnw.POPULATION as POP,
-                afsc.race_biomass_ebsshelf_plusnw.VARBIO as BIOMVAR,
-                afsc.race_biomass_ebsshelf_plusnw.VARPOP as POPVAR,
-                afsc.race_biomass_ebsshelf_plusnw.HAULCOUNT as NUMHAULS,
-                afsc.race_biomass_ebsshelf_plusnw.CATCOUNT as NUMCAUGHT
-FROM afsc.race_biomass_ebsshelf_plusnw
-WHERE afsc.race_biomass_ebsshelf_plusnw.stratum = 999 
-                AND afsc.race_biomass_ebsshelf_plusnw.SPECIES_CODE 
+SELECT haehnr.biomass_EBS_PLUSNW.YEAR as YEAR,
+                haehnr.biomass_EBS_PLUSNW.BIOMASS as BIOM,
+                haehnr.biomass_EBS_PLUSNW.POPULATION as POP,
+                haehnr.biomass_EBS_PLUSNW.VARBIO as BIOMVAR,
+                haehnr.biomass_EBS_PLUSNW.VARPOP as POPVAR,
+                haehnr.biomass_EBS_PLUSNW.HAULCOUNT as NUMHAULS,
+                haehnr.biomass_EBS_PLUSNW.CATCOUNT as NUMCAUGHT
+FROM haehnr.biomass_EBS_PLUSNW
+WHERE haehnr.biomass_EBS_PLUSNW.stratum = 999 
+                AND haehnr.biomass_EBS_PLUSNW.SPECIES_CODE 
                 -- insert species
-ORDER BY afsc.race_biomass_ebsshelf_plusnw.YEAR
+ORDER BY haehnr.biomass_EBS_PLUSNW.YEAR

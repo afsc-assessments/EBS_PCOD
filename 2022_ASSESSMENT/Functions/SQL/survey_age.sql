@@ -1,35 +1,31 @@
-SELECT RACEBASE.SPECIMEN.REGION,
-                RACE_DATA.V_CRUISES.YEAR AS YEAR,
-                RACEBASE.SPECIMEN.CRUISE,
-                RACEBASE.HAUL.VESSEL,
-                RACEBASE.SPECIMEN.HAULJOIN,
-                RACEBASE.SPECIMEN.HAUL,
-                RACEBASE.SPECIMEN.SPECIES_CODE,
-                RACEBASE.SPECIMEN.LENGTH,
-                RACEBASE.SPECIMEN.SEX,
-                RACEBASE.SPECIMEN.WEIGHT,
-                RACEBASE.SPECIMEN.MATURITY,
-                RACEBASE.SPECIMEN.AGE,
-                RACEBASE.HAUL.END_LONGITUDE,
-                RACEBASE.HAUL.HAUL_TYPE,
-                RACEBASE.HAUL.GEAR,
-                RACEBASE.HAUL.PERFORMANCE,
-                RACEBASE.SPECIMEN.SPECIMEN_SAMPLE_TYPE,
-                RACEBASE.SPECIMEN.SPECIMENID,
-                RACEBASE.SPECIMEN.BIOSTRATUM
-FROM RACE_DATA.V_CRUISES 
-                INNER JOIN RACEBASE.HAUL 
-                ON RACEBASE.HAUL.CRUISEJOIN = RACE_DATA.V_CRUISES.CRUISEJOIN 
-                INNER JOIN RACEBASE.SPECIMEN 
-                ON RACEBASE.SPECIMEN.CRUISEJOIN = RACEBASE.HAUL.CRUISEJOIN 
-                AND RACEBASE.SPECIMEN.HAULJOIN  = RACEBASE.HAUL.HAULJOIN 
-WHERE RACE_DATA.V_CRUISES.SURVEY_DEFINITION_ID 
-                -- insert survey 
-                AND RACEBASE.SPECIMEN.SPECIES_CODE 
-                -- insert species
-                AND RACEBASE.HAUL.HAUL_TYPE = 3 
-                AND RACEBASE.HAUL.PERFORMANCE >= 0  
-                AND RACEBASE.HAUL.STATIONID IS NOT NULL 
-                AND RACE_DATA.V_CRUISES.YEAR 
-                -- insert year
-ORDER BY RACE_DATA.V_CRUISES.YEAR
+SELECT
+    racebase.specimen.region,
+    to_char(racebase.haul.start_time, 'yyyy') AS year,
+    racebase.specimen.cruise,
+    racebase.haul.vessel,
+    racebase.specimen.hauljoin,
+    racebase.specimen.haul,
+    racebase.specimen.species_code,
+    racebase.specimen.length,
+    racebase.specimen.sex,
+    racebase.specimen.weight,
+    racebase.specimen.maturity,
+    racebase.specimen.age,
+    racebase.haul.gear,
+    racebase.specimen.specimen_sample_type,
+    racebase.specimen.specimenid,
+    racebase.specimen.biostratum
+FROM
+    racebase.specimen
+    INNER JOIN racebase.haul ON racebase.specimen.cruisejoin = racebase.haul.cruisejoin
+                                AND racebase.specimen.hauljoin = racebase.haul.hauljoin
+WHERE
+    to_char(racebase.haul.start_time, 'yyyy')
+    -- insert year
+    AND racebase.specimen.species_code 
+    -- insert species
+    AND racebase.haul.region
+    -- insert survey
+    AND racebase.haul.abundance_haul = 'Y'
+ORDER BY
+    to_char(racebase.haul.start_time, 'yyyy')
