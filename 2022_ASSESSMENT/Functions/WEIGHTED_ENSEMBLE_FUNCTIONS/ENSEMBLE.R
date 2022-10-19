@@ -226,9 +226,6 @@ profiles_NEW_21.2<-Do_AK_Scenarios(DIR="C:/WORKING_FOLDER/EBS_PCOD/2022_ASSESSME
 
 
 
-
-
-
 WT=c(0.2842,0.3158,0.2316,0.1684)
 
 SSB<-profiles_NEW_19.12$Tables$SSB[,2:8]*WT[1]+profiles_NEW_19.12A$Tables$SSB[,2:8]*WT[2]+profiles_NEW_21.1$Tables$SSB[,2:8]*WT[3]+profiles_NEW_21.2$Tables$SSB[,2:8]*WT[4]

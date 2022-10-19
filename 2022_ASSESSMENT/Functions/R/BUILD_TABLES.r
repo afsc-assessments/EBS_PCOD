@@ -108,6 +108,20 @@ CATCH=sql_run(akfin, catch) %>%
 
  
 
+
+OLD_CATCH<-data.table(read.csv("C:/WORKING_FOLDER/EBS_PCOD/2022_ASSESSMENT/NOVEMBER_MODELS/TABLES/OLD_CATCH_GEAR.csv"))
+CATCH_T<-data.table(data.table(CATCH)[,list(TONS=sum(round(TONS,0))),by=c('YEAR','GEAR1')])
+CATCHT2<-data.table(data.table(CATCH)[,list(TONS=sum(round(TONS,0)),GEAR1='TOTAL'),by=c('YEAR')])
+CATCH1<-rbind(OLD_CATCH,CATCH_T,CATCHT2)
+ okabe <- c("black","#E69F00", "#56B4E9", "#009E73", "#F0E442")
+CATCH1$GEAR1<-factor(CATCH1$GEAR1,levels=c("TOTAL","TRAWL","LONGLINE","POT",'OTHER')) 
+CATCHP<-ggplot(CATCH1,aes(x=YEAR,y=TONS,color=GEAR1,group=GEAR1))+geom_line(size=1)+theme_bw(base_size=16)+labs(x='Year',y='Total catch (t)',color='Gear type')+
+scale_color_manual(values=okabe)+theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+print(CATCHP)
+
+
+
+
 GRID<-expand.grid(YEAR=unique(CATCH_TOTAL$YEAR),RETAINED=c('D','R'),GEAR=unique(CATCH_TOTAL$GEAR))
 CATCH_TOTAL<-merge(CATCH_TOTAL,GRID,all.y=T,by=c('YEAR','RETAINED','GEAR'))
 CATCH_TOTAL[is.na(TOTAL_TONS)]$TOTAL_TONS<-0
@@ -687,7 +701,16 @@ FL_LIKE_PLOT$SERIES<-"THOMPSON"
 FL_LIKE_PLOT[MODEL%in%models[5:8]]$SERIES<-"NEW"
 
 FL_LIKE_PLOT[SERIES=='NEW']$MODEL<-FL_LIKE_PLOT[SERIES=='THOMPSON']$MODEL
-FL_LIKE_PLOT2<-ggplot(FL_LIKE_PLOT,aes(x=MODEL,y=as.numeric(ALL),group=SERIES,color=SERIES,linetype=SERIES))+geom_line(size=1.25)+geom_point(shape=18,size=4)+facet_wrap(~Label,scale='free_y')+theme_bw(base_size=16)+theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+
+MODELNAM<-data.table(MODEL=unique(FL_LIKE_PLOT$MODEL),MODEL2=c('Model 19.12 (22.1)','Model 19.12A (22.2)','Model 21.1 (22.3)','Model 21.2 (22.4)'))
+FL_LIKE_PLOTx<-merge(FL_LIKE_PLOT,MODELNAM,by='MODEL')
+
+
+FL_LIKE_PLOT2<-ggplot(FL_LIKE_PLOTx,aes(x=MODEL2,y=as.numeric(ALL),group=SERIES,color=SERIES,linetype=SERIES))+
+geom_line(size=1.25)+geom_point(shape=18,size=4)+facet_wrap(~Label,scale='free_y')+
+theme_bw(base_size=16)+theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+labs(x="Models",y='-log likelihood',color='Series',linetype='Series')
  print(FL_LIKE_PLOT2)
 
 dataT=read_xlsx("ENSEMBLE_RESULTS.xlsx","THOMPSON_RETROSPECTIVES")
@@ -740,7 +763,10 @@ save_as_docx(ft11,path=paste0(working_dir,"/NOVEMBER_MODELS/TABLES/RHO_TABLE.doc
 x<-RHO3[SERIES=='Thompson']$MODEL
 RHO3[SERIES=='New']$MODEL<-x
 
-RHO_PLOT<-ggplot(data.table(RHO3),aes(x=MODEL,y=RHO,color=SERIES,group=SERIES,linetype=SERIES))+geom_point(size=4)+geom_line(size=1.25)+theme_bw(base_size=16)+labs(x="Model",y="Mohn's Rho",color="Series",linetype="Series")+facet_wrap(~QUANT,scale="free_y")+theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+MODELNAM<-data.table(MODEL=unique(RHO3$MODEL),MODEL2=c('Ensemble','Model 19.12 (22.1)','Model 19.12A (22.2)','Model 21.1 (22.3)','Model 21.2 (22.4)'))
+RHO3<-merge(data.table(RHO3),MODELNAM,by='MODEL')
+
+RHO_PLOT<-ggplot(data.table(RHO3),aes(x=MODEL2,y=RHO,color=SERIES,group=SERIES,linetype=SERIES))+geom_point(size=4)+geom_line(size=1.25)+theme_bw(base_size=16)+labs(x="Model",y="Mohn's Rho",color="Series",linetype="Series")+facet_wrap(~QUANT,scale="free_y")+theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 print(RHO_PLOT)
 
 
@@ -1089,13 +1115,9 @@ abc_2023<-PROFILE_2022$C_ABC[2]
 ofl_2023<-PROFILE_2022$C_OFL[2]
 
 
-
-
-
-
 TSSB_UNFISHED<-PROFILE_2022T$SB100[1]
-TSSB_40<-SSB_UNFISHED*0.4
-TSSB_35<-SSB_UNFISHED*0.35
+TSSB_40<-TSSB_UNFISHED*0.4
+TSSB_35<-TSSB_UNFISHED*0.35
 TF40<-TER[LABEL=='annF_MSY']$ENSEMBLE_MEAN
 TF35<-TER[LABEL=='annF_Btgt']$ENSEMBLE_MEAN
 TSSB_2022<-PROFILE_2022T$SSB[1]
@@ -1161,7 +1183,20 @@ round(abc_2023),
 round(Fofl_max_2023,3),
 round(ofl_2023)))
 
+
+format_normal <- function(x) {
+  formatC(x, format = "d", digits = 1,big.mark = ",")
+}
+
+sumtab$Thompson_Ensemble[c(1:3,6,10,11,13,14,18,19,21)]<-format_normal(sumtab$Thompson_Ensemble[c(1:3,6,10,11,13,14,18,19,21)])
+sumtab$NEW_Ensemble[c(1:3,6,10,11,13,14,18,19,21)]<-format_normal(sumtab$NEW_Ensemble[c(1:3,6,10,11,13,14,18,19,21)])
+
 ft20 <- flextable(data.frame(sumtab))
+ft20<-set_header_labels(ft20, Thompson_Ensemble="Ensemble",NEW_Ensemble="Ensemble")
+ft20 <- add_header_row(ft20,
+   values = c(" ","Thompson","New"),
+   colwidths=c(2,1,1) 
+ )
 ft20<- theme_vanilla(ft20)
 ft20 <- align(ft20, align = "center", part = "header")
 ft20 <- align(ft20, align = "right", part = "body")
@@ -1174,6 +1209,7 @@ ft20<-hline_top(ft20, part="all", border = big_border )
 ft20 <- hline_bottom(ft20, part="body", border = big_border )
 ft20<-set_table_properties(ft20, layout = "autofit")
 
+save_as_docx(ft20,path=paste0(working_dir,"/NOVEMBER_MODELS/TABLES/SUMMARY_TABLE.docx"))
 
 
 ## Load profiles .Rdata files C:\WORKING_FOLDER\2022 Stock Assessments\EBS Pcod\NOVEMBER_PROJECTION_FILES_2022
@@ -1251,6 +1287,280 @@ save_as_docx(ftS,path=paste0(working_dir,"/NOVEMBER_MODELS/TABLES/THOMPSON_PROF_
 save_as_docx(ftF,path=paste0(working_dir,"/NOVEMBER_MODELS/TABLES/THOMPSON_PROF_F.docx"))
 save_as_docx(ftC,path=paste0(working_dir,"/NOVEMBER_MODELS/TABLES/THOMPSON_PROF_CATCH.docx"))
 
+## total biomass table...
+
+setwd("C:/WORKING_FOLDER/EBS_PCOD/2022_ASSESSMENT/NOVEMBER_MODELS/NEW_MODELS")
+mods<-c("Model19_12","Model19_12A","Model_21_1","Model_21_2")
+mods_nam=c("Model 22.1","Model 22.2","Model 22.3", "Model 22.4")
+modsN<-SSgetoutput(dirvec=mods)
+
+setwd("C:/WORKING_FOLDER/EBS_PCOD/2022_ASSESSMENT/NOVEMBER_MODELS/GRANT_MODELS")
+mods<-c("Model19_12","Model19_12A","Model_21_1","Model_21_2")
+mods_nam=c("Model 19.12","Model 19.12A","Model 21.1", "Model 21.2")
+modsT<-SSgetoutput(dirvec=mods)
+
+ TOT_BIOM<-data.table(YEAR=mods1[[1]]$timeseries$Yr,THOMPSON=modsT[[1]]$timeseries$Bio_all*WT[1]+modsT[[2]]$timeseries$Bio_all*WT[2]+modsT[[3]]$timeseries$Bio_all*WT[3]+modsT[[4]]$timeseries$Bio_all*WT[4],
+ 	NEW=modsN[[1]]$timeseries$Bio_all*WT[1]+modsN[[2]]$timeseries$Bio_all*WT[2]+modsN[[3]]$timeseries$Bio_all*WT[3]+modsN[[4]]$timeseries$Bio_all*WT[4])
+
+
+
+
+
+## RUNS results table
+
+
+nam2.1<-c("M19.12","M19.12A","M21.1","M21.2")
+nam2.2<-c("M22.1","M22.2","M22.3","M22.4")
+
+runsBTT<-vector('list',length=4)
+runsBTN<-vector('list',length=4)
+for(i in 1:4){
+  runsBTT[[i]]<-SSplotRunstest(modsT[[i]])
+  runsBTT[[i]]$Model=nam2.1[i]
+  runsBTN[[i]]<-SSplotRunstest(modsT[[i]])
+  runsBTN[[i]]$Model=nam2.2[i]
+}
+
+
+runsBT<-rbind(do.call(rbind,runsBTT),do.call(rbind,runsBTN))
+
+runsBTT<-vector('list',length=4)
+runsBTN<-vector('list',length=4)
+runsAGET<-vector('list',length=4)
+runsAGEN<-vector('list',length=4)
+runsLENT<-vector('list',length=4)
+runsLENN<-vector('list',length=4)
+for(i in 1:4){
+  runsBTT[[i]]<-SSplotRunstest(modsT[[i]])
+  runsBTT[[i]]$Model=nam2.1[i]
+  runsBTN[[i]]<-SSplotRunstest(modsT[[i]])
+  runsBTN[[i]]$Model=nam2.2[i]
+  runsLENT[[i]]<-SSplotRunstest(modsT[[i]],subplots='len')
+  runsLENT[[i]]$Model=nam2.1[i]
+  runsLENN[[i]]<-SSplotRunstest(modsN[[i]],subplots='len')
+  runsLENN[[i]]$Model=nam2.2[i]
+  runsAGET[[i]]<-SSplotRunstest(modsT[[i]],subplots='age')
+  runsAGET[[i]]$Model=nam2.1[i]
+  runsAGEN[[i]]<-SSplotRunstest(modsN[[i]],subplots='age')
+  runsAGEN[[i]]$Model=nam2.2[i]
+
+}
+
+runsBT<-rbind(do.call(rbind,runsBTT),do.call(rbind,runsBTN),do.call(rbind,runsLENT),do.call(rbind,runsLENN),do.call(rbind,runsAGET),do.call(rbind,runsAGEN))
+runsBT[,c(4,5)]<-round(runsBT[,c(4,5)],3)
+
+ft21 <- flextable(data.frame(runsBT))
+ft21<- theme_vanilla(ft21)
+ft21 <- align(ft21, align = "center", part = "header")
+ft21 <- align(ft21, align = "right", part = "body")
+ft21 <- fontsize(ft21,part="body", size = 10)
+ft21 <- fontsize(ft21,part="header", size = 10)
+ft21 <- border_remove(x = ft21)
+#ftS<-bg(ft19, bg = colourer, j = ~ . -Yr, part = "body")
+#ft21<-theme_zebra(ft21,odd_header = "transparent", odd_body = "transparent",  even_header = "gray95", even_body = "gray95")
+ft21 = bg(ft21, i = ~ `test`  =='Failed', 
+          j = 1:7,
+          bg="gray80")
+ft21<-hline_top(ft21, part="all", border = big_border )
+ft21 <- hline_bottom(ft21, part="body", border = big_border )
+ft21<-set_table_properties(ft21, layout = "autofit")
+
+
+save_as_docx(ft21,path=paste0(working_dir,"/NOVEMBER_MODELS/TABLES/RUNS_TESTS_TABLE.docx"))
+
+
+AGE_FIT<-vector('list',length=4)
+for(i in 1:4){
+ AGE_FIT[[i]]=data.table(YEAR=modsT[[i]]$age_comp_fit_table$Yr,Real=modsT[[i]]$age_comp_fit_table$All_obs_mean, Thompson=modsT[[i]]$age_comp_fit_table$All_exp_mean,New=modsN[[i]]$age_comp_fit_table$All_exp_mean, MODEL=i)
+}
+
+AGE_FIT<-data.table(do.call(rbind,AGE_FIT))
+
+MODELNAM<-data.table(MODEL=c(1:4),MODEL2=c('Model 19.12 (22.1)','Model 19.12A (22.2)','Model 21.1 (22.3)','Model 21.2 (22.4)'))
+
+AGE_FIT<-data.table(merge(AGE_FIT,MODELNAM))
+AGE_FIT<-AGE_FIT[,-'MODEL']
+AGE_FIT<-data.table(melt(AGE_FIT,c('YEAR','MODEL2')))
+
+
+
+
+dage<-ggplot(AGE_FIT,aes(x=YEAR,y=value))+
+geom_point(data=AGE_FIT[variable=="Real"],size=2,color="black")+
+geom_line(data=AGE_FIT[variable!="Real"],aes(,color=variable, linetype=variable),size=1)+
+theme_bw(base_size=16)+labs(x="Year",y="Mean age",color='Series',linetype='Series')+
+scale_linetype_manual(values=c(2,1))+
+facet_wrap(~MODEL2)
+ 
+
+
+
+
+LEN_FIT<-vector('list',length=4)
+for(i in 1:4){
+ LEN_FIT[[i]]=data.table(YEAR=modsT[[i]]$len_comp_fit_table$Yr,Real=modsT[[i]]$len_comp_fit_table$All_obs_mean, Thompson=modsT[[i]]$len_comp_fit_table$All_exp_mean,New=modsN[[i]]$len_comp_fit_table$All_exp_mean, Fleet=modsN[[i]]$len_comp_fit_table$Fleet_Name,MODEL=i)
+}
+
+LEN_FIT<-data.table(do.call(rbind,LEN_FIT))
+
+MODELNAM<-data.table(MODEL=c(1:4),MODEL2=c('Model 19.12 (22.1)','Model 19.12A (22.2)','Model 21.1 (22.3)','Model 21.2 (22.4)'))
+
+LEN_FIT<-data.table(merge(LEN_FIT,MODELNAM))
+LEN_FIT<-LEN_FIT[,-'MODEL']
+LEN_FIT<-data.table(melt(LEN_FIT,c('YEAR','MODEL2','Fleet')))
+
+
+dlen<-ggplot(LEN_FIT,aes(x=YEAR,y=value))+
+geom_point(data=LEN_FIT[variable=="Real"],size=2,color="black")+
+geom_line(data=LEN_FIT[variable!="Real"],aes(color=variable, linetype=variable),size=1)+
+theme_bw(base_size=16)+labs(x="Year",y="Mean length (cm)",color='Series',linetype='Series')+
+scale_linetype_manual(values=c(2,1))+
+facet_wrap(MODEL2~Fleet,scale='free_y',ncol=2)
+ 
+
+
+SUR_FIT<-vector('list',length=4)
+for(i in 1:4){
+  CPUET=data.table(modsT[[i]]$cpue)[Fleet_name=='Survey']
+  CPUEN=data.table(modsN[[i]]$cpue)[Fleet_name=='Survey']
+ SUR_FIT[[i]]=data.table(YEAR=CPUET$Yr,Real=CPUET$Obs, Thompson=CPUET$Exp,New=CPUEN$Exp, MODEL=i)
+}
+
+SUR_FIT<-data.table(do.call(rbind,SUR_FIT))
+
+MODELNAM<-data.table(MODEL=c(1:4),MODEL2=c('Model 19.12 (22.1)','Model 19.12A (22.2)','Model 21.1 (22.3)','Model 21.2 (22.4)'))
+
+SUR_FIT<-data.table(merge(SUR_FIT,MODELNAM))
+SUR_FIT<-SUR_FIT[,-'MODEL']
+SUR_FIT<-data.table(melt(SUR_FIT,c('YEAR','MODEL2')))
+
+
+dsur<-ggplot(SUR_FIT,aes(x=YEAR,y=value))+
+geom_point(data=SUR_FIT[variable=="Real"],size=2,color="black")+
+geom_line(data=SUR_FIT[variable!="Real"],aes(color=variable, linetype=variable),size=1)+
+theme_bw(base_size=16)+labs(x="Year",y="Population number",color='Series',linetype='Series')+
+scale_linetype_manual(values=c(2,1))+
+facet_wrap(~MODEL2,scale='free_y',ncol=2)
+
+
+CPUE_FIT<-vector('list',length=4)
+for(i in 1:4){
+  CPUET=data.table(modsT[[i]]$cpue)[Fleet_name=='Fishery']
+  CPUEN=data.table(modsN[[i]]$cpue)[Fleet_name=='Fishery']
+  CPUE_FIT[[i]]=data.table(YEAR=CPUET$Yr,Real=CPUET$Obs, Thompson=CPUET$Exp,New=CPUEN$Exp, MODEL=i)
+}
+
+CPUE_FIT<-data.table(do.call(rbind,CPUE_FIT))
+CPUE_FIT<-CPUE_FIT[!is.na(YEAR)]
+
+MODELNAM<-data.table(MODEL=c(1:4),MODEL2=c('Model 19.12 (22.1)','Model 19.12A (22.2)','Model 21.1 (22.3)','Model 21.2 (22.4)'))
+
+CPUE_FIT<-data.table(merge(CPUE_FIT,MODELNAM,all.x=T))
+CPUE_FIT<-CPUE_FIT[,-'MODEL']
+CPUE_FIT<-data.table(melt(CPUE_FIT,c('YEAR','MODEL2')))
+
+dcpue<-ggplot(CPUE_FIT,aes(x=YEAR,y=value))+
+geom_point(data=CPUE_FIT[variable=="Real"],size=2,color="black")+
+geom_line(data=CPUE_FIT[variable!="Real"],aes(color=variable, linetype=variable),size=1)+
+theme_bw(base_size=16)+labs(x="Year",y="CPUE index",color='Series',linetype='Series')+
+scale_linetype_manual(values=c(2,1))+
+facet_wrap(~MODEL2,scale='free_y',ncol=2)
+ 
+
+
+
+
+## longline RPN
+
+setwd(paste(working_dir,"\\Functions",sep=""))
+ llrpn= readLines('sql/AFSC_LL_RPN.sql')
+ llrpn = sql_filter(sql_precode = "IN", x = srv_sp_str, sql_code = llrpn, flag = '-- insert species')
+ llrpn = sql_filter(sql_precode = "IN", x = LL_sp_region, sql_code = llrpn, flag = '-- insert area')
+
+
+LLRPN=sql_run(akfin, llrpn) %>% 
+         dplyr::rename_all(toupper)
+
+LLRPN$CI<-1.96*sqrt(LLRPN$RPN_VAR)
+
+
+LLRPN_GRAPH<-ggplot(data.table(LLRPN), aes(x=YEAR, y=RPN)) + 
+    geom_errorbar(aes(ymin=RPN-CI, ymax=RPN+CI), colour="black", width=.25) +
+    geom_line() +
+    geom_point(size=3)+theme_bw(base_size=16)
+
+
+## 2023 spawning biomass graph
+ #   graph_ensemble<- function(models=mods1,label=" ",WT=c(0.2842,0.3158,0.2316,0.1684),PLOT=T){
+  
+models<-modsN
+label="ForeCatch_2023"
+
+  SSB_U<-ensemble(models=modsN,lab='SSB_unfished')
+  #SSB_OFL<-ensemble(models=modsN,lab='OFLCatch_2024')
+
+  dis<-vector("list",length=5)
+  for ( i in 1:4){
+    dis1=rnorm(100000*WT[i],data.table(models[[i]]$derived_quants)[Label==label]$Value,data.table(models[[i]]$derived_quants)[Label==label]$StdDev)
+    dis[[i]]<-data.table(MODEL=mods_nam[i],VALUE=dis1,LABEL=label)
+     }
+
+    dis<-do.call(rbind,dis)
+    discomb<-data.table(MODEL="ENSEMBLE",VALUE=dis$VALUE,LABEL=label)
+    dis<-rbind(dis,discomb)
+   
+length(dis[MODEL=='ENSEMBLE'&VALUE>=1.0]$VALUE)/ length(dis[MODEL=='ENSEMBLE']$VALUE)
+
+
+    values=data.table(LABEL=label,MEAN=mean(dis[MODEL=="ENSEMBLE"]$VALUE),SD=sd(dis[MODEL=="ENSEMBLE"]$VALUE))
+    okabe <- c("black","#E69F00", "#56B4E9", "#009E73", "#F0E442")
+
+    d<-ggplot(dis,aes(VALUE,color=MODEL,fill=MODEL,group=MODEL,linetype=MODEL))+geom_density(alpha=0.2,size=1)+theme_bw(base_size=16)+
+    scale_fill_manual(values=okabe)+scale_color_manual(values=okabe)+labs(x="max ABC",y="Density",title="2023")+
+    scale_linetype_manual(values=c(1,2,3,4,5))+xlim(0,250000)
+    print(d)
+  
+
+#VIOLIN_PLOT_ENSEMBLE<-function(models=mods1,label="SSB",FY=2022,WT=WT){
+
+mods_nam=c("Model 22.1","Model 22.2","Model 22.3", "Model 22.4")
+models<-modsN
+label="SSB"
+
+SSB_U<-ensemble(models=modsN,lab='SSB_unfished')
+
+
+  LABEL=data.table(models[[1]]$derived_quants)[Label%like%label]$Label
+  YEAR=as.numeric(stringr::str_sub(LABEL,start=-4))
+    LABEL<-data.table(YEAR=YEAR,LABEL=LABEL)
+    LABEL<-LABEL[!is.na(YEAR)]
+
+    values<-vector('list',length=nrow(LABEL))
+  
+  for(j in 1:nrow(LABEL)){
+    dis<-vector('list',length=5)
+      for ( i in 1:4){
+      dis1=rnorm(100000*WT[i],data.table(models[[i]]$derived_quants)[Label==LABEL$LABEL[j]]$Value,data.table(models[[i]]$derived_quants)[Label==LABEL$LABEL[j]]$StdDev)/SSB_U
+        dis[[i]]<-data.table(YEAR=LABEL$YEAR[j],MODEL=mods_nam[i],VALUE=dis1,LABEL=label)
+    }
+
+        dis<-do.call(rbind,dis)
+        discomb<-data.table(YEAR=LABEL$YEAR[j],MODEL="ENSEMBLE",VALUE=dis$VALUE,LABEL=label)
+        dis<-rbind(dis,discomb)
+        
+    
+    if(j==1){dis2=dis}else{dis2<-rbind(dis2,dis)}
+  }
+  
+    MEANS<-dis2[,list(MEANS=mean(VALUE)),by=c("MODEL","YEAR")]
+
+    okabe <- c("black","#E69F00", "#56B4E9", "#009E73", "#F0E442")
+        
+    p <- ggplot(data=dis2[MODEL=='ENSEMBLE'&YEAR<=FY], aes(x=YEAR, y=VALUE, group=YEAR)) + geom_violin(fill="gray50") +theme_bw(base_size=16)
+    p<- p+geom_line(data=MEANS[YEAR<=FY],aes(x=YEAR,y=MEANS,color=MODEL,group=MODEL),size=1)+scale_fill_manual(values=okabe)+scale_color_manual(values=okabe)+
+    scale_linetype_manual(values=c(1,2,3,4,5))
+    p<-p+labs(x='YEAR',y='SSB/SSB unfished')
+    print(p)
 
 
 
@@ -1259,25 +1569,135 @@ save_as_docx(ftC,path=paste0(working_dir,"/NOVEMBER_MODELS/TABLES/THOMPSON_PROF_
 
 
 
-
+pdf("other_plots1.pdf",width=12,height=6)
+print(CATCHP)
 print(RHO_PLOT)
 print(FL_LIKE_PLOT2)
+dev.off()
+
+
+
+print(dpue)
+print(dsur)
+print(dage)
+print(dlen)
+print(LLRPN_GRAPH)
+
+
+
+SB100=Two_year$SB100[1]
+F40_1=F40
+F35_1=F35
+cABC=C_40
+cOFL=C35
+    
+F40_2=summ[[1]][Yr==CYR+2]$F
+F35_2=summ8[Yr==CYR+2]$F
+catchABC_2=Pcatch[[1]][Yr==CYR+2]$Catch
+catchOFL_2=Pcatch8[Yr==CYR+2]$Catch
+SSB_1<-summ[[1]][Yr==CYR+1]$SSB
+SSB_2<-summ[[1]][Yr==CYR+2]$SSB
+
+
+
+## after loading new profiles Rdata file.
+
+x=melt(SSB,'Yr')
+sb<-data.table(Yr=c(2022,2034,2022,2034),variable=c('B40','B40','B35','B35'),value=c(SB40,SB40,SB35,SB35))
+x<-rbind(x,sb)
+
+colo=c("#d73027","#f46d43","#fdae61","#fee090","#abd9e9","#74add1","#4575b4","black",'gray40')
+#colo <- c("#b35806","#f1a340","#fee0b6","#f7f7f7","#d8daeb","#998ec3","#542788","black","gray40")
+d<-ggplot(x,aes(x=Yr,y=value,color=variable, linetype=variable,size=variable,group=variable))+geom_line()+theme_bw(base_size=16)
+d<-d+scale_linetype_manual(values=c(rep(1,7),2,3))+scale_color_manual(values=colo)+scale_size_manual(values=c(rep(0.75,7),1,1))
+d<-d+labs(x='Year',y='Spawning biomass (t)',color='',linetype="",size="",title="New ensemble projections")+scale_y_continuous(labels = comma)
+ENS_PROJ<-d
+print(ENS_PROJ)
+
+
+
+#######################################################################
+#Plot of B/Bmsy against F/Fmsy for the most recent year
+#Trevor A. Branch  10 September 2009  tbranch@gmail.com
+#######################################################################
+plot.phase.plane <- function(SSB0,Fabc,Fmsy,BoverBmsy, FoverFmsy,xlim=c(0,6),ylim=c(0,1.5),header,bw.mult=1,jitter.fac=0,eyr=2015) {
+   #plot(x=BoverBmsy,y=FoverFmsy,xlim=xlim,ylim=ylim,las=1,
+   #       yaxs="i",xaxs="i",xlab="",ylab="")
+   require(KernSmooth)
+   crosshair.data.uncen <- cbind(BoverBmsy,FoverFmsy)
+   #APRIL 22 version: References in Scott 1992 and Bowman and Azzalini 1997
+   d<-2 # the bandwidth dimension
+   bmsy.bw<-sqrt(var(crosshair.data.uncen[,1]))*(4/((d+2)*length(crosshair.data.uncen[,1])))^(1/(d+4))
+   umsy.bw<-sqrt(var(crosshair.data.uncen[,2]))*(4/((d+2)*length(crosshair.data.uncen[,2])))^(1/(d+4))
+   # please note the range restrictions at 2.01 to include the points that line up at the boundaries
+   kernel.dens <- bkde2D(crosshair.data.uncen[,c(1,2)], bandwidth=c(bmsy.bw*bw.mult,umsy.bw*bw.mult), range.x=list(xlim,ylim))
+
+   # generate color palette
+   paletteable.egg<-colorRampPalette(c("#BFEFFF","white","white", "yellow","#FFC125"))
+   
+
+   par(oma=c(0.5,0.5,0.5, 0.5))
+   filled.contour.TAB(kernel.dens$x1, kernel.dens$x2, kernel.dens$fhat, nlevels=15, color.palette =paletteable.egg,
+               xlab="", ylab="", xlim=xlim, ylim=ylim, cex.lab=1.3)
+   par(new=T)
+
+   plot(x=jitter(BoverBmsy,jitter.fac),y=jitter(FoverFmsy,jitter.fac),type="l",xlim=xlim,ylim=ylim,las=1,
+          yaxs="i",xaxs="i",xlab="",ylab="",col="gray50",pch=20)
+
+  yr<-c((eyr-length(BoverBmsy)+1):eyr)-1900
+  yr[yr>=100]<-yr[yr>=100]-100
+
+  for(i in 1:length(BoverBmsy)){
+    text(BoverBmsy[i],FoverFmsy[i],paste(yr[i]),cex=0.85)
+    }
+
+    k=Fabc/Fmsy*(((SSB0*0.05)/(SSB0*0.40))-0.05)/(1-0.05)
+    k2<-0.05
+    k3<-(0.05*SSB0)/(SSB0*0.40)
+    ##points(c(k3,k3),c(0,10),type="l",lty=3)
+    points(c((0.4/0.35),xlim[2]),c(Fabc/Fmsy,Fabc/Fmsy),type="l",lwd=2)
+    points(c((0.4/0.35),xlim[2]),c(1,1),type="l",lwd=2,col="red")
+    #points(c(k2,1.0),c(0,Fabc/Fmsy),type="l",lwd=2)
+    points(c(k3,(0.4/0.35)),c(k,Fabc/Fmsy),type="l",lwd=2)
+    points(c(k3,k3),c(0,k),type="l",lwd=2)
+    points(c(0,(0.4/0.35)),c(0,1),type="l",lwd=2,col="red")
+
+    text(xlim[2]-1,ylim[2]-0.1,"OFL Definition",pos=4)
+    text(xlim[2]-1,ylim[2]-0.2,"ABC Control Rule",pos=4)
+    text (xlim[2]-1,ylim[2]-0.3,"B20%",pos=4)
+
+    points(c(xlim[2]-1.2,xlim[2]-1),c(ylim[2]-0.1,ylim[2]-0.1),lwd=2,type="l",col="red")
+    points(c(xlim[2]-1.2,xlim[2]-1),c(ylim[2]-0.2,ylim[2]-0.2),lwd=2,type="l")
+    points(c(xlim[2]-1.2,xlim[2]-1),c(ylim[2]-0.3,ylim[2]-0.3),type="l",lwd=2,col="brown")
+
+   mtext(side=1,line=3.2,text=expression(B/B[MSY]),cex=1.3)
+   mtext(side=2,line=3,expression(F/F[MSY]),cex=1.3)
+   mtext(side=3,line=0.5,header,cex=1.3)
+   abline(h=1,lty=2)
+   abline(v=1,lty=2)
+   abline(v=(0.2/0.35),col="brown",lwd=2)
+}
 
 
 
 
 
+test1_SSB<-NEW_ENSEMBLE_RESULTS[LABEL%like%'SSB']
+test1_SSB$YEAR<-as.numeric(do.call(rbind,strsplit(test1_SSB$LABEL,"_"))[,2])
+ test1_SSB<-test1_SSB[!is.na(YEAR)]
+
+test1_SSB<-test1_SSB[YEAR%in%1977:2024]
+
+test1_F<-NEW_ENSEMBLE_RESULTS[LABEL%like%'F_']
+test1_F$YEAR<-as.numeric(do.call(rbind,strsplit(test1_F$LABEL,"_"))[,2])
+test1_F<-test1_F[!is.na(YEAR)]
+test1_F<-test1_F[YEAR%in%1977:2024]
 
 
-
-
-
-
-
-
-
-
-
+BoverBmsy=test1_SSB$ENSEMBLE_MEAN/(SB100*0.35)
+FoverFmsy=test1_F$ENSEMBLE_MEAN/F35
+ 
+plot.phase.plane(data=test1_SSB,SSB0=SB100,Fabc=F40,Fmsy=F35,BoverBmsy=BoverBmsy,FoverFmsy=FoverFmsy,xlim=c(0,2),ylim=c(0,1.6),header="EBS Pcod New Ensemble",bw.mult=1,jitter.fac=0)
 
 
 
@@ -1335,6 +1755,8 @@ doc <- body_add(doc, an_fpar)
 doc <- body_add_flextable(doc, value = ft18)
 doc <- body_add(doc, an_fpar)
 doc <- body_add_flextable(doc, value = ft19)
+doc <- body_add(doc, an_fpar)
+doc <- body_add_flextable(doc, value = ft20)
 doc <- body_add(doc, an_fpar)
 
 print(doc, target = fileout)

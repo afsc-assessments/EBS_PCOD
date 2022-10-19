@@ -183,7 +183,7 @@ x1[2,]<-ssb/1000000
 x1[3,]<-F40
 x1[4,]<-catch
 x1[5,]<-catch2
-x2<-data.table(Label=c("Q","SSB_unfished","ann_F_MSY","ForeCatch_2023","ForeCatch_2024"),x1)
+x2<-data.table(Label=c("Q","SSB_unfished","ann_F_MSY","ABC_2023","ABC_2024"),x1)
 names(x2)<-names(x)
 x<-rbind(x,x2)
 write.csv(x,"GRANT_SUMMARY_TABLE.csv",row.names=F)

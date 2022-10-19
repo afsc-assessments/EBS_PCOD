@@ -45,9 +45,9 @@ ensemble_param<-function(models=mods1,lab=" ",weights=WT){
        MSY
    }
 
-graph_ensemble_params<- function(models=mods1,label=" ",WT=c(0.2842,0.3158,0.2316,0.1684),PLOT=T){
+graph_ensemble_params<- function(models=mods1,label=" ",WT=c(0.2842,0.3158,0.2316,0.1684),PLOT=FALSE){
 	dis<-vector("list",length=length(WT))
-	for ( i in 1:4){
+	for ( i in 1:length(WT)){
 		dis1=rnorm(100000*WT[i],data.table(models[[i]]$parameters)[Label==label]$Value,data.table(models[[i]]$parameters)[Label==label]$Parm_StDev)
 		dis[[i]]<-data.table(MODEL=mods_nam[i],VALUE=dis1,LABEL=label)
 	}
