@@ -70,47 +70,29 @@ do_tune<-function(mod="MODEL19_12a", ctlfile1="Model_19_12a.ctl", SUCCESS=0.001,
 	test3
 }
 
-tuned19.12_GRANT=do_tune(mod="MODEL19_12",ctlfile="Model_19_12.ctl")
+#tuned19.12_GRANT=do_tune(mod="MODEL19_12",ctlfile="Model_19_12.ctl")
+#tuned19.12a_GRANT=do_tune(mod="MODEL19_12A",ctlfile="Model_19_12a.ctl")
+#tuned21.1_GRANT=do_tune(mod="MODEL_21_1",ctlfile="Model_21_1.ctl")
+#tuned21.2_new=do_GRANT(mod="MODEL_21_2",ctlfile="Model_21_2.ctl")
 
 
-tuned19.12a_GRANT=do_tune(mod="MODEL19_12A",ctlfile="Model_19_12a.ctl")
-
-tuned21.1_GRANT=do_tune(mod="MODEL_21_1",ctlfile="Model_21_1.ctl")
-
-tuned21.2_new=do_GRANT(mod="MODEL_21_2",ctlfile="Model_21_2.ctl")
-
-
-
- 
-setwd("C:/WORKING_FOLDER/EBS_PCOD/2022_ASSESSMENT/NOVEMBER_MODELS/GRANT_MODELS")
-models=c("Model19_12","Model19_12A","Model_21_1","Model_21_2")
-
-x2<-vector("list",length=4)
-for(i in 1:length(models)){
-    x<-get_Sigma(dire=paste0(getwd(),"/",models[i]))
-    x2[[i]]<-data.table(MODEL=models[i],RMSE=x$RMSE,SIGMA=x$TEST$OLD,PARAMETER=x$TEST$PARAMETERS)
- 
- }
-
- x3<-do.call(rbind,x2)
- x3$MODEL<-paste0(X3$MODEL,"_THOMPSON")
-
-
-setwd("C:/WORKING_FOLDER/EBS_PCOD/2022_ASSESSMENT/NOVEMBER_MODELS/NEW_MODELS")
-models=c("Model19_12","Model19_12A","Model_21_1","Model_21_2")
-
-models2<-c("Model 22.1","Model 22.2","Model 22.3","Model 22.4",)
-
-x2<-vector("list",length=4)
-for(i in 1:length(models)){
-    x<-get_Sigma(dire=paste0(getwd(),"/",models[i]))
-    x2[[i]]<-data.table(MODEL=models2[i],RMSE=x$RMSE,SIGMA=x$TEST$OLD,PARAMETER=x$TEST$PARAMETERS)
- 
- }
-
- x4<-do.call(rbind,x2)
- x4$MODEL<-paste0(X4$MODEL,"_NEW")
-
- SIGMAS= rbind(x3,x4)
-
-
+#setwd("C:/WORKING_FOLDER/EBS_PCOD/2022_ASSESSMENT/NOVEMBER_MODELS/GRANT_MODELS")
+#models=c("Model19_12","Model19_12A","Model_21_1","Model_21_2")
+#x2<-vector("list",length=4)
+#for(i in 1:length(models)){
+#   x<-get_Sigma(dire=paste0(getwd(),"/",models[i]))
+#   x2[[i]]<-data.table(MODEL=models[i],RMSE=x$RMSE,SIGMA=x$TEST$OLD,PARAMETER=x$TEST$PARAMETERS)
+# }
+# x3<-do.call(rbind,x2)
+# x3$MODEL<-paste0(X3$MODEL,"_THOMPSON")
+#setwd("C:/WORKING_FOLDER/EBS_PCOD/2022_ASSESSMENT/NOVEMBER_MODELS/NEW_MODELS")
+#models=c("Model19_12","Model19_12A","Model_21_1","Model_21_2")
+#models2<-c("Model 22.1","Model 22.2","Model 22.3","Model 22.4",)
+#x2<-vector("list",length=4)
+#for(i in 1:length(models)){
+#    x<-get_Sigma(dire=paste0(getwd(),"/",models[i]))
+#    x2[[i]]<-data.table(MODEL=models2[i],RMSE=x$RMSE,SIGMA=x$TEST$OLD,PARAMETER=x$TEST$PARAMETERS)
+# }
+# x4<-do.call(rbind,x2)
+# x4$MODEL<-paste0(X4$MODEL,"_NEW")
+# SIGMAS= rbind(x3,x4)
