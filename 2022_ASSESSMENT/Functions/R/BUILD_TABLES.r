@@ -1,6 +1,14 @@
 ## Getting catch data
 
-libs <- c("flextable","readxl","magrittr","scales","tidyverse", "dplyr","RODBC","mgcv","FSA","nlstools","data.table","ggplot2","sizeMat","devtools","r4ss","lubridate","rgdal","fishmethods","reshape2","swo","vcdExtra","misty")
+libs=c("ss3diags", "scales", "magrittr", "readxl", "gt", "officer", "flextable", 
+ "pivottabler", "misty","vcdExtra","gnm","vcd","grid","swo","reshape2", 
+ "fishmethods", "rgdal", "sp", "lubridate", "r4ss", "devtools", "usethis",
+ "sizeMat", "data.table", "nlstools", "FSA", "mgcv", "nlme", "RODBC", "forcats",
+ "stringr", "dplyr", "purrr", "readr", "tidyr", "tibble", "ggplot2",
+"tidyverse", "stats", "graphics", "grDevices", "utils", "datasets", "methods") 
+
+
+#libs <- c("flextable","readxl","magrittr","scales","tidyverse", "dplyr","RODBC","mgcv","FSA","nlstools","data.table","ggplot2","sizeMat","devtools","r4ss","lubridate","rgdal","fishmethods","reshape2","swo","vcdExtra","misty")
 
 if(length(libs[which(libs %in% rownames(installed.packages()) == FALSE )]) > 0) {
   install.packages(libs[which(libs %in% rownames(installed.packages()) == FALSE)])}
@@ -1317,7 +1325,7 @@ runsBTN<-vector('list',length=4)
 for(i in 1:4){
   runsBTT[[i]]<-SSplotRunstest(modsT[[i]])
   runsBTT[[i]]$Model=nam2.1[i]
-  runsBTN[[i]]<-SSplotRunstest(modsT[[i]])
+  runsBTN[[i]]<-SSplotRunstest(modsN[[i]])
   runsBTN[[i]]$Model=nam2.2[i]
 }
 
@@ -1333,7 +1341,7 @@ runsLENN<-vector('list',length=4)
 for(i in 1:4){
   runsBTT[[i]]<-SSplotRunstest(modsT[[i]])
   runsBTT[[i]]$Model=nam2.1[i]
-  runsBTN[[i]]<-SSplotRunstest(modsT[[i]])
+  runsBTN[[i]]<-SSplotRunstest(modsN[[i]])
   runsBTN[[i]]$Model=nam2.2[i]
   runsLENT[[i]]<-SSplotRunstest(modsT[[i]],subplots='len')
   runsLENT[[i]]$Model=nam2.1[i]
@@ -1349,7 +1357,12 @@ for(i in 1:4){
 runsBT<-rbind(do.call(rbind,runsBTT),do.call(rbind,runsBTN),do.call(rbind,runsLENT),do.call(rbind,runsLENN),do.call(rbind,runsAGET),do.call(rbind,runsAGEN))
 runsBT[,c(4,5)]<-round(runsBT[,c(4,5)],3)
 
+runsBT<-data.table(Model=runsBT$Model,Type=runsBT$type,Index=runsBT$Index, pvalue=runsBT$runs.p, Test=runsBT$test, slow=runsBT$sigma3.lo, shi=runsBT$sigma3.hi)
+
+
+
 ft21 <- flextable(data.frame(runsBT))
+ft21<-set_header_labels(ft21,pvalue="p-value",slow='Sigma3 lo',shi='Sigma3 hi')
 ft21<- theme_vanilla(ft21)
 ft21 <- align(ft21, align = "center", part = "header")
 ft21 <- align(ft21, align = "right", part = "body")
@@ -1358,7 +1371,7 @@ ft21 <- fontsize(ft21,part="header", size = 10)
 ft21 <- border_remove(x = ft21)
 #ftS<-bg(ft19, bg = colourer, j = ~ . -Yr, part = "body")
 #ft21<-theme_zebra(ft21,odd_header = "transparent", odd_body = "transparent",  even_header = "gray95", even_body = "gray95")
-ft21 = bg(ft21, i = ~ `test`  =='Failed', 
+ft21 = bg(ft21, i = ~`Test`=='Failed', 
           j = 1:7,
           bg="gray80")
 ft21<-hline_top(ft21, part="all", border = big_border )
