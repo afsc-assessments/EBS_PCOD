@@ -714,11 +714,13 @@ FL_LIKE_PLOT[SERIES=='NEW']$MODEL<-FL_LIKE_PLOT[SERIES=='THOMPSON']$MODEL
 MODELNAM<-data.table(MODEL=unique(FL_LIKE_PLOT$MODEL),MODEL2=c('Model 19.12 (22.1)','Model 19.12A (22.2)','Model 21.1 (22.3)','Model 21.2 (22.4)'))
 FL_LIKE_PLOTx<-merge(FL_LIKE_PLOT,MODELNAM,by='MODEL')
 
+FL_LIKE_PLOTx$SERIES<-factor(FL_LIKE_PLOTx$SERIES,levels=c("THOMPSON","NEW"))
+
 
 FL_LIKE_PLOT2<-ggplot(FL_LIKE_PLOTx,aes(x=MODEL2,y=as.numeric(ALL),group=SERIES,color=SERIES,linetype=SERIES))+
 geom_line(size=1.25)+geom_point(shape=18,size=4)+facet_wrap(~Label,scale='free_y')+
 theme_bw(base_size=16)+theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-labs(x="Models",y='-log likelihood',color='Series',linetype='Series')
+labs(x="Models",y='-log likelihood',color='Series',linetype='Series')+scale_linetype_manual(values=c(2,1))
  print(FL_LIKE_PLOT2)
 
 dataT=read_xlsx("ENSEMBLE_RESULTS.xlsx","THOMPSON_RETROSPECTIVES")
