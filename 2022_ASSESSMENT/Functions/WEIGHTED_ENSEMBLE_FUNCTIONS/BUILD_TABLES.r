@@ -717,7 +717,7 @@ FL_LIKE_PLOTx<-merge(FL_LIKE_PLOT,MODELNAM,by='MODEL')
 FL_LIKE_PLOTx$SERIES<-factor(FL_LIKE_PLOTx$SERIES,levels=c("THOMPSON","NEW"))
 
 
-FL_LIKE_PLOT2<-ggplot(FL_LIKE_PLOTx,aes(x=MODEL2,y=as.numeric(ALL),group=SERIES,color=SERIES,linetype=SERIES))+
+FL_LIKE_PLOT2<-ggplot(FL_LIKE_PLOTx2,aes(x=MODEL2,y=as.numeric(ALL),group=SERIES,color=SERIES,linetype=SERIES))+
 geom_line(size=1.25)+geom_point(shape=18,size=4)+facet_wrap(~Label,scale='free_y')+
 theme_bw(base_size=16)+theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
 labs(x="Models",y='-log likelihood',color='Series',linetype='Series')+scale_linetype_manual(values=c(2,1))
@@ -775,8 +775,13 @@ RHO3[SERIES=='New']$MODEL<-x
 
 MODELNAM<-data.table(MODEL=unique(RHO3$MODEL),MODEL2=c('Ensemble','Model 19.12 (22.1)','Model 19.12A (22.2)','Model 21.1 (22.3)','Model 21.2 (22.4)'))
 RHO3<-merge(data.table(RHO3),MODELNAM,by='MODEL')
+RHO3$SERIES<-factor(RHO3$SERIES,levels=c("Thompson","New"))
+RHO3$MODEL2<-factor(RHO3$MODEL2,levels=c('Model 19.12 (22.1)','Model 19.12A (22.2)','Model 21.1 (22.3)','Model 21.2 (22.4)','Ensemble'))
 
-RHO_PLOT<-ggplot(data.table(RHO3),aes(x=MODEL2,y=RHO,color=SERIES,group=SERIES,linetype=SERIES))+geom_point(size=4)+geom_line(size=1.25)+theme_bw(base_size=16)+labs(x="Model",y="Mohn's Rho",color="Series",linetype="Series")+facet_wrap(~QUANT,scale="free_y")+theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+RHO_PLOT<-ggplot(data.table(RHO3),aes(x=MODEL2,y=RHO,color=SERIES,group=SERIES,linetype=SERIES))+geom_point(size=4)+geom_line(size=1.25)+
+theme_bw(base_size=16)+labs(x="Model",y="Mohn's Rho",color="Series",linetype="Series")+facet_wrap(~QUANT,scale="free_y")+
+theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+scale_linetype_manual(values=c(2,1))
 print(RHO_PLOT)
 
 
