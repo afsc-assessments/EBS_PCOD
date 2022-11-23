@@ -1,9 +1,35 @@
-plot.phase.plane <- function(SSB0,Fabc,Fmsy,BoverBmsy, FoverFmsy,xlim,ylim,header,bw.mult=1,jitter.fac=0,data=test2) {
+plot.phase.plane <- function(data=mods1[[1]],xlim=c(0,2),ylim=c(0,2.5),header="EBS Pcod",jitter.fac=0) {
    
+require(data.table)
+require(r4ss)
+SSB0<-data.table(data$derived_quants)[Label=='SSB_unfished']$Value
+Fmsy= data.table(data$derived_quants)[Label=='annF_Btgt']$Value
+Fabc= data.table(data$derived_quants)[Label=='annF_MSY']$Value
+SSB35<-SSB0*0.35
+SSB40<-SSB0*0.40
+
+SSB<-data.table(data$derived_quants)[Label%like%'SSB']
+SSB$YEAR<-as.numeric(do.call(rbind,strsplit(SSB$Label,"_"))[,2])
+SSB<-SSB[!is.na(YEAR)]
+SSB<-SSB[YEAR%in%min(SSB$YEAR):(year(Sys.Date())+2)]
+
+BoverBmsy= SSB$Value/SSB35
+
+F<-data.table(data$derived_quants)[Label%like%'F_']
+F$YEAR<-as.numeric(do.call(rbind,strsplit(F$Label,"_"))[,2])
+F<-F[!is.na(YEAR)]
+F<-F[YEAR%in%min(F$YEAR):(year(Sys.Date())+2)]
+FoverFmsy=F$Value/Fmsy
+
+
+
+
+
+
    plot(x=base::jitter(BoverBmsy,jitter.fac),y=base::jitter(FoverFmsy,jitter.fac),type="l",las=1,
           yaxs="i",xaxs="i",xlab="",ylab="",col="gray50",pch=20,ylim=ylim,xlim=xlim)
 
-  yr<-data$YEAR-1900
+  yr<-SSB$YEAR-1900
   yr[yr>=100]<-yr[yr>=100]-100
 
   for(i in 1:(length(BoverBmsy)-2)){
