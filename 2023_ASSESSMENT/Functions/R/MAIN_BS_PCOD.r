@@ -13,10 +13,10 @@ lapply(libs, library, character.only = TRUE)
 
 
 <<<<<<< HEAD
-afsc_user  = ""   ## enter afsc username
-afsc_pwd   = ""    ## enter afsc password
-akfin_user = ""  ## enter AKFIN username
-akfin_pwd  = ""   ## enter AKFIN password
+afsc_user  = "sbarb"   ## enter afsc username
+afsc_pwd   = "BluFsh$$7890"    ## enter afsc password
+akfin_user = "sbarbeaux"  ## enter AKFIN username
+akfin_pwd  = "$tockmen12"   ## enter AKFIN password
 
 
   afsc = DBI::dbConnect(odbc::odbc(), "afsc",
@@ -34,13 +34,13 @@ akfin_pwd  = ""   ## enter AKFIN password
 is_new_SS_DAT_file <- FALSE
 
 # this assumes that the FUNCTIONS subdirectory is in the working directory
-working_dir <- "C:/WORKING_FOLDER/EBS_PCOD/2022_ASSESSMENT"
+working_dir <- "C:/WORKING_FOLDER/EBS_PCOD/2023_ASSESSMENT"
 
 # previous SS DAT filename, if it exists
-old_SS_dat_filename <- "BSPcod22_MAY.dat"
+old_SS_dat_filename <- "BSPcod22_OCT.dat"
 
 # current SS DAT filename
-new_SS_dat_filename <- "BSPcod22_OCT.dat"
+new_SS_dat_filename <- "BSPcod23.dat"
 
 # the most recent year of data to be used
 new_SS_dat_year <- 2022
@@ -196,3 +196,5 @@ SS_writedat_3.30(new_data,new_SS_dat_filename,overwrite=T)
 test_dat <- SS_readdat_3.30(new_SS_dat_filename,verbose=TRUE)
 
 ## ctrl file needs to be edited manually due to complexity at this time.
+
+

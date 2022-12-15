@@ -252,6 +252,7 @@ SBSS_GET_ALL_DATA <- function(new_data     = new_data,
        
 ## combine all the length comp data
   LCOMP<-rbind(FISHLCOMP,SRV_LCOMP_SS)
+  LCOMP<-subset(LCOMP,!is.na(LCOMP['119.5']))
 
 ## pulling in longline survey length composition data from Dana's csv files 
   if(LL_DAT){  
@@ -322,17 +323,23 @@ SBSS_GET_ALL_DATA <- function(new_data     = new_data,
       new_data$agecomp<-ACOMP
       new_data$N_agecomp<-nrow(ACOMP)
 
+
+
       ## Get all survey Age Data
      
-    if(fsh_sp_area=='GOA'){ survey<- 47
-     } else if(fsh_sp_area=='BS'){ survey<- 98
-       } else if(fsh_sp_area=='AI'){ survey<- 52
-         } else if(fsh_sp_area=='SLOPE'){ survey<- 78
-           } else { stop("Not a valid survey")}
+       sname<- '%Slope%'
+  
+
     
         bsage = readLines('sql/survey_age.sql')
  	bsage = sql_filter(sql_precode = "<=", x = new_year, sql_code = bsage, flag = '-- insert year')
- 	bsage = sql_filter(sql_precode = "IN", x = survey, sql_code = bsage, flag = '-- insert survey')
+ 	bsage = sql_filter(sql_precode = "IN", x = fsh_sp_area, sql_code = bsage, flag = '-- insert survey')
+
+       if(fsh_sp_area=='SLOPE'){
+         bsage = sql_filter(sql_precode = "LIKE", x = sname, sql_code = bsage, flag = '-- insert sname') }
+       if(fsh_sp_area!='SLOPE'){
+         bsage = sql_filter(sql_precode = "NOT LIKE", x = sname, sql_code = bsage, flag = '-- insert sname') }
+
         bsage = sql_filter(sql_precode = "IN", x = srv_sp_str, sql_code = bsage, flag = '-- insert species')
 
 	Age_w <- sql_run(afsc, bsage) %>% rename_all(toupper)
@@ -385,6 +392,54 @@ write(paste(max_age," #N ages"),file=waa.ss,append=TRUE)
 write(paste0(names(AGE_WEIGHT_SS),collapse=" "),file=waa.ss,append=TRUE)
 write(t(AGE_WEIGHT_SS),file=waa.ss,ncolumns=ncol(AGE_WEIGHT_SS),append=TRUE)
 close(waa.ss)
+
+
+if(!ONE_FLEET){
+new_data$surveytiming<-c(-1,-1,-1,1)
+new_data$areas<-rep(1,4)
+new_data$fleetinfo<-data.frame(type=c(1,1,1,3),surveytiming=c(-1,-1,-1,1),area=rep(1,4),units=c(1,1,1,2),need_catch_mult=rep(0,4),fleetname=c('trawl','longline','pot','survey'))
+new_data$Nfleets<-4
+new_data$fleetnames<-c('trawl','longline','pot','survey')
+new_data$CPUEinfo<-data.frame(Fleet=c(1:4),Units=rep(0,4),Errtype=rep(0,4),SD_Report=rep(1,4))
+rownames(new_data$CPUEinfo)<-new_data$fleetnames
+new_data$units_of_catch<-c(1,1,1,2)
+new_data$len_info<-data.frame(mintailcomp=rep(-1,4),addtocomp=rep(1e-06,4),combine_M_F=rep(0,4),CompressBins=rep(0,4),CompError=rep(1,4),ParmSelect=c(1:4),minsamplesize=rep(1,4))
+rownames(new_data$len_info)<-new_data$fleetnames
+new_data$age_info<-data.frame(mintailcomp=rep(-1,4),addtocomp=rep(1e-06,4),combine_M_F=rep(0,4),CompressBins=rep(0,4),CompError=rep(1,4),ParmSelect=c(0,0,0,5),minsamplesize=rep(1,4))
+rownames(new_data$age_info)<-new_data$fleetnames
+new_data$Nfleet<-3
+new_data$fleetinfo1<-data.frame(trawl=c(-1,1,1),longline=c(-1,1,1),pot=c(-1,1,1),survey=c(1,1,3))
+rownames(new_data$fleetinfo1)<-c('surveytiming','areas','type')
+new_data$fleetinfo2<-data.frame(trawl=c(1,0),longline=c(1,0),pot=c(1,0),survey=c(2,0))
+rownames(new_data$fleetinfo2)<-c('units','need_catch_mult')
+new_data$comp_tail_compression<-rep(-1,4)
+new_data$add_to_comp<-rep(1e-06,4)
+new_data$max_combined_lbin<-rep(0,4)
+}
+
+if(ONE_FLEET){
+new_data$surveytiming<-c(-1,1)
+new_data$areas<-rep(1,2)
+new_data$fleetinfo<-data.frame(type=c(1,3),surveytiming=c(-1,1),area=rep(1,2),units=c(1,2),ned_catch_mult=rep(0,2),fleetname=c('fishery','survey'))
+new_data$Nfleets<-2
+new_data$fleetnames<-c('fishery','survey')
+new_data$CPUEinfo<-data.frame(Fleet=c(1:2),Units=rep(0,2),Errtype=rep(0,2),SD_Report=rep(1,2))
+rownames(new_data$CPUEinfo)<-new_data$fleetnames
+new_data$units_of_catch<-c(1,2)
+new_data$len_info<-data.frame(names=c('fishery','survey'),mintailcomp=rep(-1,2),addtocomp=rep(1e-06,2),combine_M_F=rep(0,2),CompressBins=rep(0,2),CompError=rep(1,2),ParmSelect=c(1:2),minsamplesize=rep(1,2))
+rownames(new_data$len_info)<-new_data$fleetnames
+new_data$age_info<-data.frame(names=c('fishery','survey'),mintailcomp=rep(-1,2),addtocomp=rep(1e-06,2),combine_M_F=rep(0,2),CompressBins=rep(0,2),CompError=rep(1,2),ParmSelect=c(0,3),minsamplesize=rep(1,2))
+rownames(new_data$age_info)<-new_data$fleetnames
+new_data$Nfleet<-1
+new_data$fleetinfo1<-data.frame(fishery=c(-1,1,1)survey=c(1,1,3))
+rownames(new_data$fleetinfo1)<-c('surveytiming','areas','type')
+newdata$fleetinfo2<-data.frame(fishery=c(1,0),survey=c(2,0))
+rownames(new_data$fleetinfo2)<-c('units','need_catch_mult')
+new_data$comp_tail_compression<-rep(-1,2)
+new_data$add_to_comp<-rep(1e-06,2)
+new_data$max_combined_lbin<-rep(0,2)
+}
+
 
 
 ## fill in a bunch of stuff in the new_data structure
