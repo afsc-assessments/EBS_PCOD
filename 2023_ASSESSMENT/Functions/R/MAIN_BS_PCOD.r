@@ -95,7 +95,7 @@ max_age <- 20
 
 setwd(paste(working_dir,"\\Functions\\R",sep=""))
 
-source_files=c("BIN_LEN_DATA.r","FORMAT_AGE_MEANS1.r", "GET_BS_ACOMP1.r","GET_BS_BIOM.r","GET_BS_LCOMP1.r",             
+source_files=c("BIN_LEN_DATA.r","FORMAT_AGE_MEANS1.r", "cond_length_age_corFISH.r","GET_DOM_AGE.r","GET_BS_ACOMP1.r","GET_BS_BIOM.r","GET_BS_LCOMP1.r",             
      "GET_SURV_AGE_cor.r", "LENGTH_BY_CATCH_BS.r","LENGTH_BY_CATCH_BS_short.r","Get_lengthweight.r","utils.r") 
 
 
@@ -197,4 +197,21 @@ test_dat <- SS_readdat_3.30(new_SS_dat_filename,verbose=TRUE)
 
 ## ctrl file needs to be edited manually due to complexity at this time.
 
+new_data           = new_data
+                              new_file           = new_SS_dat_filename
+                              new_year           = new_SS_dat_year
+                              sp_area            = sp_area
+                              fsh_sp_label       = fsh_sp_label
+                              fsh_sp_area        = fsh_sp_area
+                              fsh_sp_str         = fsh_sp_str
+                              fsh_start_yr       = fsh_start_yr
+                              srv_sp_str         = srv_sp_str
+                              srv_start_yr       = srv_start_yr
+                              len_bins           = len_bins
+                              max_age            = max_age
+                              is_new_SS_DAT_file = is_new_SS_DAT_file
+		              AUXFCOMP           = 1
+                              ONE_FLEET          =FALSE
+                              LL_DAT             =FALSE
+                              ICC_T              =FALSE
 

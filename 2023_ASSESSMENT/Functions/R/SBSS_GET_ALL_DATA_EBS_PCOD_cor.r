@@ -429,9 +429,9 @@ new_data$units_of_catch<-c(1,2)
 new_data$len_info<-data.frame(names=c('fishery','survey'),mintailcomp=rep(-1,2),addtocomp=rep(1e-06,2),combine_M_F=rep(0,2),CompressBins=rep(0,2),CompError=rep(1,2),ParmSelect=c(1:2),minsamplesize=rep(1,2))
 rownames(new_data$len_info)<-new_data$fleetnames
 new_data$age_info<-data.frame(names=c('fishery','survey'),mintailcomp=rep(-1,2),addtocomp=rep(1e-06,2),combine_M_F=rep(0,2),CompressBins=rep(0,2),CompError=rep(1,2),ParmSelect=c(0,3),minsamplesize=rep(1,2))
-rownames(new_data$age_info)<-new_data$fleetnames
-new_data$Nfleet<-1
-new_data$fleetinfo1<-data.frame(fishery=c(-1,1,1)survey=c(1,1,3))
+rownames(new_data$age_info) <- new_data$fleetnames
+new_data$Nfleet<- 1
+new_data$fleetinfo1 <- data.frame(fishery=c(-1,1,1),survey=c(1,1,3))
 rownames(new_data$fleetinfo1)<-c('surveytiming','areas','type')
 newdata$fleetinfo2<-data.frame(fishery=c(1,0),survey=c(2,0))
 rownames(new_data$fleetinfo2)<-c('units','need_catch_mult')
