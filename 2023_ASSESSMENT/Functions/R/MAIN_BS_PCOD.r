@@ -14,7 +14,7 @@ lapply(libs, library, character.only = TRUE)
 
 <<<<<<< HEAD
 afsc_user  = "sbarb"   ## enter afsc username
-afsc_pwd   = "BluFsh$$7890"    ## enter afsc password
+afsc_pwd   = "BluFsh$$9012"    ## enter afsc password
 akfin_user = "sbarbeaux"  ## enter AKFIN username
 akfin_pwd  = "$tockmen12"   ## enter AKFIN password
 
