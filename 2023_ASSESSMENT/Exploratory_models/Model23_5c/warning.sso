@@ -1,0 +1,15 @@
+Warning 1 : minimum sample size for age comps must be > 0; minimum sample size set to 0.001 
+Warning 2 : minimum sample size for age comps must be > 0; minimum sample size set to 0.001 
+Warning 3 : minimum sample size for age comps must be > 0; minimum sample size set to 0.001 
+Warning 4 : adjusted MGparm out of base parm bounds. Phase: 10; Inter: 2023; parm#: 9; y: 1994; min: 60; max: 150; base: 131.849 timevary_val: 157.832 L_at_Amax_Fem_GP_1
+Warning 5 : adjusted MGparm out of base parm bounds. Phase: 10; Inter: 2023; parm#: 9; y: 2021; min: 60; max: 150; base: 131.849 timevary_val: 177.508 L_at_Amax_Fem_GP_1
+Warning 6 : adjusted MGparm out of base parm bounds. Phase: 10; Inter: 2023; parm#: 8; y: 2022; min: 10; max: 25; base: 15.4192 timevary_val: 29.268 L_at_Amin_Fem_GP_1
+Warning 7 : Final gradient: 0.061913 is larger than final_conv: 0.0001
+Warning 8 : adjusted MGparm out of base parm bounds. Phase: 10; Inter: 2741; parm#: 9; y: 1994; min: 60; max: 150; base: 131.849 timevary_val: 157.832 L_at_Amax_Fem_GP_1
+Warning 9 : adjusted MGparm out of base parm bounds. Phase: 10; Inter: 2741; parm#: 9; y: 2021; min: 60; max: 150; base: 131.849 timevary_val: 177.508 L_at_Amax_Fem_GP_1
+Warning 10 : adjusted MGparm out of base parm bounds. Phase: 10; Inter: 2741; parm#: 8; y: 2022; min: 10; max: 25; base: 15.4192 timevary_val: 29.268 L_at_Amin_Fem_GP_1
+Warning 11 : adjusted MGparm out of base parm bounds. Phase: 10; Inter: 2741; parm#: 9; y: 1994; min: 60; max: 150; base: 131.849 timevary_val: 157.832 L_at_Amax_Fem_GP_1
+Warning 12 : adjusted MGparm out of base parm bounds. Phase: 10; Inter: 2741; parm#: 9; y: 2021; min: 60; max: 150; base: 131.849 timevary_val: 177.508 L_at_Amax_Fem_GP_1
+Warning 13 : adjusted MGparm out of base parm bounds. Phase: 10; Inter: 2741; parm#: 8; y: 2022; min: 10; max: 25; base: 15.4192 timevary_val: 29.268 L_at_Amin_Fem_GP_1
+Note 1 Information:  N parameters that are on or within 1% of min-max bound: 6; check results, variance may be suspect
+ 13 warnings  and 1 note 
