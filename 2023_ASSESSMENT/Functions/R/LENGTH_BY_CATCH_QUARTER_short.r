@@ -628,9 +628,6 @@ if(!SEX){
         "YAGM_SNUM","YG_SNUM","Y_SNUM")] 
     y3.1<-y3.1[YAGM_SFREQ>minN] 
 
-    require(vcdExtra)
-    require(misty)
-
     years<-unique(y3.1$YEAR)
     sexs<-as.character(1:3)
     ESS<-vector("list",length=length(years)*length(sexs))
