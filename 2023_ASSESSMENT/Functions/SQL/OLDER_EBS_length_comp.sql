@@ -1,18 +1,18 @@
 		SELECT
-    			haehnr.sizecomp_ebs_standard_stratum.year,
-    			haehnr.sizecomp_ebs_standard_stratum.length / 10 AS length,
-    			SUM(haehnr.sizecomp_ebs_standard_stratum.total) AS EBS_TOTAL
+    			afsc.sizecmp_ebsshelf_standard.year,
+    			afsc.sizecmp_ebsshelf_standard.length / 10 AS length,
+    			SUM(afsc.sizecmp_ebsshelf_standard.total) AS EBS_TOTAL
 		FROM
-    			haehnr.sizecomp_ebs_standard_stratum
+    			afsc.sizecmp_ebsshelf_standard
 		WHERE
-    			haehnr.sizecomp_ebs_standard_stratum.year 
+    			afsc.sizecmp_ebsshelf_standard.year 
                 -- insert year
-    			AND haehnr.sizecomp_ebs_standard_stratum.species_code 
+    			AND afsc.sizecmp_ebsshelf_standard.species_code 
                 -- insert species
-    			AND haehnr.sizecomp_ebs_standard_stratum.stratum > 9999
+    			AND afsc.sizecmp_ebsshelf_standard.subarea = 999
 		GROUP BY
-   			haehnr.sizecomp_ebs_standard_stratum.year,
-    			haehnr.sizecomp_ebs_standard_stratum.length / 10
+   			afsc.sizecmp_ebsshelf_standard.year,
+    			afsc.sizecmp_ebsshelf_standard.length / 10
 		ORDER BY
-   			haehnr.sizecomp_ebs_standard_stratum.year,
+   			afsc.sizecmp_ebsshelf_standard.year,
     			length
