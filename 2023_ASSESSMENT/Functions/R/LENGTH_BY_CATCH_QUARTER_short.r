@@ -54,7 +54,7 @@ LENGTH_BY_CATCH_QUARTER_short<-function(species=fsh_sp_str ,species_catch=fsh_sp
   lfreq = sql_filter(sql_precode = "IN", x = species, sql_code = lfreq, flag = '-- insert species')
   lfreq = sql_add(x = region, sql_code = lfreq, flag = '-- insert region')
  
-  Dspcomp=sql_run(afsc, lfreq) %>% 
+  Dspcomp=sql_run(akfin, lfreq) %>% 
     dplyr::rename_all(toupper) %>% subset(EXTRAPOLATED_WEIGHT > 0 & NUMB > 0)
 
   Dspcomp <- subset(Dspcomp,EXTRAPOLATED_WEIGHT > 0)
