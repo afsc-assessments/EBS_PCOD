@@ -6,10 +6,8 @@
 ## and month by the blend catch information. There are a number of sample size measures attempted, 
 ## number of samples, number of hauls, and a facile bootstrap approach from fishmethods library. 
 ##
-##  You will need to connect to the two databases before using this function.
+##  You will need to connect to the skfin databases before using this function.
 ##  
-##  afsc = DBI::dbConnect(odbc::odbc(), "afsc",
-##                      UID = afsc_user, PWD = afsc_pwd)
 ##  akfin = DBI::dbConnect(odbc::odbc(), "akfin",
 ##                      UID = akfin_user, PWD = akfin_pwd) 
 ##

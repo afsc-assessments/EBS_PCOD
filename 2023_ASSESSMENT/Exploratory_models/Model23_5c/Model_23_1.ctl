@@ -49,8 +49,8 @@
 # setup for M, growth, wt-len, maturity, fecundity, (hermaphro), recr_distr, cohort_grow, (movement), (age error), (catch_mult), sex ratio 
 #_NATMORT
 1 #_natM_type:_0=1Parm; 1=N_breakpoints;_2=Lorenzen;_3=agespecific;_4=agespec_withseasinterpolate;_5=BETA:_Maunder_link_to_maturity;_6=Lorenzen_range
-7 #_N_breakpoints
-1 2 3 4 5 6 7 # age(real) at M breakpoints
+2 #_N_breakpoints
+4 7 # age(real) at M breakpoints
 #
 2 # GrowthModel: 1=vonBert with L1&L2; 2=Richards with L1&L2; 3=age_specific_K_incr; 4=age_specific_K_decr; 5=age_specific_K_each; 6=NA; 7=NA; 8=growth cessation
 1.5 #_Age(post-settlement)_for_L1;linear growth below this
@@ -71,11 +71,6 @@
 #_growth_parms
 #_ LO HI INIT PRIOR PR_SD PR_type PHASE env_var&link dev_link dev_minyr dev_maxyr dev_PH Block Block_Fxn
 # Sex: 1  BioPattern: 1  NatMort
- 0 1 0.30565 0 0 0 1 0 0 0 0 0 0 0 # NatM_break_1_Fem_GP_1
- 0 1 0.30565 0 0 0 1 0 0 0 0 0 0 0 # NatM_break_1_Fem_GP_1
- 0 1 0.30565 0 0 0 1 0 0 0 0 0 0 0 # NatM_break_1_Fem_GP_1
- 0 1 0.30565 0 0 0 1 0 0 0 0 0 0 0 # NatM_break_1_Fem_GP_1
- 0 1 0.30565 0 0 0 1 0 0 0 0 0 0 0 # NatM_break_1_Fem_GP_1
  0 1 0.30565 0 0 0 1 0 0 0 0 0 0 0 # NatM_break_1_Fem_GP_1
  0 1 0.30565 0 0 0 1 0 0 0 0 0 0 0 # NatM_break_1_Fem_GP_1
 # Sex: 1  BioPattern: 1  Growth
@@ -166,8 +161,8 @@
 #  -1.57522 -1.60154 -1.63595 -1.68483 -1.74438 -1.80681 -1.87112 -1.89102 -1.78881 -1.29454 -1.10945 -1.39132 -0.316098 0.52264 0.358791 0.312926 -0.482815 -0.936624 0.64621 -0.68811 0.563219 -0.247336 -0.752485 -1.36963 -0.712362 0.102627 -0.093718 -0.112425 0.603017 -0.282044 -0.512741 -0.586543 0.37529 -0.346336 -0.630765 0.208796 0.126682 -0.818084 -0.305407 -0.64981 -0.891828 -0.409353 0.353045 -0.246008 0.680201 -0.703916 0.377925 0.70373 -0.0670529 0.740349 -0.682691 -0.469111 -1.02857 -0.849328 0.689939 -1.29194 -0.237098 -0.16114 -0.012683 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 #
 #Fishing Mortality info 
-0.3 # F ballpark value in units of annual_F
--1999 # F ballpark year (neg value to disable)
+0.2 # F ballpark value in units of annual_F
+1999 # F ballpark year (neg value to disable)
 3 # F_Method:  1=Pope midseason rate; 2=F as parameter; 3=F as hybrid; 4=fleet-specific parm/hybrid (#4 is superset of #2 and #3 and is recommended)
 3 # max F (methods 2-4) or harvest fraction (method 1)
 4  # N iterations for tuning in hybrid mode; recommend 3 (faster) to 5 (more precise if many fleets)
@@ -175,7 +170,7 @@
 #_initial_F_parms; for each fleet x season that has init_catch; nest season in fleet; count = 1
 #_for unconstrained init_F, use an arbitrary initial catch and set lambda=0 for its logL
 #_ LO HI INIT PRIOR PR_SD  PR_type  PHASE
- 0 1 0.00765739 0 0 0 7 # InitF_seas_1_flt_1trawl
+ 0 1 0.1 0 0 0 7 # InitF_seas_1_flt_1trawl
 #
 # F rates by fleet x season
 # Yr:  1964 1965 1966 1967 1968 1969 1970 1971 1972 1973 1974 1975 1976 1977 1978 1979 1980 1981 1982 1983 1984 1985 1986 1987 1988 1989 1990 1991 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021 2022 2023 2024 2025 2026 2027 2028 2029 2030 2031 2032 2033 2034 2035 2036 2037
@@ -197,7 +192,7 @@
 #
 #_Q_parms(if_any);Qunits_are_ln(q)
 #_          LO            HI          INIT         PRIOR         PR_SD       PR_type      PHASE    env-var    use_dev   dev_mnyr   dev_mxyr     dev_PH      Block    Blk_Fxn  #  parm_name
-            -3             3    -0.0630801             0             0             0          8          0          0          0          0          0          0          0  #  LnQ_base_survey(4)
+            -3             3           0             0             0             0          8          0          0          0          0          0          0          0  #  LnQ_base_survey(4)
 #_no timevary Q parameters
 #
 #_size_selex_patterns
@@ -284,9 +279,9 @@
            -10            10            10          -999          -999             0         -3          0          0          0          0          0          0          0  #  Age_DblN_end_logit_survey(4)
 #_Dirichlet and/or MV Tweedie parameters for composition error
 #_multiple_fleets_can_refer_to_same_parm;_but_list_cannot_have_gaps
-           -10            10       9.99578             0          -999             0          9          0          0          0          0          0          0          0  #  ln(DM_theta)_Len_P1
-           -10            10       9.97775             0          -999             0          9          0          0          0          0          0          0          0  #  ln(DM_theta)_Len_P2
-           -10            10       9.99876             0          -999             0          9          0          0          0          0          0          0          0  #  ln(DM_theta)_Age_P3
+           -10            10       0             0          -999             0          9          0          0          0          0          0          0          0  #  ln(DM_theta)_Len_P1
+           -10            10       0             0          -999             0          9          0          0          0          0          0          0          0  #  ln(DM_theta)_Len_P2
+           -10            10       0             0          -999             0          9          0          0          0          0          0          0          0  #  ln(DM_theta)_Age_P3
 #_no timevary selex parameters
 #
 0   #  use 2D_AR1 selectivity(0/1)
@@ -317,8 +312,8 @@
       4      1         16
       4      2         16
       4      3         16
-      4      4         4
-      5      4         14
+      4      4         2
+      5      4         18
  -9999   1    0  # terminator
 #
 1 #_maxlambdaphase
