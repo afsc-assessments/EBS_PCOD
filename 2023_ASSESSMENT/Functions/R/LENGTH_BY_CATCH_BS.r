@@ -67,7 +67,7 @@ LENGTH_BY_CATCH<-function(species=fsh_sp_str ,species_catch=fsh_sp_label, for_sp
   Flfreq = sql_filter(sql_precode = "IN", x = species, sql_code = Flfreq, flag = '-- insert species')
   Flfreq = sql_add(x = region, sql_code = Flfreq, flag = '-- insert region')
 
-  Fspcomp=sql_run(afsc, Flfreq) %>% 
+  Fspcomp=sql_run(akfin, Flfreq) %>% 
    dplyr::rename_all(toupper)
   Fspcomp$MONTH<-as.numeric(Fspcomp$MONTH)
   Fspcomp$QUARTER<-trunc((Fspcomp$MONTH/3)-0.3)+1
