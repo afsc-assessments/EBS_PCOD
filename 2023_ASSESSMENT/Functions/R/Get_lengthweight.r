@@ -7,7 +7,7 @@ get_lengthweight <- function(species=202,area='BS',K=7, Alpha_series=2, Beta_ser
   dwt = readLines('sql/dom_age_wt.sql')
   dwt = sql_filter(sql_precode = "IN", x = species, sql_code = dwt, flag = '-- insert species')
   dwt = sql_add(x = location, sql_code = dwt, flag = '-- insert location')
-  data_LW=sql_run(afsc, dwt) %>% data.table() %>%
+  data_LW=sql_run(akfin, dwt) %>% data.table() %>%
     dplyr::rename_all(toupper)
    
   fwt = readLines('sql/for_age_wt.sql')
