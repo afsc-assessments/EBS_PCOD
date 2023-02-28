@@ -27,7 +27,7 @@ GET_BS_LCOMP1<-function(species="21720",bins=seq(3.5,119.5,1),bin=TRUE,SS=TRUE,s
 
   lcomp2 = readLines('sql/NBS_length_comp.sql')
   lcomp2 = sql_filter(sql_precode = "IN", x =srv_sp_str , sql_code = lcomp2, flag = '-- insert species')
-  lcomp2 = sql_run(afsc, lcomp2) %>% data.table() %>% 
+  lcomp2 = sql_run(akfin, lcomp2) %>% data.table() %>% 
       dplyr::rename_all(toupper)
 
   lcomp3 = readLines('sql/OLDER_EBS_length_comp.sql')
