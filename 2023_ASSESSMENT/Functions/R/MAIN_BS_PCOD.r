@@ -11,6 +11,8 @@ if(length(libs[which(libs %in% rownames(installed.packages()) == FALSE )]) > 0) 
   install.packages(libs[which(libs %in% rownames(installed.packages()) == FALSE)])}
 lapply(libs, library, character.only = TRUE)
 
+source('R/utils.r')
+
 afsc=connect("afsc")
 akfin=connect("akfin")
 
