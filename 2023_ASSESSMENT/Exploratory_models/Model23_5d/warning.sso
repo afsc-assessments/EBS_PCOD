@@ -1,9 +1,0 @@
-Warning 1 : minimum sample size for age comps must be > 0; minimum sample size set to 0.001 
-Warning 2 : minimum sample size for age comps must be > 0; minimum sample size set to 0.001 
-Warning 3 : minimum sample size for age comps must be > 0; minimum sample size set to 0.001 
-Warning 4 : adjusted MGparm out of base parm bounds. Phase: 9; Inter: 1225; parm#: 3; y: 2022; min: 10; max: 25; base: 16.5563 timevary_val: 25.7075 L_at_Amin_Fem_GP_1
-Warning 5 : Final gradient: 0.211342 is larger than final_conv: 0.0001
-Warning 6 : adjusted MGparm out of base parm bounds. Phase: 9; Inter: 1915; parm#: 3; y: 2022; min: 10; max: 25; base: 16.5563 timevary_val: 25.7075 L_at_Amin_Fem_GP_1
-Warning 7 : adjusted MGparm out of base parm bounds. Phase: 9; Inter: 1915; parm#: 3; y: 2022; min: 10; max: 25; base: 16.5563 timevary_val: 25.7075 L_at_Amin_Fem_GP_1
-Note 1 Information:  N parameters that are on or within 1% of min-max bound: 1; check results, variance may be suspect
- 7 warnings  and 1 note 

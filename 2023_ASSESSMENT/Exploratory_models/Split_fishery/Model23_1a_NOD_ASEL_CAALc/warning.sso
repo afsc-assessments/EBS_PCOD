@@ -1,0 +1,5 @@
+Warning 1 Adjustment: 165 catch records have seas>nseas; perhaps erroneous entry of month rather than season; changed to nseas
+Warning 2 : bias adjustment ramp extends into forecast; biasadj set to 0.0 internally for forecast years
+Warning 3 : Final gradient: 0.00173462 is larger than final_conv: 0.0001
+Warning 4 : Time-vary parms not bound checked
+ 4 warnings 
