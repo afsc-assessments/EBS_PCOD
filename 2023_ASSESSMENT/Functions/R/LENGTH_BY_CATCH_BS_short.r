@@ -54,7 +54,7 @@ LENGTH_BY_CATCH_short<-function(species=fsh_sp_str ,species_catch=fsh_sp_label, 
   lfreq = sql_filter(sql_precode = "IN", x = species, sql_code = lfreq, flag = '-- insert species')
   lfreq = sql_add(x = region, sql_code = lfreq, flag = '-- insert region')
  
-  Dspcomp=sql_run(afsc, lfreq) %>% 
+  Dspcomp=sql_run(akfin, lfreq) %>% 
     dplyr::rename_all(toupper) %>% subset(EXTRAPOLATED_WEIGHT > 0 & NUMB > 0)
 
   Dspcomp <- subset(Dspcomp,EXTRAPOLATED_WEIGHT > 0)
@@ -139,8 +139,8 @@ LENGTH_BY_CATCH_short<-function(species=fsh_sp_str ,species_catch=fsh_sp_label, 
       PADspcomp2<-merge(PADspcomp2,YGM_AVWT,all.x=T,by=c('YEAR','GEAR','MONTH'))           ## second choice is year, gear, month
       PADspcomp2<-merge(PADspcomp2,YGQ_AVWT,all.x=T,by=c('YEAR','GEAR','QUARTER'))         ## third choice is year, gear, quarter
       PADspcomp2<-merge(PADspcomp2,YAM_AVWT,all.x=T,by=c('YEAR','AREA2','MONTH'))          ## fourth choice is year, area, month
-      PADspcomp2<-merge(PADspcomp2,YAQ_AVWT,all.x=T,by=c('YEAR','AREA2','QUARTER'))        ## fourth choice is year, gear
-      PADspcomp2<-merge(PADspcomp2,YG_AVWT,all.x=T,by=c('YEAR','GEAR'))                    ## fill in any others by year, area
+      PADspcomp2<-merge(PADspcomp2,YAQ_AVWT,all.x=T,by=c('YEAR','AREA2','QUARTER'))        ## fourth choice is year, area, gear
+      PADspcomp2<-merge(PADspcomp2,YG_AVWT,all.x=T,by=c('YEAR','GEAR'))                    ## fill in any others by year, gear
       PADspcomp2$AVEWT<-PADspcomp2$YAGM_AVE_WT
       PADspcomp2[is.na(AVEWT)]$AVEWT<-PADspcomp2[is.na(AVEWT)]$YAM_AVE_WT
       PADspcomp2[is.na(AVEWT)]$AVEWT<-PADspcomp2[is.na(AVEWT)]$YAQ_AVE_WT
@@ -209,7 +209,7 @@ LENGTH_BY_CATCH_short<-function(species=fsh_sp_str ,species_catch=fsh_sp_label, 
       PBCOMB5<-merge(PBCOMB5,YGQ_AVWT,all.x=T,by=c('YEAR','GEAR','QUARTER'))         ## third choice is year, gear, quarter
       PBCOMB5<-merge(PBCOMB5,YAM_AVWT,all.x=T,by=c('YEAR','AREA2','MONTH'))          ## fourth choice is year, area, month      
       PBCOMB5<-merge(PBCOMB5,YAQ_AVWT,all.x=T,by=c('YEAR','AREA2','QUARTER'))        ## fifth choice is year, area, quarter 
-      PBCOMB5<-merge(PBCOMB5,YG_AVWT,all.x=T,by=c('YEAR','GEAR'))                    ## fill in any others by year, area, month
+      PBCOMB5<-merge(PBCOMB5,YG_AVWT,all.x=T,by=c('YEAR','GEAR'))                    ## fill in any others by year, gear
       PBCOMB5$AVEWT<-PBCOMB5$YAGM_AVE_WT
       PBCOMB5[is.na(AVEWT)]$AVEWT<-PBCOMB5[is.na(AVEWT)]$YAM_AVE_WT
       PBCOMB5[is.na(AVEWT)]$AVEWT<-PBCOMB5[is.na(AVEWT)]$YGQ_AVE_WT
@@ -249,7 +249,7 @@ LENGTH_BY_CATCH_short<-function(species=fsh_sp_str ,species_catch=fsh_sp_label, 
       PCDspcomp2<-merge(PCDspcomp2,YGQ_AVWT,all.x=T,by=c('YEAR','GEAR','QUARTER'))         ## third choice is year, gear, quarter
       PCDspcomp2<-merge(PCDspcomp2,YAM_AVWT,all.x=T,by=c('YEAR','AREA2','MONTH'))          ## fourth choice is year, area, month
       PCDspcomp2<-merge(PCDspcomp2,YAQ_AVWT,all.x=T,by=c('YEAR','AREA2','QUARTER'))        ## fourth choice is year, area, quarter
-      PCDspcomp2<-merge(PCDspcomp2,YG_AVWT,all.x=T,by=c('YEAR','GEAR'))                    ## fill in any others by year, area
+      PCDspcomp2<-merge(PCDspcomp2,YG_AVWT,all.x=T,by=c('YEAR','GEAR'))                    ## fill in any others by year, gear
   ## fill in average weight based on priority
       PCDspcomp2$AVEWT<-PCDspcomp2$YAGM_AVE_WT
       PCDspcomp2[is.na(AVEWT)]$AVEWT<-PCDspcomp2[is.na(AVEWT)]$YAM_AVE_WT

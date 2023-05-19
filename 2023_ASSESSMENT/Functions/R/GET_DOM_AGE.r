@@ -21,7 +21,7 @@ GET_DOM_AGE<-function(fsh_sp_str1="99999",fsh_sp_area1="'foo'",max_age1=30)
   Age = sql_add(x =paste0('between ',region) , sql_code = Age, flag = '-- insert region')
   Age = sql_filter(sql_precode = "in", x =fsh_sp_str1 , sql_code = Age, flag = '-- insert species')
   
-  Dage = sql_run(afsc, Age) %>% data.table() %>%
+  Dage = sql_run(akfin, Age) %>% data.table() %>%
       dplyr::rename_all(toupper)
 
     Dage$AGE1<-Dage$AGE

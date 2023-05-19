@@ -22,18 +22,18 @@ GET_BS_LCOMP1<-function(species="21720",bins=seq(3.5,119.5,1),bin=TRUE,SS=TRUE,s
 
   lcomp1 = readLines('sql/EBS_length_comp.sql')
   lcomp1 = sql_filter(sql_precode = "IN", x =srv_sp_str , sql_code = lcomp1, flag = '-- insert species')  
-  lcomp1 = sql_run(afsc, lcomp1) %>% data.table() %>% 
+  lcomp1 = sql_run(akfin, lcomp1) %>% data.table() %>% 
       dplyr::rename_all(toupper)
 
   lcomp2 = readLines('sql/NBS_length_comp.sql')
   lcomp2 = sql_filter(sql_precode = "IN", x =srv_sp_str , sql_code = lcomp2, flag = '-- insert species')
-  lcomp2 = sql_run(afsc, lcomp2) %>% data.table() %>% 
+  lcomp2 = sql_run(akfin, lcomp2) %>% data.table() %>% 
       dplyr::rename_all(toupper)
 
   lcomp3 = readLines('sql/OLDER_EBS_length_comp.sql')
   lcomp3 = sql_filter(sql_precode = "<=", x = 1986, sql_code = lcomp3, flag = '-- insert year')
   lcomp3 = sql_filter(sql_precode = "IN", x =srv_sp_str , sql_code = lcomp3, flag = '-- insert species')  
-  lcomp3=sql_run(afsc, lcomp3) %>% data.table() %>% 
+  lcomp3=sql_run(akfin, lcomp3) %>% data.table() %>% 
       dplyr::rename_all(toupper)
 
  

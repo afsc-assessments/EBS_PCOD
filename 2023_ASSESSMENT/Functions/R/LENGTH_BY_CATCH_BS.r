@@ -6,10 +6,8 @@
 ## and month by the blend catch information. There are a number of sample size measures attempted, 
 ## number of samples, number of hauls, and a facile bootstrap approach from fishmethods library. 
 ##
-##  You will need to connect to the two databases before using this function.
+##  You will need to connect to the skfin databases before using this function.
 ##  
-##  afsc = DBI::dbConnect(odbc::odbc(), "afsc",
-##                      UID = afsc_user, PWD = afsc_pwd)
 ##  akfin = DBI::dbConnect(odbc::odbc(), "akfin",
 ##                      UID = akfin_user, PWD = akfin_pwd) 
 ##
@@ -67,7 +65,7 @@ LENGTH_BY_CATCH<-function(species=fsh_sp_str ,species_catch=fsh_sp_label, for_sp
   Flfreq = sql_filter(sql_precode = "IN", x = species, sql_code = Flfreq, flag = '-- insert species')
   Flfreq = sql_add(x = region, sql_code = Flfreq, flag = '-- insert region')
 
-  Fspcomp=sql_run(afsc, Flfreq) %>% 
+  Fspcomp=sql_run(akfin, Flfreq) %>% 
    dplyr::rename_all(toupper)
   Fspcomp$MONTH<-as.numeric(Fspcomp$MONTH)
   Fspcomp$QUARTER<-trunc((Fspcomp$MONTH/3)-0.3)+1

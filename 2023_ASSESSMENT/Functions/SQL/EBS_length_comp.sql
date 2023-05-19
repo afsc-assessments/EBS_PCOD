@@ -1,13 +1,13 @@
 SELECT
-    haehnr.sizecomp_ebs_plusnw_stratum.year,
-    haehnr.sizecomp_ebs_plusnw_stratum.length /10 AS LENGTH,
-    haehnr.sizecomp_ebs_plusnw_stratum.total AS EBS_TOTAL
+    afsc.race_sizecmp_ebsshelf_plusnw.year,
+    afsc.race_sizecmp_ebsshelf_plusnw.length /10 AS LENGTH,
+    afsc.race_sizecmp_ebsshelf_plusnw.total AS EBS_TOTAL
 FROM
-    haehnr.sizecomp_ebs_plusnw_stratum
+    afsc.race_sizecmp_ebsshelf_plusnw 
 WHERE
-    haehnr.sizecomp_ebs_plusnw_stratum.species_code
+    afsc.race_sizecmp_ebsshelf_plusnw.species_code
 -- insert species
-    AND haehnr.sizecomp_ebs_plusnw_stratum.stratum > 9999   
+    AND afsc.race_sizecmp_ebsshelf_plusnw.subarea = 999   
 ORDER BY
-    haehnr.sizecomp_ebs_plusnw_stratum.year,
-    haehnr.sizecomp_ebs_plusnw_stratum.length 			
+    afsc.race_sizecmp_ebsshelf_plusnw.year,
+    afsc.race_sizecmp_ebsshelf_plusnw.length 			

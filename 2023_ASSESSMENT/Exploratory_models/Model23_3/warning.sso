@@ -1,8 +1,0 @@
-Warning 1 Adjustment: 151 catch records have seas>nseas; perhaps erroneous entry of month rather than season; changed to nseas
-Warning 2 : minimum sample size for age comps must be > 0; minimum sample size set to 0.001 
-Warning 3 : minimum sample size for age comps must be > 0; minimum sample size set to 0.001 
-Warning 4 : minimum sample size for age comps must be > 0; minimum sample size set to 0.001 
-Warning 5 : 1st iteration warning: catch logL > 50% total logL; check configuration; suggest start with larger R0
-Warning 6 : Final gradient: 0.24723 is larger than final_conv: 0.0001
-Warning 7 : Time-vary parms not bound checked
- 7 warnings 

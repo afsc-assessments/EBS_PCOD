@@ -30,7 +30,7 @@ cond_length_age_corFISH<-function(species = fsh_sp_str,
   Age = sql_add(x =paste0('between ',region) , sql_code = Age, flag = '-- insert region')
   Age = sql_filter(sql_precode = "in", x =species , sql_code = Age, flag = '-- insert species')
   
-  Dage = sql_run(afsc, Age) %>% data.table() %>%
+  Dage = sql_run(akfin, Age) %>% data.table() %>%
       dplyr::rename_all(toupper)
 
     Dage$AGE1<-Dage$AGE

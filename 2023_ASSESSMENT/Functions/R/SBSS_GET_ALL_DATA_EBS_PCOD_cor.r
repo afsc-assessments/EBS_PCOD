@@ -356,18 +356,21 @@ SBSS_GET_ALL_DATA <- function(new_data     = new_data,
          }else{Sur <- 4} 
 
   AGE_LENGTH_SS <- data.frame(FORMAT_AGE_MEANS1(srv_age_samples=Age_w,max_age=max_age,type="L",seas=7,flt=-Sur,gender=0,part=0))
+  AGE_WEIGHT_SS <- data.frame(FORMAT_AGE_MEANS1(srv_age_samples=Age_w,max_age=max_age,type="W",seas=7,flt=-Sur,gender=0,part=0))
   
+   AGE_LW_SS<-rbind(AGE_LENGTH_SS,AGE_WEIGHT_SS)	
+	
   if (is_new_SS_DAT_file)
   {
-      names(AGE_LENGTH_SS) <- c("Year","Seas","FltSrv","Gender","Part","Ageerr","Ignore",rep(seq(0,max_age,1),2))
+      names(AGE_LW_SS) <- c("Year","Seas","FltSrv","Gender","Part","Ageerr","Ignore",rep(seq(0,max_age,1),2))
   } else
   {
-      names(AGE_LENGTH_SS) <- names(old_data$MeanSize_at_Age_obs)
+      names(AGE_LW_SS) <- names(old_data$MeanSize_at_Age_obs)
   }
 
 ## write size at age to new data file
-  new_data$MeanSize_at_Age_obs<-AGE_LENGTH_SS
-  new_data$N_MeanSize_at_Age_obs<-nrow(AGE_LENGTH_SS)
+  new_data$MeanSize_at_Age_obs<-AGE_LW_SS
+  new_data$N_MeanSize_at_Age_obs<-nrow(AGE_LW_SS)
 
 
 ## Environmental data for length weight 

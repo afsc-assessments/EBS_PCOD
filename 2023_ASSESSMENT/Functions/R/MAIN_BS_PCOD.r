@@ -5,24 +5,16 @@
 
 ## write SS3 files for stock assessment
 
-libs <- c("tidyverse", "dplyr","RODBC","mgcv","FSA","nlstools","data.table","ggplot2","sizeMat","devtools","r4ss","lubridate","rgdal","fishmethods","reshape2","swo","vcdExtra","misty")
+libs <- c("tidyverse", "dplyr","RODBC","mgcv","FSA","nlstools","data.table","ggplot2","sizeMat","devtools","r4ss","lubridate","rgdal","fishmethods","reshape2","vcdExtra","misty")
 
 if(length(libs[which(libs %in% rownames(installed.packages()) == FALSE )]) > 0) {
   install.packages(libs[which(libs %in% rownames(installed.packages()) == FALSE)])}
 lapply(libs, library, character.only = TRUE)
 
+source('R/utils.r')
 
-<<<<<<< HEAD
-afsc_user  = "sbarb"   ## enter afsc username
-afsc_pwd   = "BluFsh$$9012"    ## enter afsc password
-akfin_user = "sbarbeaux"  ## enter AKFIN username
-akfin_pwd  = "$tockmen12"   ## enter AKFIN password
-
-
-  afsc = DBI::dbConnect(odbc::odbc(), "afsc",
-                      UID = afsc_user, PWD = afsc_pwd)
-  akfin = DBI::dbConnect(odbc::odbc(), "akfin",
-                      UID = akfin_user, PWD = akfin_pwd)
+afsc=connect("afsc")
+akfin=connect("akfin")
 
 #afsc  = odbcConnect("AFSC",afsc_user,afsc_pass,believeNRows=FALSE)
 #akfin = odbcConnect("AKFIN",akfin_user,akfin_pass,believeNRows=FALSE)
