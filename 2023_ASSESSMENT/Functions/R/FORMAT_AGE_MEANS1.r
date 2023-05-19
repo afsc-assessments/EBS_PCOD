@@ -3,7 +3,7 @@
 #
 # ZTA, 2013-09-23, R v2.15.1
 
-FORMAT_AGE_MEANS1 <- function(srv_age_samples=NULL,max_age=20,type="L", seas=1,flt=2,gender=0,part=0,birthseas=1,growpattern=1)
+FORMAT_AGE_MEANS1 <- function(srv_age_samples=NULL,max_age=12,type="L", seas=1,flt=2,gender=0,part=0,birthseas=1,growpattern=1)
 {
   Age_All<-subset(srv_age_samples,!is.na(srv_age_samples$AGE))
   
@@ -105,39 +105,63 @@ FORMAT_AGE_MEANS1 <- function(srv_age_samples=NULL,max_age=20,type="L", seas=1,f
       AGE_FRAME$Sample[which(AGE_FRAME$Sample == -9,arr.ind=TRUE)] <- 0
       AGE_FRAME$VALUE[which(AGE_FRAME$VALUE == -9,arr.ind=TRUE)] <- 0
 
-        
-      years <- sort(unique( AGE_FRAME$YEAR))
-      bins  <- sort(unique( AGE_FRAME$Age))
+      
 
-      nbins <- length(bins)  # extra column for age-0
-      nyrs  <- length(years)
+     years<-unique(AGE_FRAME$YEAR)
+      bins<-unique(AGE_FRAME$Age)
 
-      const.cols <- 6
-      data.col.start <- const.cols + 1    # start at age-0 column
+      nbin=length(bins)
+      nyr<-length(years)
+      x<-matrix(ncol=((2*nbin)+7),nrow=nyr)
 
-    # one line for each year and sex;
-    # this assumes that there are data for each sex for each year
-      x     <- matrix(ncol=(const.cols + nbins),nrow=2*nyrs)
+      x[,2]<-seas
+      x[,3]<-flt
+      x[,4]<-gender
+      x[,5]<-part
+      x[,6]<--1
+      x[,7]<-999
 
-      x[,2] <- seas
 
-      x[,4] <- growpattern
-      x[,5] <- birthseas
-      x[,6] <- flt
+    for(i in 1:nyr)
+      {
+        x[i,1]<-years[i]
+        x[i,8:(nbin+7)]<-AGE_FRAME$VALUE[AGE_FRAME$YEAR==years[i]]
+        x[i,(nbin+8):ncol(x)]<-AGE_FRAME$Sample[AGE_FRAME$YEAR==years[i]]
+      }
 
-      for(i in 1:nyrs)
-        {
-        # output the calculated mean weight-at-age values for FEMALES
-          x[i,1] <- years[i]
-          x[i,3] <- 0
-          x[i,(data.col.start):(nbins+const.cols)] <- AGE_FRAME$VALUE[AGE_FRAME$YEAR==years[i]]
 
-        # output the calculated mean weight-at-age values for MALES
-          j <- nyrs + i
-          x[j,1] <- years[i]
-          x[j,3] <- 0
-          x[j,(data.col.start):(nbins+const.cols)] <- AGE_FRAME$Sample[AGE_FRAME$YEAR==years[i]]
-      } 
+    #   years <- sort(unique( AGE_FRAME$YEAR))
+    #   bins  <- sort(unique( AGE_FRAME$Age))
+
+    #   nbins <- length(bins)  # extra column for age-0
+    #   nyrs  <- length(years)
+
+    #   const.cols <- 6
+    #   data.col.start <- const.cols + 1    # start at age-0 column
+
+    # # one line for each year and sex;
+    # # this assumes that there are data for each sex for each year
+    #   x     <- matrix(ncol=(const.cols + nbins),nrow=2*nyrs)
+
+    #   x[,2] <- seas
+
+    #   x[,4] <- growpattern
+    #   x[,5] <- birthseas
+    #   x[,6] <- flt
+
+    #   for(i in 1:nyrs)
+    #     {
+    #     # output the calculated mean weight-at-age values for FEMALES
+    #       x[i,1] <- years[i]
+    #       x[i,3] <- 0
+    #       x[i,(data.col.start):(nbins+const.cols)] <- AGE_FRAME$VALUE[AGE_FRAME$YEAR==years[i]]
+
+    #     # output the calculated mean weight-at-age values for MALES
+    #       j <- nyrs + i
+    #       x[j,1] <- years[i]
+    #       x[j,3] <- 0
+    #       x[j,(data.col.start):(nbins+const.cols)] <- AGE_FRAME$Sample[AGE_FRAME$YEAR==years[i]]
+    # } 
   } else { return(NULL) }
 
     x
