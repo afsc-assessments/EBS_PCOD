@@ -16,7 +16,7 @@ catch= readLines('sql/GET_CURRENT_CATCH.sql')
 catch = sql_filter(sql_precode = ">=", x = first_year, sql_code = catch, flag = '-- insert year')
 
 data_CATCH=sql_run(akfin, catch) %>% 
-         dplyr::rename_all(toupper)
+         dplyr::rename_all(toupper)%>% data.table()
 
 
 fsh_sp_label=202
@@ -110,14 +110,6 @@ data_GOA<-data_10[REGION%in%c("Central GOA","Western GOA")]
 data_BS<-data_10[REGION%in%c("BS")]
 
 
-d<-ggplot(data_BS[GEAR!="PELAGIC TRAWL"&MONTH%in%c(1:4)&TARGET_FISHERY_NAME=='Pacific Cod'],aes(as.factor(YEAR),log(CPUE_N),group=as.factor(YEAR)))
-  d<-d+geom_boxplot()
-  d<-d+facet_wrap(REGION~GEAR,nrow=2,scales="free_y",ncol=3)
-   d<-d+xlab("Year")+ylab("log(CPUE)")
-   d<-d+ggtitle(paste0("Number CPUE by year,gear, and region"))+theme_bw(base_size=18)+theme(axis.text.x = element_text(hjust=1, angle = 90)) 
-  d
-
-
 
 windows()
   d<-ggplot(data_10[GEAR_TYPE%in% c(6)&NMFS_AREA%in%c(500:539)],aes(as.factor(MONTH),log(CPUE_W),group=as.factor(MONTH)))
@@ -159,11 +151,11 @@ windows()
   d
 
 windows()
-d<-ggplot(data_10[GEAR_TYPE%in% c(1,6,8)&NMFS_AREA%in%c(500:539)&YEAR<2024 &  MONTH < 5],aes(as.factor(YEAR),log(CPUE_W),group=as.factor(YEAR)))
-  d<-d+geom_boxplot()
+d<-ggplot(data_10[GEAR_TYPE%in% c(1,6,8)&NMFS_AREA%in%c(541:543)&YEAR<2024 &  MONTH < 5],aes(as.factor(YEAR),log(CPUE_W),group=as.factor(YEAR)))
+  d<-d+geom_boxplot()+theme_bw()
   d<-d+facet_wrap(~GEAR,scales="free_y")
    d<-d+xlab("Year")+ylab("log(CPUE)")
-   d<-d+ggtitle(paste0("Weight CPUE by Year for BS Jan-Apr"))+theme(axis.text.x = element_text(angle = 90, hjust = 1))
+   d<-d+ggtitle(paste0("Weight CPUE by Year for AI Jan-Apr"))+theme(axis.text.x = element_text(angle = 90, hjust = 1))
   d
 
 
@@ -183,50 +175,53 @@ d<-ggplot(data_10[GEAR_TYPE%in% c(1,6,8)&NMFS_AREA%in%c(508:513,515:519)&YEAR<20
   d
 
 
-  windows()
-  d<-ggplot(data_10[GEAR_TYPE%in% c(1,6,8)&NMFS_AREA%in%c(630)&YEAR<2020&MONTH>0&MONTH<3],aes(as.factor(YEAR),log(CPUE),group=as.factor(YEAR)))
-  d<-d+geom_boxplot()
-  d<-d+facet_wrap(~GEAR,scales="free_y")
+windows()
+d<-ggplot(data_GOA[GEAR_TYPE%in% c(1,6,8)&NMFS_AREA%in%c(610,620,630)&YEAR<2024&MONTH>0&MONTH<3],aes(as.factor(YEAR),log(CPUE_W),group=as.factor(YEAR)))
+  d<-d+geom_boxplot()+theme_bw()
+  d<-d+facet_wrap(REGION~GEAR,scales="free_y")
    d<-d+xlab("Year")+ylab("log(CPUE)")
-   d<-d+ggtitle(paste0("CPUE by Year for Area 630 Jan-Feb"))+theme(axis.text.x = element_text(angle = 90, hjust = 1))
+   d<-d+ggtitle(paste0("Weight CPUE by Year for GOA Jan-Feb"))+theme(axis.text.x = element_text(angle = 90, hjust = 1))
   d
+
+
+
+windows()
+d<-ggplot(data_GOA[GEAR_TYPE%in% c(1,6,8)&NMFS_AREA%in%c(610,620,630)&YEAR<2024&MONTH>0&MONTH<3],aes(as.factor(YEAR),log(CPUE_N),group=as.factor(YEAR)))
+  d<-d+geom_boxplot()+theme_bw()
+  d<-d+facet_wrap(REGION~GEAR,scales="free_y")
+   d<-d+xlab("Year")+ylab("log(CPUE)")
+   d<-d+ggtitle(paste0("Number CPUE by Year for GOA Jan-Feb"))+theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  d
+
+
+
 
 ##(508:513,515:519)
 windows()
-  d<-ggplot(data_10[GEAR_TYPE%in% c(8)&NMFS_AREA%in%c(508:513,515:519)&YEAR>2017],aes(as.factor(MONTH),(CPUE_W),group=as.factor(MONTH)))
-  d<-d+geom_boxplot()+geom_hline(yintercept=0.75,color="red",linetype=2)
+  d<-ggplot(data_10[GEAR_TYPE%in% c(8)&NMFS_AREA%in%c(508:513,515:519)&YEAR>2017],aes(as.factor(MONTH),(CPUE_N),group=as.factor(MONTH)))
+  d<-d+geom_boxplot()+geom_hline(yintercept=0.15,color="red",linetype=2)
   d<-d+facet_wrap(~YEAR)
    d<-d+xlab("Month")+ylab("CPUE(KG/HOOK)")
-   d<-d+ggtitle(paste0("CPUE by month for Southern EBS Longline"))
+   d<-d+ggtitle(paste0("CPUE number by month for Southern EBS Longline"))
   d
 
 
 windows()
-  d<-ggplot(data_10[GEAR_TYPE%in% c(8)&NMFS_AREA%in%c(521,524,525)&YEAR>2017],aes(as.factor(MONTH),(CPUE_W),group=as.factor(MONTH)))
-  d<-d+geom_boxplot()+geom_hline(yintercept=0.75,color="red",linetype=2)
+  d<-ggplot(data_10[GEAR_TYPE%in% c(8)&NMFS_AREA%in%c(514,521,524,525)&YEAR>2017],aes(as.factor(MONTH),(CPUE_N),group=as.factor(MONTH)))
+  d<-d+geom_boxplot()+geom_hline(yintercept=0.,color="red",linetype=2)
   d<-d+facet_wrap(~YEAR)
    d<-d+xlab("Month")+ylab("CPUE(KG/HOOK)")
-   d<-d+ggtitle(paste0("CPUE by month for Northern EBS Longline"))
+   d<-d+ggtitle(paste0("CPUE number by month for Northern EBS Longline"))
   d
 
 
 
-
-
-
-  d<-ggplot(data_10[GEAR_TYPE%in% c(8)&NMFS_AREA%in%c(514,521,524)&YEAR>2017],aes(as.factor(MONTH),(CPUE_N),group=as.factor(MONTH)))
-  d<-d+geom_boxplot()+geom_hline(yintercept=0.75,color="red",linetype=2)
-  d<-d+facet_wrap(~YEAR)
-   d<-d+xlab("Month")+ylab("CPUE(FISH/HOOK)")
-   d<-d+ggtitle(paste0("CPUE by month for Northern EBS Longline"))
-  d
-
-  windows()
-  d<-ggplot(data_10[GEAR_TYPE%in% c(8)&NMFS_AREA%in%c(508:513,515:519)&YEAR>2015],aes(as.factor(MONTH),(CPUE_W),group=as.factor(MONTH)))
-  d<-d+geom_boxplot()
+windows()
+  d<-ggplot(data_10[GEAR_TYPE%in% c(1)&NMFS_AREA%in%c(541:543)&YEAR>2015],aes(as.factor(MONTH),(CPUE_W),group=as.factor(MONTH)))
+  d<-d+geom_boxplot()+theme_bw()
   d<-d+facet_wrap(~YEAR)
    d<-d+xlab("Month")+ylab("CPUE (KG/HOOK)")
-   d<-d+ggtitle(paste0("CPUE by month for Southern EBS Longline"))
+   d<-d+ggtitle(paste0("CPUE by month for AI bottom trawl"))
   d
 windows()
   d<-ggplot(data_10[GEAR_TYPE%in% c(8)&NMFS_AREA%in%c(508:513,515:519)&YEAR>2015],aes(as.factor(MONTH),(CPUE_N),group=as.factor(MONTH)))
@@ -239,55 +234,20 @@ windows()
 
 
 
-windows()
-par(mfrow=c(2,1))
-  d<-ggplot(data_10[GEAR%in% c("BOTTOM TRAWL")&NMFS_AREA%in%c(508:513,515:519)&YEAR>2015],aes(as.factor(MONTH),log(CPUE_W),group=as.factor(MONTH)))
-  d<-d+geom_boxplot()
-  d<-d+facet_wrap(~YEAR)
-   d<-d+xlab("Month")+ylab("Log CPUE(KG/Minute)")
-   d<-d+ggtitle(paste0("CPUE by month for Southern EBS Bottom Trawl"))
-  d
-
-  d<-ggplot(data_10[GEAR_TYPE%in% c(6)&NMFS_AREA%in%c(508:513,515:519)&YEAR>2015],aes(as.factor(MONTH),(CPUE_N),group=as.factor(MONTH)))
-  d<-d+geom_boxplot()
-  d<-d+facet_wrap(~YEAR)
-   d<-d+xlab("Month")+ylab("CPUE(FISH/POT)")
-   d<-d+ggtitle(paste0("CPUE by month for Southern EBS Pot"))
-  d
-
-
 
 windows()
-  d<-ggplot(data_10[GEAR_TYPE%in% c(2,6,8)&NMFS_AREA%in%c(514,521,524)],aes(as.factor(MONTH),log(CPUE),group=as.factor(MONTH)))
-  d<-d+geom_boxplot()
-  d<-d+facet_wrap(~YEAR)
-   d<-d+xlab("Year")+ylab("log(CPUE)")
-   d<-d+ggtitle(paste0("CPUE by month for Northern EBS trawl"))
-  d
-
-
-windows()
-  d<-ggplot(data_10[GEAR_TYPE%in% c(1)&NMFS_AREA%in%c(630)],aes(as.factor(MONTH),LONDD_END,group=as.factor(MONTH)))
-  d<-d+geom_boxplot()
-  d<-d+facet_wrap(~YEAR)
-   d<-d+xlab("Year")+ylab("log(CPUE)")
-   d<-d+ggtitle(paste0("CPUE by month for Area 630 GOA bottom trawl"))
-  d
-
-
-windows()
-  d<-ggplot(data_10[GEAR_TYPE%in% c(1,6,8)&NMFS_AREA%in%c(500:539)&!is.na(BOTTOM_DEPTH_FATHOMS)],aes(as.factor(YEAR),-BOTTOM_DEPTH_FATHOMS*1.8288,group=as.factor(YEAR)))
+  d<-ggplot(data_10[GEAR_TYPE%in% c(1,6,8)&NMFS_AREA%in%c(500:539)&!is.na(BOTTOM_DEPTH_FATHOMS)& MONTH<4],aes(as.factor(YEAR),-BOTTOM_DEPTH_FATHOMS*1.8288,group=as.factor(YEAR)))
   d<-d+geom_boxplot()
   d<-d+facet_wrap(~GEAR,scales="free_y",nrow=3)
    d<-d+xlab("Year")+ylab("Bottom depth (m)")+ylim(-300,0)
-   d<-d+ggtitle(paste0("Bottom depth fished over the previous 10 years" ))+theme_bw(base_size=16)
+   d<-d+ggtitle(paste0("Bottom depth fished Jan.- Mar." ))+theme_bw(base_size=16)
 d
 windows()
-    d<-ggplot(data_10[GEAR_TYPE%in% c(1,6,8)&NMFS_AREA%in%c(500:539)],aes(as.factor(YEAR),LATDD_END,group=as.factor(YEAR)))
+    d<-ggplot(data_10[GEAR_TYPE%in% c(1,6,8)&NMFS_AREA%in%c(500:539)& MONTH<4],aes(as.factor(YEAR),LATDD_END,group=as.factor(YEAR)))
   d<-d+geom_boxplot()
   d<-d+facet_wrap(~GEAR,scales="free_y",nrow=3)
    d<-d+xlab("Year")+ylab("Latitude")
-   d<-d+ggtitle(paste0("Observed latitude fished over previous 10 years" ))+theme_bw(base_size=16)
+   d<-d+ggtitle(paste0("Observed latitude fished Jan. - Mar." ))+theme_bw(base_size=16)
      d
 
 now<-yday(Sys.time())
@@ -312,7 +272,7 @@ windows()
   d
 
 windows()
-  d<-ggplot(data_10CUR[GEAR_TYPE%in% c(1,6,8)&NMFS_AREA%in%c(610,620,630)],aes(as.factor(YEAR2),LONDD_END,group=as.factor(YEAR2)))
+  d<-ggplot(data_GOA[GEAR_TYPE%in% c(1,6,8)&NMFS_AREA%in%c(610,620,630)],aes(as.factor(YEAR),CPUE_W,group=as.factor(YEAR)))
   d<-d+geom_boxplot()
   d<-d+facet_wrap(GEAR~NMFS_AREA,scales="free_y",nrow=3)
    d<-d+xlab("Year")+ylab("Longitude")
@@ -329,45 +289,15 @@ windows()
   d
 
 
+## Length comps
+
+Lcatch= readLines('sql/GET_CURRENT_LENGTH.sql')
+Lcatch = sql_filter(sql_precode = "IN", x = fsh_sp_label, sql_code = Lcatch, flag = '-- insert species')
+
+data_L=sql_run(afsc, Lcatch) %>% 
+         dplyr::rename_all(toupper) %>% data.table()
 
 
-
-
-  test2<-paste0("SELECT OBSINT.CURRENT_SPCOMP.SPECIES,
-  CAST(OBSINT.CURRENT_HAUL.HAUL_JOIN AS VARCHAR(20)) AS HAUL_JOIN,
-  OBSINT.CURRENT_HAUL.CRUISE,
-  OBSINT.CURRENT_HAUL.GEAR_TYPE,
-  OBSINT.CURRENT_SPCOMP.YEAR,
-  OBSINT.CURRENT_HAUL.NMFS_AREA,
-  OBSINT.CURRENT_SPCOMP.SAMPLE_NUMBER,
-  OBSINT.CURRENT_SPCOMP.SAMPLE_SIZE,
-  OBSINT.CURRENT_SPCOMP.SAMPLE_WEIGHT,
-  OBSINT.CURRENT_SPCOMP.WEIGHT,
-  OBSINT.CURRENT_SPCOMP.COUNT,
-  OBSINT.CURRENT_HAUL.DEPLOYMENT_DATE,
-  OBSINT.CURRENT_HAUL.RETRIEVAL_DATE,
-  to_char(OBSINT.CURRENT_HAUL.RETRIEVAL_DATE,'mm') as MONTH,
-  OBSINT.CURRENT_HAUL.TOTAL_HOOKS_POTS,
-  OBSINT.CURRENT_HAUL.LATDD_END,
-  OBSINT.CURRENT_HAUL.LONDD_END,
-  OBSINT.CURRENT_HAUL.BOTTOM_DEPTH_FATHOMS,
-  OBSINT.CURRENT_HAUL.VESSEL_TYPE,
-  OBSINT.CURRENT_HAUL.OFFICIAL_TOTAL_CATCH,
-  OBSINT.CURRENT_SPCOMP.SAMPLE_TYPE,
-  OBSINT.CURRENT_SPCOMP.VESSEL,
-  OBSINT.CURRENT_LENGTH.LENGTH,
-  OBSINT.CURRENT_LENGTH.FREQUENCY
-FROM OBSINT.CURRENT_HAUL
-INNER JOIN OBSINT.CURRENT_SPCOMP
-ON OBSINT.CURRENT_HAUL.CRUISE    = OBSINT.CURRENT_SPCOMP.CRUISE
-AND OBSINT.CURRENT_HAUL.PERMIT   = OBSINT.CURRENT_SPCOMP.PERMIT
-AND OBSINT.CURRENT_HAUL.HAUL_SEQ = OBSINT.CURRENT_SPCOMP.HAUL_SEQ
-INNER JOIN OBSINT.CURRENT_LENGTH
-ON OBSINT.CURRENT_HAUL.HAUL_JOIN    = OBSINT.CURRENT_LENGTH.HAUL_JOIN
-AND OBSINT.CURRENT_LENGTH.SPECIES   = OBSINT.CURRENT_SPCOMP.SPECIES
-WHERE OBSINT.CURRENT_SPCOMP.SPECIES = 202")
-
-data_L<- data.table(sqlQuery(AFSC,test2,as.is=T))
 data_L2=merge(data_L,data_CATCH,by=c("CRUISE","HAUL_JOIN"))
 
 data_L<-data_L2[TRIP_TARGET_NAME=="Pacific Cod"]
@@ -412,33 +342,67 @@ x6[GEAR_TYPE==6]$GEAR<-"POT"
 x6[GEAR_TYPE==1]$GEAR<-"BOTTOM TRAWL"
 x6[GEAR_TYPE==2]$GEAR<-"PELAGIC TRAWL"
 
+x6$AREA<-'Southern BS'
+x6[NMFS_AREA%in% c(514,521,524,525)]$AREA<-'Northern BS'
+
+x6[NMFS_AREA%in%c(610)]$AREA<-"Western GOA"
+x6[NMFS_AREA%in%c(620,630)]$AREA<-"Central GOA"
+x6[NMFS_AREA%in%c(540:544)]$AREA<-"AI"
+
 d<-ggplot(x6[YEAR==2018], aes(x=LENGTH)) + geom_histogram(binwidth=1)
 d<-d+facet_wrap(~GEAR)
 
 
-d<-ggplot(x6[YEAR%in%c(2018)&NMFS_AREA %in% c(610,620,630)], aes(x=LENGTH,fill=NMFS_AREA,color=NMFS_AREA,y=..density..)) + geom_histogram(binwidth=1)
- d<-d+facet_wrap(~GEAR)
+d<-ggplot(x6[YEAR%in%c(2022,2023)&NMFS_AREA %in% c(500:539)&GEAR_TYPE%in%c(1,6,8)], aes(x=LENGTH,fill=factor(AREA),y=..density..)) + geom_histogram(binwidth=1)
+ d<-d+facet_wrap(YEAR~GEAR)
  d<-d+xlim(0,120)
  d<-d+xlab("Fork Length (cm)")
  d
 
 
 
+d<-ggplot(x6[YEAR%in%c(2022,2023)&NMFS_AREA %in% c(500:539)&GEAR_TYPE%in%c(8)&MONTH %in% c("01","02","03")], aes(x=LENGTH,fill=AREA,y=..density..)) + geom_histogram(binwidth=1)
+ d<-d+facet_wrap(YEAR~AREA)
+ d<-d+xlim(0,120)
+ d<-d+xlab("Fork Length (cm)")
+ d
+
+
+
+d<-ggplot(x6[YEAR%in%c(2022,2023)&NMFS_AREA %in% c(500:539)&GEAR_TYPE%in%c(1)&MONTH %in% c("01","02","03")], aes(x=LENGTH,fill=AREA,y=..density..)) + geom_histogram(binwidth=1, fill='purple')
+ d<-d+facet_wrap(YEAR~AREA)
+ d<-d+xlim(0,120)
+ d<-d+xlab("Fork Length (cm)")
+ d
+
+
+
+d<-ggplot(x6[YEAR%in%c(2022,2023)&NMFS_AREA %in% c(500:539)&GEAR_TYPE%in%c(1)&MONTH %in% c("01","02","03")], aes(x=LENGTH,fill=AREA,y=..density..)) + geom_histogram(binwidth=1)
+ d<-d+facet_wrap(YEAR~AREA)
+ d<-d+xlim(0,120)
+ d<-d+xlab("Fork Length (cm)")
+ d
 
 now<-yday(Sys.time())
-now.30<-now-90
+now.30<-now-120
 
 x6CUR<-x6[yday(RETRIEVAL_DATE)>=now.30&yday(RETRIEVAL_DATE)<=now]
 
 
 windows()
-d<-ggplot(x6[GEAR_TYPE %in% c(1,6,8) & NMFS_AREA %in% c(508:513,515:519) &MONTH %in% c("01","02","03")],aes(YEAR,LENGTH))
-     d<-d+geom_boxplot()+geom_hline(yintercept=60,color="red",linetype=2)
+d<-ggplot(x6[GEAR_TYPE %in% c(1,6,8) & NMFS_AREA %in% c(508:513,515:519) &MONTH %in% c("01","02","03")],aes(YEAR,LENGTH,group=YEAR))
+     d<-d+geom_boxplot()+geom_hline(yintercept=70,color="red",linetype=2)
      d<-d+facet_wrap(~GEAR,nrow=3)
         d<-d+xlab("Year")+ylab("Length (cm)")
-        d<-d+ggtitle(paste0("Pcod Length for past 90 days compared to same period in previous 10 years for ",format(Sys.time(),"%d %B %Y")))
+        d<-d+ggtitle(paste0("Pcod Length in Southern BS for past 120 days compared to same period in previous 10 years for ",format(Sys.time(),"%d %B %Y")))
      d
 
+d<-ggplot(x6[GEAR_TYPE %in% c(1,6,8) & NMFS_AREA %in% c(514,524,521,525) &MONTH %in% c("01","02","03")],aes(YEAR,LENGTH,group=YEAR))
+     d<-d+geom_boxplot()+geom_hline(yintercept=70,color="red",linetype=2)
+     d<-d+facet_wrap(~GEAR,nrow=3)
+        d<-d+xlab("Year")+ylab("Length (cm)")
+        d<-d+ggtitle(paste0("Pcod Length in Northern BS for past 120 days compared to same period in previous 10 years for ",format(Sys.time(),"%d %B %Y")))
+     d
 
 
      windows()
