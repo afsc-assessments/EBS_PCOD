@@ -6,11 +6,11 @@
 # adapted from the GOA northern and southern rock sole file, revision 22
 # produce 2 tables, one for all cod, and one for M & F cod
 
-species = srv_sp_str
-area = fsh_sp_area
-start_year = fsh_start_yr
-max_age1 = max_age
-len_bins1 = len_bins
+# species = srv_sp_str
+# area = fsh_sp_area
+# start_year = fsh_start_yr
+# max_age1 = max_age
+# len_bins1 = len_bins
 
 
 cond_length_age_cor<-function(species = srv_sp_str,
@@ -45,7 +45,7 @@ age_bins <- seq(min_age,max_age,bin_width)
 num.ages <- length(age_bins)
 
 # valid survey years
-years <- seq(1984,year(Sys.time()),1)
+years <- seq(1990,year(Sys.time()),1)
 num.years <- length(years)
 
 # ---!!!---NOTE---!!!---
@@ -65,9 +65,9 @@ length<-data.frame(LENGTH=c(1:max(len_age_data$LENGTH)))
 
 length2<-merge(len_age_data,length,all.x=T)
 
-# subset of the length-age data where age > 0, length > 0, sex is male or female
-# len_age_data.subset <- subset(subset(subset(subset(len_age_data,len_age_data$YEAR %in% years),LENGTH > 0),AGE > 0),SEX %in% c(1,2))
-len_age_data.subset <- subset(subset(subset(length2,length2$YEAR %in% years),LENGTH > 0),AGE > 0)
+# subset of the length-age data where age >= min_age, length > 0, sex is male or female
+# len_age_data.subset <- subset(subset(subset(subset(len_age_data,len_age_data$YEAR %in% years),LENGTH > 0),AGE >=min_age),SEX %in% c(1,2))
+len_age_data.subset <- subset(subset(subset(length2,length2$YEAR %in% years),LENGTH > 0),AGE >= min_age)
 dim(len_age_data.subset)
 
 # change ages larger than max_age into max_age
@@ -99,7 +99,6 @@ Agecomp_obs[,2] <- 1
 
 # The Flt/Svy column
 Agecomp_obs[,3] <- 4
-
 # The Sex column
 Agecomp_obs[,4] <- 0
 
