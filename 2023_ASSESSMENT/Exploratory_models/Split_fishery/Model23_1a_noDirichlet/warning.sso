@@ -7,7 +7,8 @@ Warning 6 : minimum sample size for age comps must be > 0; minimum sample size s
 Warning 7 : minimum sample size for age comps must be > 0; minimum sample size set to 0.001 
 Warning 8 : minimum sample size for age comps must be > 0; minimum sample size set to 0.001 
 Warning 9 : minimum sample size for age comps must be > 0; minimum sample size set to 0.001 
-Warning 10 : Final gradient: 0.00351309 is larger than final_conv: 0.0001
-Warning 11 : Time-vary parms not bound checked
+Warning 10 : 1st iteration warning: catch logL > 50% total logL; check configuration; suggest start with larger R0
+Warning 11 : Final gradient: 0.000867879 is larger than final_conv: 0.0001
+Warning 12 : Time-vary parms not bound checked
 Note 1 Information:  N parameters that are on or within 1% of min-max bound: 1; check results, variance may be suspect
- 11 warnings  and 1 note 
+ 12 warnings  and 1 note 

@@ -5,17 +5,17 @@
 0.40 # SPR target (e.g. 0.40)
 0.35 # Biomass target (e.g. 0.40)
 #_Bmark_years: beg_bio, end_bio, beg_selex, end_selex, beg_relF, end_relF, beg_recr_dist, end_recr_dist, beg_SRparm, end_SRparm (enter actual year, or values of 0 or -integer to be rel. endyr)
- 1977 2022 1977 2022 1977 2022 1977 2021 1977 2021
+ -999 -2 -999 -2 -999 -2 -999 -2 -999 -2
 # value <0 convert to endyr-value; except -999 converts to start_yr; must be >=start_yr and <=endyr
 1 #Bmark_relF_Basis: 1 = use year range; 2 = set relF same as forecast below
 #
 1 # Forecast: -1=none; 0=simple_1yr; 1=F(SPR); 2=F(MSY) 3=F(Btgt) or F0.1; 4=Ave F (uses first-last relF yrs); 5=input annual F scalar
 # where none and simple require no input after this line; simple sets forecast F same as end year F
 15 # N forecast years 
-0 # Fmult (only used for Do_Forecast==5) such that apical_F(f)=Fmult*relF(f)
+1 # Fmult (only used for Do_Forecast==5) such that apical_F(f)=Fmult*relF(f)
 #_Fcast_years:  beg_selex, end_selex, beg_relF, end_relF, beg_mean recruits, end_recruits  (enter actual year, or values of 0 or -integer to be rel. endyr)
- 1977 2022 1977 2022 1977 2021
-1 # Forecast selectivity (0=fcast selex is mean from year range; 1=fcast selectivity from annual time-vary parms)
+ -5 0 -5 0 -999 -2
+0 # Forecast selectivity (0=fcast selex is mean from year range; 1=fcast selectivity from annual time-vary parms)
 2 # Control rule method (0: none; 1: ramp does catch=f(SSB), buffer on F; 2: ramp does F=f(SSB), buffer on F; 3: ramp does catch=f(SSB), buffer on catch; 4: ramp does F=f(SSB), buffer on catch) 
 # values for top, bottom and buffer exist, but not used when Policy=0
 0.4 # Control rule Biomass level for constant F (as frac of Bzero, e.g. 0.40); (Must be > the no F level below) 

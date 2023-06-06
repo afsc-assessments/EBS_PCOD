@@ -7,6 +7,7 @@ SELECT
         norpac.debriefed_age.vessel,
         norpac.debriefed_age.gear,
         norpac.debriefed_age.sex,
+	norpac.debriefed_age.age,
         norpac.debriefed_age.length,
         norpac.debriefed_age.weight
     FROM
