@@ -2068,3 +2068,22 @@ Finished meanlength obj_fun  0 0
 Finished recruitdev obj_fun 7.69679 64 0.884716
  OK with obj_func 18362.3
 Wrote first version of output files (before hessian, benchmark, and forecast)
+Start benchmark and forecast, if requested
+Calculated Fspr 0.290352 0.4
+Calculated Btgt: 0.351738 0.35
+Calculated Fmsy 0.290352 165307
+Finished benchmark, forecast, and sdreporting
+Iterations: 1302
+ finished COVAR.SSO
+Finished forecast
+Writing wtatage.ss_new
+Finished StdDev quantities
+Finished posteriors
+Finished SS_summary.sso
+Finished final writing of report.sso
+Begin writing data_echo.ss_new file
+Begin writing data_expval.ss file
+Write starter.ss_new file 
+Write forecast.ss_new file 
+Write control.ss_new file 
+Begin final output calculations and warnings
