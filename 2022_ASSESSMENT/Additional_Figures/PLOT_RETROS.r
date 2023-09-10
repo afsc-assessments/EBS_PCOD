@@ -36,9 +36,9 @@ require(r4ss)
 
 
 
-test.retro<-function(dir="C:/Working Folder for DOCS/2017_Assessments/GOA_PCOD_2017/November_Models/", folder=folds[5]){
+test.retro<-function(dir=getwd(), folder=folds[5]){
 
-setwd(paste0(dir,folder))    
+setwd(paste0(dir,"/",folder))    
 
 model1<-SS_output(paste(getwd(),"/retro0",sep=""))
 
@@ -201,7 +201,7 @@ text(2015,2000000,"2021",pos=4,col="black")
 for(i in 1:10) {
 lines(RAC$Year,RAC[,(l1-i)],lwd=1.75,col=colors[i])
 }
-k=seq(2019,2020,-1)
+k=seq(2020,2010,-1)
 for(j in 1:10){
 text(2015,(2000000-j*75000),paste(k[j]),pos=4,col=colors[j])
 }

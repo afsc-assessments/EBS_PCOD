@@ -312,4 +312,32 @@ for(i in 1:length(mods1)){
 
   x<-do.call(rbind,x)
 
-  gplot(x[Label%in% x$Label[c(1:6,73:81)]],aes(x=Q_ITER,y=Value))+geom_point()+facet_wrap(~Label,scales="free_y")+theme_bw()+labs(x="log(Q)")
+  ggplot(x[Label%in% x$Label[c(1:6,73:81)]],aes(x=Q_ITER,y=Value))+geom_point()+facet_wrap(~Label,scales="free_y")+theme_bw()+labs(x="log(Q)")
+
+
+  ggplot(x[Label%in% x$Label[c(1:6,66:82)]],aes(x=Q_ITER,y=Value))+geom_point()+facet_wrap(~Label,scales="free_y")+theme_bw()+labs(x="log(Q)")
+
+
+
+
+
+windows()
+SSplotProfile(
+  summaryoutput=profilesummary,
+  plot = TRUE,
+  print = FALSE,
+  models = "all",
+  profile.string = "LnQ_base",
+  profile.label = expression(log(italic(Q))),
+   ylab = "Change in -log-likelihood",
+  components = c("TOTAL", "Catch", "Equil_catch", "Survey", "Discard", "Mean_body_wt",
+    "Length_comp", "Age_comp", "Size_at_age", "SizeFreq", "Morphcomp", "Tag_comp",
+    "Tag_negbin", "Recruitment", "InitEQ_Regime", "Forecast_Recruitment", "Parm_priors",
+    "Parm_softbounds", "Parm_devs", "F_Ballpark", "Crash_Pen"),
+  component.labels = c("Total", "Catch", "Equilibrium catch", "Index data", "Discard",
+    "Mean body weight", "Length data", "Age data", "Size-at-age data",
+    "Generalized size data", "Morph composition data", "Tag recapture distribution",
+    "Tag recapture total", "Recruitment", "Initital equilibrium recruitment",
+    "Forecast recruitment", "Priors", "Soft bounds", "Parameter deviations",
+    "F Ballpark", "Crash penalty"),
+ )
