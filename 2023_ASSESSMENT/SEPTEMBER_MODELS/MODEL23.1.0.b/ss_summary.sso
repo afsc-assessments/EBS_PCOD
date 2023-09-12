@@ -1,7 +1,7 @@
 #V3.30.21.00;_safe;_compile_date:_Feb 10 2023;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_13.1
 BSPcod22_OCT.dat #_DataFile 
 Model_22.3A.ctl #_Control 
-Run_Date: Thu Jul 27 13:29:46 2023
+Run_Date: Tue Sep 12 15:59:44 2023
 Final_phase: 10  N_iterations: 1518
 #_LIKELIHOOD 
 Label logL*Lambda

@@ -5,7 +5,7 @@
 #_User_info_available_at:https://vlab.noaa.gov/group/stock-synthesis
 #_Source_code_at:_https://github.com/nmfs-stock-synthesis/stock-synthesis
 
-#_Start_time: Thu Jul 27 13:29:46 2023
+#_Start_time: Tue Sep 12 15:59:44 2023
 #_expected_values
 #C data file created using the SS_writedat function in the R package r4ss
 #C file write time: 2022-03-07 17:04:05
