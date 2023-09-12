@@ -1,7 +1,0 @@
-Warning 1 : Block:2 2 ends in: 2022 after retroyr+1:  2016
-Warning 2 Adjustment:  recdev_end: 2020 > retro_yr: 2015 reset 
-Warning 3 : Maximum pop size bin:_119.5; is within 5% of L at maxage for sex: 1; Gpat: 1 settle: 1; L= 122.21
-Warning 4 : Early recdev biasadj is >2 times ratio of rmse to sigmaR
-Warning 5 : Final gradient: 1.37455 is larger than final_conv: 0.0001
-Warning 6 : Time-vary parms not bound checked
- 6 warnings 

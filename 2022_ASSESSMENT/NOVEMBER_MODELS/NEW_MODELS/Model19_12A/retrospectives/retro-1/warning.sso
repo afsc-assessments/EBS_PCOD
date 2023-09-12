@@ -1,4 +1,0 @@
-Warning 1 : Early recdev biasadj is >2 times ratio of rmse to sigmaR
-Warning 2 : Final gradient: 4.42107 is larger than final_conv: 0.0001
-Warning 3 : Time-vary parms not bound checked
- 3 warnings 

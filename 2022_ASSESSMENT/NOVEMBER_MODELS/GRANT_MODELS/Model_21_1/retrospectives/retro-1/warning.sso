@@ -1,4 +1,0 @@
-Warning 1 : Maximum pop size bin:_119.5; is within 5% of L at maxage for sex: 1; Gpat: 1 settle: 1; L= 122.21
-Warning 2 : Final gradient: 8.9616 is larger than final_conv: 0.0001
-Warning 3 : Time-vary parms not bound checked
- 3 warnings 
