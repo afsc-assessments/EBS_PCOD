@@ -2008,3 +2008,23 @@ Finished meanlength obj_fun  0 0
  catch -log(L)  5.66004e-13 0
 Finished recruitdev obj_fun -18.4177 45.1616 0.884716
  OK with obj_func 1103.62
+Wrote first version of output files (before hessian, benchmark, and forecast)
+Start benchmark and forecast, if requested
+Calculated Fspr 0.406637 0.4
+Calculated Btgt: 0.500318 0.35
+Calculated Fmsy 0.406637 187768
+Finished benchmark, forecast, and sdreporting
+Iterations: 1852
+ finished COVAR.SSO
+Finished forecast
+Writing wtatage.ss_new
+Finished StdDev quantities
+Finished posteriors
+Finished SS_summary.sso
+Finished final writing of report.sso
+Begin writing data_echo.ss_new file
+Begin writing data_expval.ss file
+Write starter.ss_new file 
+Write forecast.ss_new file 
+Write control.ss_new file 
+Begin final output calculations and warnings
