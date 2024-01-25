@@ -1,0 +1,29 @@
+Package: EBS_PCOD
+Title: Eastern Bering Sea Pacific cod assessment
+Version: 1.0.0
+Authors: person("Steven","Barbeaux", ,"steven.barbeaux@noaa.gov",role=c(aut:,"cre"))
+Description: Project for pulling the data together for the Eastern Bering Sea Pacific cod assessment
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Encoding: UTF-8
+Imports:
+    tidyverse,
+    dplyr,
+    RODBC,
+    mgcv,
+    FSA,
+    nlstools,
+    data.table,
+    ggplot2,
+    sizeMat,
+    devtools,
+    r4ss,
+    lubridate,
+    rgdal,
+    fishmethods,
+    reshape2,
+    swo,
+    vcdExtra,
+    misty,
+    tidyr,
+    keyring
