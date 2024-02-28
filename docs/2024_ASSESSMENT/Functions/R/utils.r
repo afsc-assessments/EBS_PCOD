@@ -131,3 +131,13 @@ fuzzy_dates<-function(length_data=NAPBCOMB,Fish_ticket=PBFTCKT3,ndays=7){
 #   return(x6)
 # }
 
+#' function to format numbers to text with 1,000s comma
+#'
+#' @param number value to format
+#'
+#' @export comma
+#'
+comma <- function( number ) {
+  format(round(as.numeric( number ), digits = 0), big.mark = ",")
+}
+

@@ -16,15 +16,14 @@ if (!requireNamespace("remotes", quietly = TRUE)) {
 library(devtools)
 library(remotes)
 
-# Install packages based on DESCRIPTION file
-#remotes::install_deps(dependencies=TRUE)
 
-libs=c("keyring","r4ss","ss3diags", "scales", "magrittr", "readxl", "gt", "officer", "flextable", 
- "pivottabler", "misty","vcdExtra","gnm","vcd","grid","reshape2", 
- "fishmethods", "rgdal", "sp", "lubridate", "r4ss", "devtools", "usethis",
- "sizeMat", "data.table", "nlstools", "FSA", "mgcv", "nlme", "RODBC", "forcats",
- "stringr", "dplyr", "purrr", "readr", "tidyr", "tibble", "ggplot2",
-"tidyverse", "stats", "graphics", "grDevices", "utils", "datasets", "methods") 
+libs <- c("keyring", "r4ss", "ss3diags", "scales", "magrittr", "readxl", "gt",
+  "officer", "flextable", "pivottabler", "misty", "vcdExtra", "gnm", "vcd",
+  "grid", "reshape2", "fishmethods", "sp", "lubridate", "r4ss",
+  "devtools", "usethis", "sizeMat", "data.table", "nlstools", "FSA", "mgcv",
+  "nlme", "RODBC", "forcats", "stringr", "dplyr", "purrr", "readr", "tidyr",
+  "tibble", "ggplot2", "tidyverse", "stats", "graphics", "grDevices", "utils",
+  "datasets", "methods")
 
 
  if(length(libs[which(libs %in% rownames(installed.packages()) == FALSE )]) > 0) {
@@ -99,10 +98,10 @@ max_age <- 20
 ## Get all the functions for pulling BS Pcod data
 
 
-setwd(file.path(working_dir,"Functions","R"))
+setwd(file.path(working_dir, "Functions", "R"))
 
-source_files=c("BIN_LEN_DATA.r","FORMAT_AGE_MEANS1.r", "GET_BS_ACOMP1.r","GET_BS_BIOM.r","GET_BS_LCOMP1.r",             
-     "GET_SURV_AGE_cor.r", "LENGTH_BY_CATCH_BS.r","LENGTH_BY_CATCH_BS_short.r","Get_lengthweight.r","utils.r") 
+source_files=c("BIN_LEN_DATA.r","FORMAT_AGE_MEANS1.r", "GET_SURVEY_ACOMP.r","GET_SURVEY_BIOM.r",
+  "GET_SURVEY_LCOMP.r","GET_SURV_AGE_cor.r", "LENGTH_BY_CATCH_short.r", "Get_lengthweight.r","utils.r") 
 
 
 lapply(source_files, source)
@@ -112,7 +111,7 @@ setwd(file.path(working_dir,"Functions"))
 
 ## get catch data
  catch= readLines('sql/dom_catch_table.sql')
- catch = sql_filter(sql_precode = "<=", x = final_year, sql_code = catch, flag = '-- insert year')
+ catch = sql_filter(sql_precode = "<=", x = year, sql_code = catch, flag = '-- insert year')
  catch = sql_filter(sql_precode = "IN", x = fsh_sp_label, sql_code = catch, flag = '-- insert species_catch')
  catch = sql_filter(sql_precode = "IN", x = fsh_sp_area, sql_code = catch, flag = '-- insert subarea')
 
@@ -133,27 +132,23 @@ CATCH=sql_run(akfin, catch) %>%
    CATCH_TOTAL<-merge(CATCH_TOTAL,CATCH_TOTAL_YEAR)
    CATCH_TOTAL$PROPORTION_RETAINED<-round(CATCH_TOTAL$TONS/CATCH_TOTAL$TOTAL_TONS,2)*100
 
- 
-
-
 OLD_CATCH<-data.table(read.csv("C:/Users/steve.barbeaux/Work/WORKING_FOLDER/EBS_PCOD_work_folder/2022_ASSESSMENT/NOVEMBER_MODELS/TABLES/OLD_CATCH_GEAR.csv"))
 CATCH_T<-data.table(data.table(CATCH)[,list(TONS=sum(round(TONS,0))),by=c('YEAR','GEAR1')])
 CATCHT2<-data.table(data.table(CATCH)[,list(TONS=sum(round(TONS,0)),GEAR1='TOTAL'),by=c('YEAR')])
 CATCH1<-rbind(OLD_CATCH,CATCH_T,CATCHT2)
  okabe <- c("black","#E69F00", "#56B4E9", "#009E73", "#F0E442")
 CATCH1$GEAR1<-factor(CATCH1$GEAR1,levels=c("TOTAL","TRAWL","LONGLINE","POT",'OTHER')) 
+
 CATCHP<-ggplot(CATCH1,aes(x=YEAR,y=TONS,color=GEAR1,group=GEAR1))+geom_line(size=1)+theme_bw(base_size=16)+labs(x='Year',y='Total catch (t)',color='Gear type')+
 scale_color_manual(values=okabe)+theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-print(CATCHP)
 
-
+ggsave("../media/CATCHP.jpg", plot = CATCHP, width = 18, height = 8.62, dpi = 600)
 
 
 GRID<-expand.grid(YEAR=unique(CATCH_TOTAL$YEAR),RETAINED=c('D','R'),GEAR=unique(CATCH_TOTAL$GEAR))
 CATCH_TOTAL<-merge(CATCH_TOTAL,GRID,all.y=T,by=c('YEAR','RETAINED','GEAR'))
 CATCH_TOTAL[is.na(TOTAL_TONS)]$TOTAL_TONS<-0
 CATCH_TOTAL[is.na(PROPORTION_RETAINED)]$PROPORTION_RETAINED<-0
-
 
 attr(CATCH_TOTAL$YEAR, "label") <- "Year"
 attr(CATCH_TOTAL$GEAR, "label") <- "Gear Type"

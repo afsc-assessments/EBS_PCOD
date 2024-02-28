@@ -7,7 +7,9 @@
 cond_length_age_corFISH<-function(species = fsh_sp_str,
                                   area = fsh_sp_area,
                                   max_age1 = max_age,
-                                  len_bins1 = len_bins){
+                                  len_bins1 = len_bins,
+                                  one_fleet = TRUE,
+                                  wt = 1){
 
 
 ##  len_age_data<-data.table(GET_DOM_AGE(fsh_sp_str1=species,fsh_sp_area1=area,max_age1=max_age))
@@ -30,7 +32,7 @@ cond_length_age_corFISH<-function(species = fsh_sp_str,
   Age = sql_add(x =paste0('between ',region) , sql_code = Age, flag = '-- insert region')
   Age = sql_filter(sql_precode = "in", x =species , sql_code = Age, flag = '-- insert species')
   
-  Dage = sql_run(afsc, Age) %>% data.table() %>%
+  Dage = sql_run(akfin, Age) %>% data.table() %>%
       dplyr::rename_all(toupper)
 
     Dage$AGE1<-Dage$AGE
@@ -39,21 +41,27 @@ cond_length_age_corFISH<-function(species = fsh_sp_str,
     len_age_data=data.table(Dage)
 
 
-
   len_age_data<-len_age_data[!is.na(AGE)]
   len_age_data$HAULJOIN<-len_age_data$HAUL_JOIN
   len_age_data[HAUL_JOIN=="H"]$HAULJOIN<-len_age_data[HAUL_JOIN=="H"]$PORT_JOIN
 
-  len_age_data$GEAR2<- 1
-  len_age_data[GEAR=='POT']$GEAR2<- 3
-  len_age_data[GEAR=='HAL']$GEAR2<- 2
+  
+    if(one_fleet){
+        len_age_data$GEAR2<- 1
+    }else{
+        len_age_data$GEAR2<- 1
+        len_age_data[GEAR=='POT']$GEAR2<- 3
+        len_age_data[GEAR=='HAL']$GEAR2<- 2
+    }
+
+
  
   len_age_data2<-len_age_data
 
 
 # age bins to use for srv length age data
   bin_width <- 1
-  min_age <- 1
+  min_age <- 0
   max_age <- max_age1
   age_bins <- seq(min_age,max_age,bin_width)
   num.ages <- length(age_bins)
@@ -151,7 +159,7 @@ for (i in 1:num.rows)
         # nsamples column
         Agecomp_obs[idx,nsamples.col] <- Agecomp_obs[idx,nsamples.col] + 1
 
-        age.col <- nsamples.col + len_age_data.sort$AGE_FILT[i]
+        age.col <- nsamples.col + len_age_data.sort$AGE_FILT[i] + 1
 
         Agecomp_obs[idx,age.col] <- Agecomp_obs[idx,age.col] + 1
     }
@@ -167,13 +175,11 @@ for (i in 1:num.rows)
 
 
 # normalize the number of ages per length for each row
-for (j in 1:num.lengths)
-{
-    Agecomp_obs[j,(nsamples.col+1):num.cols] <- Agecomp_obs[j,(nsamples.col+1):num.cols] / Agecomp_obs[j,nsamples.col]
-}
+#for (j in 1:num.lengths)
+#{
+#    Agecomp_obs[j,(nsamples.col+1):num.cols] <- Agecomp_obs[j,(nsamples.col+1):num.cols] / Agecomp_obs[j,nsamples.col]
+#}
 
-
-Agecomp_obs[,9]<-Agecomp_obs[,9]*0.14
 
 #write.csv(Agecomp_obs,"Agecomp_obs_113.5.csv")
 # data check; this should equal num.lengths
@@ -184,9 +190,16 @@ Agecomp_obs[,9]<-Agecomp_obs[,9]*0.14
 #num.lengths.sex
 #sum(Agecomp_obs.sex[,(nsamples.col.sex+1):num.cols.sex])
 
-for(i in 1: nrow(Agecomp_obs)){
-    if(Agecomp_obs[i,1]<2007) Agecomp_obs[i,3] <- abs(Agecomp_obs[i,3])*-1
- }
+#for(i in 1: nrow(Agecomp_obs)){
+#    if(Agecomp_obs[i,1]<2007) Agecomp_obs[i,3] <- abs(Agecomp_obs[i,3])*-1
+# }
+
+
+
+Agecomp_obs[, (nsamples.col+1):num.cols] <- Agecomp_obs[, (nsamples.col+1):num.cols] / Agecomp_obs[, nsamples.col]
+Agecomp_obs[, 9] <- Agecomp_obs[, 9] * wt
+
+
 
 len_data.subset <- subset(subset(len_age_data,len_age_data$YEAR %in% years),LENGTH > 0)
 #dim(len_data.subset)

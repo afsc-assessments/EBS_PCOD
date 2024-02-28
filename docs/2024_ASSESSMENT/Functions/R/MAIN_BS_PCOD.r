@@ -6,30 +6,88 @@
 # this assumes that the FUNCTIONS subdirectory is in the working directory
 working_dir <- "C:/Users/steve.barbeaux/Work/WORKING_FOLDER/EBS_PCOD_work_folder/2024_ASSESSMENT"
 
-setwd(file.path(working_dir,"functions","R"))
-
-# Install devtools if not already installed
-if (!requireNamespace("devtools", quietly = TRUE)) {
-  install.packages("devtools")
+if (!requireNamespace("pacman", quietly = TRUE)) {
+  install.packages("pacman")
 }
 
-if (!requireNamespace("remotes", quietly = TRUE)) {
-  install.packages("remotes")
-}
 
-# Load devtools
-library(devtools)
-library(remotes)
+libs <- c(
+  "datasets", 
+  "data.table",
+  "devtools",
+  "dplyr",
+  "fishmethods", 
+  "flextable",
+  "forcats", 
+  "FSA",
+  "ggplot2",
+  "gnm",  
+  "graphics", 
+  "grDevices", 
+  "grid",
+  "gt",
+  "keyring",
+  "lubridate", 
+  "magrittr", 
+  "methods",
+  "misty",
+  "mgcv", 
+  "nlme", 
+  "nlstools",
+  "officer", 
+  "pdftools",
+  "pivottabler", 
+  "purrr",
+  "r4ss",
+  "readr",
+  "readxl", 
+  "remotes",
+  "reshape2",
+  "RODBC", 
+  "scales",
+  "sizeMat", 
+  "sp",
+  "ss3diags", 
+  "stats",
+  "stringr",
+  "swo",
+  "tabulizer",
+  "tibble", 
+  "tidyr", 
+  "tidyverse", 
+  "usethis", 
+  "utils",
+  "vcd",
+  "vcdExtra"
+  )
 
-# Install packages based on DESCRIPTION file
-#remotes::install_deps(dependencies=TRUE)
+pacman::p_load(char = libs)
 
 
- libs <- c("keyring","tidyverse", "dplyr","RODBC","mgcv","FSA","nlstools","data.table","ggplot2","sizeMat","devtools","r4ss","lubridate","rgdal","fishmethods","reshape2","swo","vcdExtra","misty","tidyr")
+## set the working directory, load functions, and set up connection to databases
 
- if(length(libs[which(libs %in% rownames(installed.packages()) == FALSE )]) > 0) {
-   install.packages(libs[which(libs %in% rownames(installed.packages()) == FALSE)])}
- lapply(libs, library, character.only = TRUE)
+working_dir <- "C:/Users/steve.barbeaux/Work/WORKING_FOLDER/EBS_PCOD_work_folder/2024_ASSESSMENT"
+
+setwd(file.path(working_dir, "Functions", "R"))
+
+
+source_files=c(
+  "BIN_LEN_DATA.r",
+   "cond_length_age_cor.r",
+   "cond_length_age_corFISH.r",
+  "FORMAT_AGE_MEANS1.r",
+  "get_noncommercial_catch.r",
+  "Get_lengthweight.r",
+  "GET_SURVEY_ACOMP.r",
+  "GET_SURV_AGE_cor.r",
+  "GET_SURVEY_BIOM.r",
+  "GET_SURVEY_LCOMP.r",
+  "LENGTH_BY_CATCH_short.r", 
+  "utils.r") 
+
+
+lapply(source_files, source)
+
 
 # create a keyring database called "afsc" and "akfin" with a username and password
 # the username and password can then be called with 
@@ -44,6 +102,11 @@ akfin_pwd  =  keyring::key_get("akfin", keyring::key_list("akfin")$username)   #
                       UID = afsc_user, PWD = afsc_pwd)
   akfin = DBI::dbConnect(odbc::odbc(), "akfin",
                       UID = akfin_user, PWD = akfin_pwd)
+
+# Install packages based on DESCRIPTION file
+#remotes::install_deps(dependencies=TRUE)
+
+
 
 ## DEFINE ALL CONSTANTS FOR THIS RUN
 
@@ -104,17 +167,6 @@ len_bins <- seq(min_size,max_size,bin_width)
 # maximum age
 max_age <- 20
 
-
-## Get all the functions for pulling BS Pcod data
-# dom_catch.sql,for_catch.sql,LL_RPN.sql,count_AKFIN.sql,length_comp.sql,survey_age.sql,count_AKFIN.sql,length_comp.sql,dom_length.sql,
-# for_length.sql,dom_length_port_A.sql,dom_length_port_B.sql,fish_ticket.sql,dom_length_port_C.sql,dom_length_port_D.sql,
-# dom_age.sql
-
-source_files=c("BIN_LEN_DATA.r","FORMAT_AGE_MEANS1.r", "cond_length_age_corFISH.r","GET_SURVEY_ACOMP.r","GET_BS_BIOM.r","GET_SURVEY_LCOMP.r",             
-     "GET_SURV_AGE_cor.r","LENGTH_BY_CATCH_short.r","Get_lengthweight.r","utils.r") 
-
-
-lapply(source_files, source)
 
 
 ## Get all the alternative data that isn't in AKFIN or AFSC databases

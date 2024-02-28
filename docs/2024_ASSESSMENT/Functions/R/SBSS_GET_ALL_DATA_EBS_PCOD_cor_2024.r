@@ -392,12 +392,20 @@ if(VAST){
     CAAL<-cond_length_age_cor(max_age1=vmax_age)
     CAAL<-data.table(CAAL$norm)
     names(CAAL)<-names(ACOMP)
+    
+    FSH_CAAL<-cond_length_age_corFISH(max_age1=vmax_age)
+    FSH_CAAL<-data.table(FSH_CAAL$norm)
+    names(FSH_CAAL)<-names(ACOMP)
+
     ACOMP<-rbind(ACOMP,CAAL)
+
+    ACOMP<-rbind(ACOMP,FSH_CAAL)
+
 
     new_data$agecomp<-ACOMP
     new_data$N_agecomp<-nrow(ACOMP)
 
-
+ print("All ACOMP done")
 
 ## Get all survey Age Data
      

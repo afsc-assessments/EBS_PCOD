@@ -1,6 +1,6 @@
 ## get noncommercial catch and export flex table 
 #' @area is the generic area of interest GOA, AI, BS
-#'@fyr is the first year of the time series
+#' @fyr is the first year of the time series
 #' @sp_region_code is the regional species code 
 
 get_noncom<-function(area=fsh_sp_area, fyr=2012, species=sp_region_code){
@@ -26,17 +26,23 @@ get_noncom<-function(area=fsh_sp_area, fyr=2012, species=sp_region_code){
             df<-data.frame(noncom[,-3]%>% dcast(COLLECTION_NAME~COLLECTION_YEAR))
         })
 
+               
     # Get the column names
         col_names <- colnames(df)
-    # Remove 'X' prefix from year columns
+        # Remove 'X' prefix from year columns
         new_col_names <- gsub("^X", "", col_names)
         names(df)<-new_col_names
+        df$Grand_Total<-rowSums(df[,2:ncol(df)],na.rm=TRUE)
+        x<-c("Grand Total",colSums(df[,2:ncol(df)],na.rm=TRUE))
+        df<-rbind(df,x)
+        df[,2:ncol(df)] <- data.frame(lapply(df[,2:ncol(df)], as.numeric))
 
-        ft<-flextable::flextable(df)
-        ft<-flextable:: set_header_labels(ft, COLLECTION_NAME = 'Collection Name')
-        ft<-flextable::set_table_properties(ft, width = 0.9, layout = "autofit")
+        ft<-flextable::flextable(df)%>%
+        flextable::set_header_labels(COLLECTION_NAME = 'Collection Name',Grand_Total="Grand Total")%>%
+        flextable::bold(part='header')%>%
+        flextable::colformat_num(big.mark=",")%>%
+        flextable::autofit()%>%flextable::theme_zebra()
         })
-
-        ft
+    ft
 
  }
