@@ -43,7 +43,7 @@ FoverFmsy=F$Value/Fmsy
 
 
     k=Fabc/Fmsy*(((SSB0*0.2)/(SSB0*0.35))-0.05)/(1-0.05)
-    k2<-0.05
+    k2<-0.02
     k3<-(0.2*SSB0)/(SSB0*0.35)
     points(c(k3,k3),c(0,10),type="l",lty=3)
     points(c((SB100*0.40)/(SB100*0.35),xlim[2]),c(Fabc/Fmsy,Fabc/Fmsy),type="l",lwd=2)
