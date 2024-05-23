@@ -1,3 +1,6 @@
+## Function for extracting variance terms of the sigmas in a stock synthesis model based on Grant Thompson's method 
+## for tuning the EBS Pacific cod model which is based on Method #3 from Methot and Taylor (2011).
+# @dire = the directory for the model for which variance terms are to be calculated
 
 get_Sigma<-function(dire=paste0(getwd(),"/MODEL19_12")) {
 
@@ -33,6 +36,11 @@ get_Sigma<-function(dire=paste0(getwd(),"/MODEL19_12")) {
 	test1
 }
 
+## function for iterating through tuning of sigmas for stock synthesis model
+# @mod = model for tuning
+# @ctlfile1 = SS control file for model that is to be tuned
+# @SUCCESS = objective function value at which to stop the iterations
+# @ runs = number of runs to complete before stopping
 
 do_tune<-function(mod="MODEL19_12a", ctlfile1="Model_19_12a.ctl", SUCCESS=0.001, runs=20){
 	require(r4ss)
@@ -71,25 +79,3 @@ do_tune<-function(mod="MODEL19_12a", ctlfile1="Model_19_12a.ctl", SUCCESS=0.001,
 }
 
 #tuned23.2=do_tune(mod="MODEL_23.2_tune",ctlfile="Model_22.3A.ctl")
-
-
-#setwd("C:/WORKING_FOLDER/EBS_PCOD/2022_ASSESSMENT/NOVEMBER_MODELS/GRANT_MODELS")
-#models=c("Model19_12","Model19_12A","Model_21_1","Model_21_2")
-#x2<-vector("list",length=4)
-#for(i in 1:length(models)){
-#   x<-get_Sigma(dire=paste0(getwd(),"/",models[i]))
-#   x2[[i]]<-data.table(MODEL=models[i],RMSE=x$RMSE,SIGMA=x$TEST$OLD,PARAMETER=x$TEST$PARAMETERS)
-# }
-# x3<-do.call(rbind,x2)
-# x3$MODEL<-paste0(X3$MODEL,"_THOMPSON")
-#setwd("C:/WORKING_FOLDER/EBS_PCOD/2022_ASSESSMENT/NOVEMBER_MODELS/NEW_MODELS")
-#models=c("Model19_12","Model19_12A","Model_21_1","Model_21_2")
-#models2<-c("Model 22.1","Model 22.2","Model 22.3","Model 22.4",)
-#x2<-vector("list",length=4)
-#for(i in 1:length(models)){
-#    x<-get_Sigma(dire=paste0(getwd(),"/",models[i]))
-#    x2[[i]]<-data.table(MODEL=models2[i],RMSE=x$RMSE,SIGMA=x$TEST$OLD,PARAMETER=x$TEST$PARAMETERS)
-# }
-# x4<-do.call(rbind,x2)
-# x4$MODEL<-paste0(X4$MODEL,"_NEW")
-# SIGMAS= rbind(x3,x4)

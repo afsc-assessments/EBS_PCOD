@@ -79,7 +79,6 @@ source_files=c(
   "get_noncommercial_catch.r",
   "Get_lengthweight.r",
   "GET_SURVEY_ACOMP.r",
-  "GET_SURV_AGE_cor.r",
   "GET_SURVEY_BIOM.r",
   "GET_SURVEY_LCOMP.r",
   "LENGTH_BY_CATCH_short.r", 
