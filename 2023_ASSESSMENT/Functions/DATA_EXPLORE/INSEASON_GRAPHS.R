@@ -7,8 +7,16 @@ lapply(libs, library, character.only = TRUE)
 
 source('R/utils.r')
 
-afsc=connect("afsc")
-akfin=connect("akfin")
+afsc_user  =  keyring::key_list("afsc")$username  ## enter afsc username
+afsc_pwd   = keyring::key_get("afsc", keyring::key_list("afsc")$username)   ## enter afsc password
+akfin_user = keyring::key_list("akfin")$username ## enter AKFIN username
+akfin_pwd  =  keyring::key_get("akfin", keyring::key_list("akfin")$username)   ## enter AKFIN password
+
+
+  afsc = DBI::dbConnect(odbc::odbc(), "afsc",
+                      UID = afsc_user, PWD = afsc_pwd)
+  akfin = DBI::dbConnect(odbc::odbc(), "akfin",
+                      UID = akfin_user, PWD = akfin_pwd)
 
 first_year<-2007
 
@@ -143,11 +151,11 @@ windows()
 
 ## Bering Sea
 windows()
-  d<-ggplot(data_10[GEAR_TYPE%in% c(1,6,8)&NMFS_AREA%in%c(500:539)&MONTH>5&MONTH<10],aes(as.factor(YEAR),log(CPUE_W),group=as.factor(YEAR)))
+  d<-ggplot(data_10[GEAR_TYPE%in% c(1,6,8)&NMFS_AREA%in%c(500:539)&MONTH<5],aes(as.factor(YEAR),log(CPUE_W),group=as.factor(YEAR)))
   d<-d+geom_boxplot()
   d<-d+facet_wrap(~GEAR,scales="free_y")
    d<-d+xlab("Year")+ylab("log(CPUE)")
-   d<-d+ggtitle(paste0("Weight CPUE by Year for BS Jun-Sep"))+theme_bw(base_size=18)+theme(axis.text.x = element_text(angle = 90, hjust = 1))
+   d<-d+ggtitle(paste0("Weight CPUE by Year for BS Jan-Apr"))+theme_bw(base_size=18)+theme(axis.text.x = element_text(angle = 90, hjust = 1))
   d
 
 windows()
@@ -160,7 +168,7 @@ d<-ggplot(data_10[GEAR_TYPE%in% c(1,6,8)&NMFS_AREA%in%c(541:543)&YEAR<2024 &  MO
 
 
   windows()
-  d<-ggplot(data_10[GEAR_TYPE%in% c(1,6,8)&NMFS_AREA%in%c(508:513,515:519)&YEAR<2020&MONTH>0&MONTH<3],aes(as.factor(YEAR),log(CPUE_N),group=as.factor(YEAR)))
+  d<-ggplot(data_10[GEAR_TYPE%in% c(1,6,8)&NMFS_AREA%in%c(508:513,515:519)&YEAR<2025&MONTH>0&MONTH<3],aes(as.factor(YEAR),log(CPUE_N),group=as.factor(YEAR)))
   d<-d+geom_boxplot()
   d<-d+facet_wrap(~GEAR,scales="free_y")
    d<-d+xlab("Year")+ylab("log(CPUE)")
