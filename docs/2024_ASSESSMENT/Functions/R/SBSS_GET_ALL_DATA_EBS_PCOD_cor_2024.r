@@ -483,6 +483,7 @@ print("Mean sizes complete")
     print("Formatting AGE Means done")
 
 # write out empirical/survey mean weight-at-age data to file wtatage.ss
+## this is not used in the current set of models
     waa.ss <- file("wtatage.ss","w")
     write(paste(nrow(AGE_WEIGHT_SS)," #N rows"),file=waa.ss,append=TRUE)
     write(paste(max_age," #N ages"),file=waa.ss,append=TRUE)
