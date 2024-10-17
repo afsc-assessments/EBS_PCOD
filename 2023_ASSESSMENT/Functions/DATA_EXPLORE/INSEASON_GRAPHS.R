@@ -131,7 +131,7 @@ windows()
   d<-d+geom_boxplot()
   d<-d+facet_wrap(~YEAR)
    d<-d+xlab("Year")+ylab("log(CPUE)")
-   d<-d+ggtitle(paste0("CPUE by month for BS longline"))
+   d<-d+ggtitle(paste0("CPUE by month for BS longline"))+theme_bw()
   d
   windows()
   d<-ggplot(data_10[GEAR%in% c("BOTTOM TRAWL")&NMFS_AREA%in%c(500:539)],aes(as.factor(MONTH),log(CPUE_W),group=as.factor(MONTH)))
@@ -331,7 +331,7 @@ data$FREQUENCY<-as.numeric(data$FREQUENCY)
 #data<-data[(data$WEIGHT/data$OFFICIAL_TOTAL_CATCH)>0.3]
 #dataL<-data[GEAR_TYPE%in%c(6,8)]
 
-x6<-untable(data[,c(1:23)],num=data$FREQUENCY)
+x6<-reshape::untable(data[,c(1:23)],num=data$FREQUENCY)
 
 #data<-rbind(dataT,dataL)
 #x6<-untable(data[,c(1:21)],num=data$FREQUENCY)
@@ -357,11 +357,11 @@ x6[NMFS_AREA%in%c(610)]$AREA<-"Western GOA"
 x6[NMFS_AREA%in%c(620,630)]$AREA<-"Central GOA"
 x6[NMFS_AREA%in%c(540:544)]$AREA<-"AI"
 
-d<-ggplot(x6[YEAR==2018], aes(x=LENGTH)) + geom_histogram(binwidth=1)
+d<-ggplot(x6[YEAR==2024], aes(x=LENGTH)) + geom_histogram(binwidth=1)
 d<-d+facet_wrap(~GEAR)
 
 
-d<-ggplot(x6[YEAR%in%c(2022,2023)&NMFS_AREA %in% c(500:539)&GEAR_TYPE%in%c(1,6,8)], aes(x=LENGTH,fill=factor(AREA),y=..density..)) + geom_histogram(binwidth=1)
+d<-ggplot(x6[YEAR%in%c(2023,2024)&NMFS_AREA %in% c(500:539)&GEAR_TYPE%in%c(1,6,8)], aes(x=LENGTH,fill=factor(AREA),y=..density..)) + geom_histogram(binwidth=1)
  d<-d+facet_wrap(YEAR~GEAR)
  d<-d+xlim(0,120)
  d<-d+xlab("Fork Length (cm)")
@@ -369,7 +369,7 @@ d<-ggplot(x6[YEAR%in%c(2022,2023)&NMFS_AREA %in% c(500:539)&GEAR_TYPE%in%c(1,6,8
 
 
 
-d<-ggplot(x6[YEAR%in%c(2022,2023)&NMFS_AREA %in% c(500:539)&GEAR_TYPE%in%c(8)&MONTH %in% c("01","02","03")], aes(x=LENGTH,fill=AREA,y=..density..)) + geom_histogram(binwidth=1)
+d<-ggplot(x6[YEAR%in%c(2023,2024)&NMFS_AREA %in% c(500:539)&GEAR_TYPE%in%c(8)&MONTH %in% c("01","02","03")], aes(x=LENGTH,fill=AREA,y=..density..)) + geom_histogram(binwidth=1)
  d<-d+facet_wrap(YEAR~AREA)
  d<-d+xlim(0,120)
  d<-d+xlab("Fork Length (cm)")
@@ -377,7 +377,7 @@ d<-ggplot(x6[YEAR%in%c(2022,2023)&NMFS_AREA %in% c(500:539)&GEAR_TYPE%in%c(8)&MO
 
 
 
-d<-ggplot(x6[YEAR%in%c(2022,2023)&NMFS_AREA %in% c(500:539)&GEAR_TYPE%in%c(1)&MONTH %in% c("01","02","03")], aes(x=LENGTH,fill=AREA,y=..density..)) + geom_histogram(binwidth=1, fill='purple')
+d<-ggplot(x6[YEAR%in%c(2023,2024)&NMFS_AREA %in% c(500:539)&GEAR_TYPE%in%c(1)&MONTH %in% c("01","02","03")], aes(x=LENGTH,fill=AREA,y=..density..)) + geom_histogram(binwidth=1, fill='purple')
  d<-d+facet_wrap(YEAR~AREA)
  d<-d+xlim(0,120)
  d<-d+xlab("Fork Length (cm)")
@@ -385,7 +385,7 @@ d<-ggplot(x6[YEAR%in%c(2022,2023)&NMFS_AREA %in% c(500:539)&GEAR_TYPE%in%c(1)&MO
 
 
 
-d<-ggplot(x6[YEAR%in%c(2022,2023)&NMFS_AREA %in% c(500:539)&GEAR_TYPE%in%c(1)&MONTH %in% c("01","02","03")], aes(x=LENGTH,fill=AREA,y=..density..)) + geom_histogram(binwidth=1)
+d<-ggplot(x6[YEAR%in%c(2023,2024)&NMFS_AREA %in% c(500:539)&GEAR_TYPE%in%c(1)&MONTH %in% c("01","02","03")], aes(x=LENGTH,fill=AREA,y=..density..)) + geom_histogram(binwidth=1)
  d<-d+facet_wrap(YEAR~AREA)
  d<-d+xlim(0,120)
  d<-d+xlab("Fork Length (cm)")

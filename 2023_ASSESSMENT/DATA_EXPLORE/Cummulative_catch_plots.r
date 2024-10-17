@@ -12,7 +12,7 @@ akfin = DBI::dbConnect(odbc::odbc(), "akfin",
 
 
 
-Plot_CUMMULATIVE<-function(species="'PCOD'",FMP_AREA="'BSAI'",subarea="'BS'",syear=2020)
+Plot_CUMMULATIVE<-function(species="'PCOD'",FMP_AREA="'BSAI'",subarea="'BS'",syear=2018)
  {
   library(RODBC)
   library(data.table)
@@ -47,9 +47,9 @@ Plot_CUMMULATIVE<-function(species="'PCOD'",FMP_AREA="'BSAI'",subarea="'BS'",sye
 
   grid<-data.table(expand.grid(YEAR=unique(W1$YEAR),FMP_GEAR=unique(W1$FMP_GEAR),WEEK=0:52))
 
-  grid2<-grid[YEAR==2021 & WEEK<42]
-  grid<-grid[YEAR<2021]
-  grid<-rbind(grid,grid2)
+  #grid2<-grid[YEAR==2021 & WEEK<42]
+  #grid<-grid[YEAR<2021]
+  #grid<-rbind(grid,grid2)
   W1=merge(W1,grid,all=T)
   W1[is.na(TONS)]$TONS<-0.00
 
@@ -62,12 +62,15 @@ Plot_CUMMULATIVE<-function(species="'PCOD'",FMP_AREA="'BSAI'",subarea="'BS'",sye
    }
 
   cYear<-year(Sys.time())
-
-  d<- ggplot(data=W1,aes(x=WEEK,y=CUM,color=factor(YEAR),shape=factor(YEAR)))
+  nc=(length(unique(W1$YEAR)))-1
+  okabe <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+  colors=c(okabe[1:nc],'black')
+  shapes=c(as.numeric(14+(1:nc)),1)
+    d<- ggplot(data=W1,aes(x=WEEK,y=CUM,color=factor(YEAR),shape=factor(YEAR)))
   d<- d+geom_point()+geom_path(aes(group=YEAR))#+geom_line(data=W1[YEAR==cYear],color="black",size=1)
-  d<-d+facet_wrap(~FMP_GEAR,scale="free_y")
-  d<-d+theme_bw()+theme(axis.text.x = element_text(hjust=0, angle = 90))
-  d<-d+labs(title=paste0(species," Area = ",FMP_AREA," Subarea = ",subarea), y="Cummulative Catch (t)",color="Year")
+  d<-d+facet_wrap(~FMP_GEAR,scale="free_y")+scale_color_manual(values=colors)
+  d<-d+theme_bw()+theme(axis.text.x = element_text(hjust=0, angle = 90))+scale_shape_manual(values=shapes)
+  d<-d+labs(title=paste0(species," Area = ",FMP_AREA," Subarea = ",subarea), y="Cummulative Catch (t)",shape="Year",color="Year")
   print(d)
 }
 
