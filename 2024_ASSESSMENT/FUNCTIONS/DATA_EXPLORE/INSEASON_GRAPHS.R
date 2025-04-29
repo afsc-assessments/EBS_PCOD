@@ -7,8 +7,18 @@ lapply(libs, library, character.only = TRUE)
 
 source('R/utils.r')
 
-afsc=connect("afsc")
-akfin=connect("akfin")
+
+afsc_user  =  keyring::key_list("afsc")$username  ## enter afsc username
+afsc_pwd   = keyring::key_get("afsc", keyring::key_list("afsc")$username)   ## enter afsc password
+akfin_user = keyring::key_list("akfin")$username ## enter AKFIN username
+akfin_pwd  =  keyring::key_get("akfin", keyring::key_list("akfin")$username)   ## enter AKFIN password
+
+
+  afsc = DBI::dbConnect(odbc::odbc(), "afsc",
+                      UID = afsc_user, PWD = afsc_pwd)
+  akfin = DBI::dbConnect(odbc::odbc(), "akfin",
+                      UID = akfin_user, PWD = akfin_pwd)
+
 
 first_year<-2007
 
