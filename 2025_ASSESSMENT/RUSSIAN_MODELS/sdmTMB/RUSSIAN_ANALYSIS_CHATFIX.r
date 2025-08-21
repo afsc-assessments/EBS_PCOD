@@ -1,27 +1,27 @@
-library(ncdf4)
-library(curl)
-library(lubridate)
-library(PCICt)
-library(data.table)
-library(sp)
-library(heatwaveR)
-library(dplyr)
-library(png)
-library(ggpubr)
-library(extrafont)
-library(raster)
-library(zoo)
-library(scales)
-library(tidyverse)
-library(tidync)
 library(coldpool)
-library(surveyjoin)
-library(sdmTMB)
-library(tidyr)
-library(INLAspacetime)
+library(curl)
+library(data.table)
 library(DBI)
-library(odbc)
+library(dplyr)
+library(extrafont)
+library(ggpubr)
+library(heatwaveR)
+library(INLAspacetime)
 library(lubridate)
+library(ncdf4)
+library(odbc)
+library(PCICt)
+library(png)
+library(raster)
+library(scales)
+library(sdmTMB)
+library(sp)
+library(surveyjoin)
+library(tidync)
+library(tidyr)
+library(tidyverse)
+library(zoo)
+
 
 
 #--- Connect to AFSC Oracle DB ---
@@ -357,8 +357,6 @@ index_RV_NRV <- rbindlist(list(idx_all, idx_us), use.names = TRUE, fill = TRUE)
 
 ##Refactor: maps & indices plotting (concise)
 # ---- Packages ----
-library(data.table)
-library(ggplot2)
 library(sf)
 library(viridisLite)
 library(scales)
@@ -479,8 +477,7 @@ ggsave("index_EBS.png",     p_idx_ebs,    width = 9, height = 5, dpi = 300)
 ggsave("index_GOA.png",     p_idx_goa,    width = 9, height = 5, dpi = 300)
 
 ##Centroid analysis
-# ---- Packages ----
-library(scales)
+
 # ---- 1) Helper: biomass-weighted centroids per year ----
 # surf_dt must have: FID_2, SURVEY_DEF, POLY_AREA, year, est_resp (t/km^2), survey_name
 # grid_sf must be sf polygons with same keys and geometry; CRS should be EPSG:32603 (UTM 3N).
