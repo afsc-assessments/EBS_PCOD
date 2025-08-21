@@ -174,19 +174,19 @@ windows()
 
 ## Bering Sea
 windows()
-  d<-ggplot(data_10[GEAR_TYPE%in% c(1,6,8)&NMFS_AREA%in%c(500:539)&MONTH>5&MONTH<10],aes(as.factor(YEAR),log(CPUE_W),group=as.factor(YEAR)))
+  d<-ggplot(data_10[GEAR_TYPE%in% c(1,6,8)&NMFS_AREA%in%c(500:539)&MONTH>0&MONTH<4],aes(as.factor(YEAR),log(CPUE_N),group=as.factor(YEAR)))
   d<-d+geom_boxplot()
   d<-d+facet_wrap(~GEAR,scales="free_y")
    d<-d+xlab("Year")+ylab("log(CPUE)")
-   d<-d+ggtitle(paste0("Weight CPUE by Year for BS Jun-Sep"))+theme_bw(base_size=18)+theme(axis.text.x = element_text(angle = 90, hjust = 1))
+   d<-d+ggtitle(paste0("Number CPUE by Year for BS Jan-Mar"))+theme_bw(base_size=18)+theme(axis.text.x = element_text(angle = 90, hjust = 1))
   d
 
 windows()
-d<-ggplot(data_10[GEAR_TYPE%in% c(1,6,8)&NMFS_AREA%in%c(541:543)&YEAR<2024 &  MONTH < 5],aes(as.factor(YEAR),log(CPUE_W),group=as.factor(YEAR)))
+d<-ggplot(data_10[GEAR_TYPE%in% c(1,6,8)&NMFS_AREA%in%c(541:543)&YEAR<2026 &  MONTH < 4],aes(as.factor(YEAR),log(CPUE_W),group=as.factor(YEAR)))
   d<-d+geom_boxplot()+theme_bw()
   d<-d+facet_wrap(~GEAR,scales="free_y")
    d<-d+xlab("Year")+ylab("log(CPUE)")
-   d<-d+ggtitle(paste0("Weight CPUE by Year for AI Jan-Apr"))+theme(axis.text.x = element_text(angle = 90, hjust = 1))
+   d<-d+ggtitle(paste0("Weight CPUE by Year for AI Jan-Mar"))+theme(axis.text.x = element_text(angle = 90, hjust = 1))
   d
 
 
@@ -207,17 +207,17 @@ d<-ggplot(data_10[GEAR_TYPE%in% c(1,6,8)&NMFS_AREA%in%c(508:513,515:519)&YEAR<20
 
 
 windows()
-d<-ggplot(data_GOA[GEAR_TYPE%in% c(1,6,8)&NMFS_AREA%in%c(610,620,630)&YEAR<2024&MONTH>0&MONTH<3],aes(as.factor(YEAR),log(CPUE_W),group=as.factor(YEAR)))
+d<-ggplot(data_GOA[GEAR_TYPE%in% c(1,6,8)&NMFS_AREA%in%c(610,620,630)&YEAR<2026&MONTH>0&MONTH<4],aes(as.factor(YEAR),log(CPUE_W),group=as.factor(YEAR)))
   d<-d+geom_boxplot()+theme_bw()
   d<-d+facet_wrap(REGION~GEAR,scales="free_y")
    d<-d+xlab("Year")+ylab("log(CPUE)")
-   d<-d+ggtitle(paste0("Weight CPUE by Year for GOA Jan-Feb"))+theme(axis.text.x = element_text(angle = 90, hjust = 1))
+   d<-d+ggtitle(paste0("Weight CPUE by Year for GOA Jan-Mar"))+theme(axis.text.x = element_text(angle = 90, hjust = 1))
   d
 
 
 
 windows()
-d<-ggplot(data_GOA[GEAR_TYPE%in% c(1,6,8)&NMFS_AREA%in%c(610,620,630)&YEAR<2024&MONTH>0&MONTH<3],aes(as.factor(YEAR),log(CPUE_N),group=as.factor(YEAR)))
+d<-ggplot(data_GOA[GEAR_TYPE%in% c(1,6,8)&NMFS_AREA%in%c(610,620,630)&MONTH>0&MONTH<3],aes(as.factor(YEAR),log(CPUE_N),group=as.factor(YEAR)))
   d<-d+geom_boxplot()+theme_bw()
   d<-d+facet_wrap(REGION~GEAR,scales="free_y")
    d<-d+xlab("Year")+ylab("log(CPUE)")
@@ -354,7 +354,7 @@ data$FREQUENCY<-as.numeric(data$FREQUENCY)
 #data<-data[(data$WEIGHT/data$OFFICIAL_TOTAL_CATCH)>0.3]
 #dataL<-data[GEAR_TYPE%in%c(6,8)]
 
-x6<-untable(data[,c(1:23)],num=data$FREQUENCY)
+x6<-reshape::untable(data[,c(1:23)],num=data$FREQUENCY)
 
 #data<-rbind(dataT,dataL)
 #x6<-untable(data[,c(1:21)],num=data$FREQUENCY)
@@ -392,7 +392,7 @@ d<-ggplot(x6[YEAR%in%c(2022,2023)&NMFS_AREA %in% c(500:539)&GEAR_TYPE%in%c(1,6,8
 
 
 
-d<-ggplot(x6[YEAR%in%c(2022,2023)&NMFS_AREA %in% c(500:539)&GEAR_TYPE%in%c(8)&MONTH %in% c("01","02","03")], aes(x=LENGTH,fill=AREA,y=..density..)) + geom_histogram(binwidth=1)
+d<-ggplot(x6[YEAR%in%c(2024,2025)&NMFS_AREA %in% c(500:539)&GEAR_TYPE%in%c(8)&MONTH %in% c("01","02","03")], aes(x=LENGTH,fill=AREA,y=..density..)) + geom_histogram(binwidth=1)
  d<-d+facet_wrap(YEAR~AREA)
  d<-d+xlim(0,120)
  d<-d+xlab("Fork Length (cm)")
@@ -421,7 +421,7 @@ x6CUR<-x6[yday(RETRIEVAL_DATE)>=now.30&yday(RETRIEVAL_DATE)<=now]
 
 
 windows()
-d<-ggplot(x6[GEAR_TYPE %in% c(1,6,8) & NMFS_AREA %in% c(508:513,515:519) &MONTH %in% c("01","02","03")],aes(YEAR,LENGTH,group=YEAR))
+d<-ggplot(x6[GEAR_TYPE %in% c(1,6,8) & YEAR>2015& NMFS_AREA %in% c(508:513,515:519) &MONTH %in% c("01","02","03","04")],aes(factor(YEAR),LENGTH,group=YEAR))
      d<-d+geom_boxplot()+geom_hline(yintercept=70,color="red",linetype=2)
      d<-d+facet_wrap(~GEAR,nrow=3)
         d<-d+xlab("Year")+ylab("Length (cm)")
