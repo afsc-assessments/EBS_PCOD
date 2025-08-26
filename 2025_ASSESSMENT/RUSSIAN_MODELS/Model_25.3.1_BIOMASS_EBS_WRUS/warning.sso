@@ -1,0 +1,7 @@
+Warning 1 : bias adjustment ramp extends into forecast; biasadj set to 0.0 internally for forecast years
+Warning 2 Adjustment: Fcast recr option is 3 or 4 and recdev_end: 2022 < endyr: 2024 reset 
+Warning 3 : Early recdev biasadj is >2 times ratio of rmse to sigmaR
+Warning 4 : Early recdev biasadj is >2 times ratio of rmse to sigmaR
+Warning 5 : Final gradient: 0.000140825 is larger than final_conv: 0.0001
+Warning 6 : Time-vary parms not bound checked
+ 6 warnings 
