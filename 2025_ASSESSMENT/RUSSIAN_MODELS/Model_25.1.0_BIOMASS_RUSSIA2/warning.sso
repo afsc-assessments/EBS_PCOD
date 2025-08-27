@@ -1,0 +1,4 @@
+Warning 1 : LENGTH: data_month already set for y,m,f: 2004 10 5 to real month: 9  so treat as replicate
+Note 1 Suggestion:  recr_dist_method 3 is simpler and takes 1 parm for each settlement
+Warning 2 : Time-vary parms not bound checked
+ 2 warnings  and 1 note 
