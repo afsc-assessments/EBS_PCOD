@@ -1,27 +1,27 @@
-library(coldpool)
-library(curl)
-library(data.table)
-library(DBI)
-library(dplyr)
-library(extrafont)
-library(ggpubr)
-library(heatwaveR)
-library(INLAspacetime)
-library(lubridate)
 library(ncdf4)
-library(odbc)
+library(curl)
+library(lubridate)
 library(PCICt)
-library(png)
-library(raster)
-library(scales)
-library(sdmTMB)
+library(data.table)
 library(sp)
-library(surveyjoin)
-library(tidync)
-library(tidyr)
-library(tidyverse)
+library(heatwaveR)
+library(dplyr)
+library(png)
+library(ggpubr)
+library(extrafont)
+library(raster)
 library(zoo)
-
+library(scales)
+library(tidyverse)
+library(tidync)
+library(coldpool)
+library(surveyjoin)
+library(sdmTMB)
+library(tidyr)
+library(INLAspacetime)
+library(DBI)
+library(odbc)
+library(lubridate)
 
 
 #--- Connect to AFSC Oracle DB ---
@@ -72,7 +72,7 @@ d <- dbGetQuery(afsc, sql_data) %>%
   rename_with(tolower)
 
 #--- Filter down to your survey set ---
-surveys <- unique(d$survey_name)[c(2,3,17,20,30,31,32,36,38,40:42,45,46,48,50,52,54,58:63,65:67,69:71,73,75:80,82:98)]
+surveys <- unique(d$survey_name)[c(2,3,17,20,30,31,32,36,38,40:42,45,46,48,50,52,54,58:63,65:67,69:71,73,75:80,82:99)]
 d <- d[survey_name %in% surveys]
 d$month<-month(d$date1)
 d<-d[month%in%c(5:10)]
@@ -85,10 +85,10 @@ nocod_ids <- setdiff(all_ids, cod_ids)
 
 # Keep one record per non-cod haul and add zeros
 d_nocod <- unique(d[event_id %in% nocod_ids,
-  .(year, survey_name, event_id, date1, vessel,
+  .(year, survey_name, event_id, date1,
     lat_start, lon_start, lat_end, lon_end,
     depth_m, effort, performance, stratum,
-    bottom_temp_c, region, abundance_haul)]
+    bottom_temp_c, region, vessel,abundance_haul,month)]
 )
 d_nocod[, `:=`(
   species_code   = 21720L,
@@ -139,7 +139,7 @@ d[, `:=`(
 )]
 
 # Refactor: Russian data + join + scaling
-russian_data <- fread("RUSSIANALLCATCH_join3.csv") %>%
+russian_data <- fread("C:/Users/steve.barbeaux/Work/WORKING_FOLDER/EBS_PCOD_work_folder/2025_ASSESSMENT/MULTIAREA/RUSSIAN_ANALYSIS/RUSSIANALLCATCH_join3.csv") %>%
   rename_with(tolower)
 
 russian_data[, survey_name := "western Bering Sea"]
@@ -357,6 +357,8 @@ index_RV_NRV <- rbindlist(list(idx_all, idx_us), use.names = TRUE, fill = TRUE)
 
 ##Refactor: maps & indices plotting (concise)
 # ---- Packages ----
+library(data.table)
+library(ggplot2)
 library(sf)
 library(viridisLite)
 library(scales)
@@ -462,11 +464,14 @@ ggsave("map_pred_usa_only.png",   p_map_us,  width = 10, height = 7, dpi = 300)
 # ---- 4) Index plots ----
 # index_RV_NRV was built earlier (rbind of idx_all + idx_us)
 p_idx_allwbs <- plot_indices(index_RV_NRV, region_filter = "ALL-WBS",
-                             title = "Index: ALL-WBS region (With-Russia vs USA-only)")
+                             title = "Index: ALL U.S. region")
 p_idx_ebs    <- plot_indices(index_RV_NRV, region_filter = "EBS",
                              title = "Index: EBS region")
 p_idx_goa    <- plot_indices(index_RV_NRV, region_filter = "GOA",
-                             title = "Index: GOA region")
+                             title = "Index: WGOA region")
+
+p_idx_nbs    <- plot_indices(index_RV_NRV, region_filter = "NBS",
+                             title = "Index: NBS region")
 
 print(p_idx_allwbs)
 print(p_idx_ebs)
@@ -475,9 +480,11 @@ print(p_idx_goa)
 ggsave("index_ALL-WBS.png", p_idx_allwbs, width = 9, height = 5, dpi = 300)
 ggsave("index_EBS.png",     p_idx_ebs,    width = 9, height = 5, dpi = 300)
 ggsave("index_GOA.png",     p_idx_goa,    width = 9, height = 5, dpi = 300)
+ggsave("index_NBS.png",     p_idx_nbs,    width = 9, height = 5, dpi = 300)
 
 ##Centroid analysis
-
+# ---- Packages ----
+library(scales)
 # ---- 1) Helper: biomass-weighted centroids per year ----
 # surf_dt must have: FID_2, SURVEY_DEF, POLY_AREA, year, est_resp (t/km^2), survey_name
 # grid_sf must be sf polygons with same keys and geometry; CRS should be EPSG:32603 (UTM 3N).
