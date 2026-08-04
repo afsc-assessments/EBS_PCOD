@@ -36,8 +36,7 @@ FROM
     INNER JOIN gap_products.akfin_cruise ON gap_products.akfin_haul.cruisejoin = gap_products.akfin_cruise.cruisejoin
     INNER JOIN gap_products.taxon_groups ON gap_products.akfin_cpue.species_code = gap_products.taxon_groups.species_code
 WHERE
-        gap_products.akfin_cpue.species_code = 21720
-    AND gap_products.akfin_cruise.survey_definition_id IN ( 98, 143 )
+   gap_products.akfin_cruise.survey_definition_id IN ( 98, 143 )
 ORDER BY
     gap_products.akfin_cruise.year DESC"
 
@@ -53,43 +52,83 @@ ORDER BY
 #data<-read.csv("EBSCOD_SURVEY.csv")
 #nbsdata<-read.csv("NBSCOD_SURVEY.csv")
 
-Years=c(2010,2017:2019,2021:2023)
+Years=c(2010,2017:2019,2021:2023,2025)
 
 pdf("NBS_COD.pdf",width=8, height=8)
 
 for(i in 1:length(Years)){
-	  cod<-data.table(subset(data,YEAR==Years[i]))
+	  cod<-data.table(subset(data1,YEAR==Years[i]))
     cod<-cod[!is.na(LATITUDE)]
 
-	opt1 <- make_idw_map(x = cod, # Pass data as a data frame
-             region = "bs.all", # Predefined bs.all area
-             set.breaks = c(0,15,50,150,300,500), # Gets Jenks breaks from classint::classIntervals()
-             in.crs = "+proj=longlat", # Set input coordinate reference system
-             out.crs = "EPSG:3338", # Set output coordinate reference system
-             grid.cell = c(20000, 20000), # 20x20km grid
-             key.title = paste0("Pacific cod ",Years[i]), # Include Pcod sole in the legend title
-             key.title.units = "CPUE (kg/ha)")
-	print(opt1$plot)
+  opt1<-make_idw_map(x = cod,
+                         COMMON_NAME = NA,
+                         LATITUDE = NA,
+                         LONGITUDE = NA,
+                         CPUE_KGHA = NA,
+                         region = "bs.all",
+                         extrap.box = NULL,
+                         extrapolation.grid.type = "sf",
+                         set.breaks = c(0,15,50,150,300,500),
+                         grid.cell = c(20000,20000),
+                         in.crs = "+proj=longlat",
+                         out.crs = "EPSG:3338",
+                         key.title = paste0("Pacific cod ",Years[i]),
+                         key.title.units = "CPUE (kg/ha)",
+                         log.transform = TRUE,
+                         idw.nmax = 8,
+                         use.survey.bathymetry = FALSE,
+                         return.continuous.grid = FALSE) 
+
+	#opt1 <- akgfmaps::make_idw_map(x = cod, # Pass data as a data frame
+    #         region = "bs.all", # Predefined bs.all area
+    #         set.breaks = c(0,15,50,150,300,500), # Gets Jenks breaks from classint::classIntervals()
+    #         in.crs = "+proj=longlat", # Set input coordinate reference system
+    #         out.crs = "EPSG:3338", # Set output coordinate reference system
+    #         grid.cell = c(20000, 20000), # 20x20km grid
+    #         key.title = paste0("Pacific cod ",Years[i]), # Include Pcod sole in the legend title
+    #         key.title.units = "CPUE (kg/ha)")
+	
+    print(opt1$plot)
  }
 dev.off()
 
 
-Years=c(1982:2019,2021:2023)
+Years=c(1982:2019,2021:2025)
 
 pdf("EBS_COD2.pdf",width=8, height=8)
 
 for(i in 1:length(Years)){
-    cod<-data.table(subset(data,YEAR==Years[i]))
+    cod<-data.table(subset(data1,YEAR==Years[i]))
     cod<-cod[!is.na(LATITUDE)]
     
 
-    opt1 <- make_idw_map(x = cod, # Pass data as a data frame
-             region = "bs.south", # Predefined bs.all area
-             set.breaks = c(0,15,50,150,300,500), # Gets Jenks breaks from classint::classIntervals()
-             in.crs = "+proj=longlat", # Set input coordinate reference system
-             out.crs = "EPSG:3338", # Set output coordinate reference system
-             grid.cell = c(20000, 20000), # 20x20km grid
-             key.title = paste0("Pacific cod ",Years[i])) # Include Pcod sole in the legend title
+    opt1 <-make_idw_map(x = cod,
+                         COMMON_NAME = NA,
+                         LATITUDE = NA,
+                         LONGITUDE = NA,
+                         CPUE_KGHA = NA,
+                         region = "bs.south",
+                         extrap.box = NULL,
+                         extrapolation.grid.type = "sf",
+                         set.breaks = c(0,15,50,150,300,500),
+                         grid.cell = c(20000,20000),
+                         in.crs = "+proj=longlat",
+                         out.crs = "EPSG:3338",
+                         key.title = paste0("Pacific cod ",Years[i]),
+                         key.title.units = "CPUE (kg/ha)",
+                         log.transform = TRUE,
+                         idw.nmax = 1,
+                         use.survey.bathymetry = TRUE,
+                         return.continuous.grid = TRUE) 
+
+    #make_idw_map(x = cod, # Pass data as a data frame
+    #         region = "bs.south", # Predefined bs.all area
+    #         set.breaks = c(0,15,50,150,300,500), # Gets Jenks breaks from classint::classIntervals()
+     #        in.crs = "+proj=longlat", # Set input coordinate reference system
+     #        out.crs = "EPSG:3338", # Set output coordinate reference system
+     #        grid.cell = c(20000, 20000), # 20x20km grid
+     #        key.title = paste0("Pacific cod ",Years[i])) # Include Pcod sole in the legend title
+    
     print(opt1$plot)
  }
 dev.off()

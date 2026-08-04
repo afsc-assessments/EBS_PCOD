@@ -45,6 +45,6 @@ WHERE
     AND norpac.domestic_port.nmfs_area_code
     -- insert region
     AND norpac.domestic_port_spcomp.species 
-    -- insert species
+    -- insert spec
 ORDER BY
     norpac.domestic_port.delivery_date

@@ -29,46 +29,81 @@
 #' @author Sean Rohan \email{sean.rohan@@noaa.gov}
 #' @export
 
+
+
+                         region = "bs.all" 
+                         extrap.box = NULL 
+                         extrapolation.grid.type = "stars"
+                         set.breaks = "jenks"
+                         grid.cell = c(20000,20000)
+                         in.crs = "+proj=longlat"
+                         out.crs = "EPSG:3338"
+                         key.title = "auto"
+                         key.title.units = "CPUE (kg/ha)"
+                         log.transform = FALSE
+                         idw.nmax = 4
+                         use.survey.bathymetry = TRUE
+                         return.continuous.grid = TRUE
+
+
+
 make_idw_map_FSH <- function(x = NA, 
                          COMMON_NAME = NA, 
                          LATITUDE = NA, 
                          LONGITUDE = NA, 
                          GEAR = NA,
                          CPUE = NA, 
-                         region = "bs.south", 
+                         region = "bs.all", 
                          extrap.box = NULL, 
-                         set.breaks = "jenks", 
-                         grid.cell = c(5000,5000), 
-                         in.crs = "+proj=longlat", 
-                         out.crs = "EPSG:3338", 
-                         key.title = "auto", 
-                         log.transform = FALSE, 
-                         idw.nmax = 4,
-                         use.survey.bathymetry = TRUE, 
+                         extrapolation.grid.type = "sf",
+                         set.breaks = "jenks",
+                         grid.cell = c(40000,40000),
+                         in.crs = "+proj=longlat",
+                         out.crs = "EPSG:3338",
+                         key.title = "auto",
+                         key.title.units = "CPUE (kg/ha)",
+                         log.transform = FALSE,
+                         idw.nmax = 1,
+                         use.survey.bathymetry = TRUE,
                          return.continuous.grid = TRUE) {
   
+  
+
+
+  var1.var <- var1.pred <- id_temp <- NULL
+
+  stopifnot("make_idw_map: extra.grid.type must be 'stars', 'sf', or 'sf.simple'" = extrapolation.grid.type %in% c("stars", "sf", "sf.simple"))
+
   # Convert vectors to data frame if x is not a data.frame or tbl-----------------------------------
   if(!is.data.frame(x)) {
-    x <- data.frame(COMMON_NAME = COMMON_NAME, 
+
+    stopifnot("make_idw_map: LATITUDE must be a numeric vector." = is.numeric(LATITUDE))
+    stopifnot("make_idw_map: LONGITUDE must be a numeric vector." = is.numeric(LONGITUDE))
+    stopifnot("make_idw_map: CPUE must be a numeric vector." = is.numeric(CPUE))
+
+    x <- data.frame(COMMON_NAME = COMMON_NAME,
                     LATITUDE = LATITUDE,
                     LONGITUDE = LONGITUDE,
-                    GEAR = GEAR,
+                    GEAR=GEAR,
                     CPUE = CPUE)
   }
-  
+
+  x <- as.data.frame(x)
+
+
   # Set legend title--------------------------------------------------------------------------------
   if(key.title == "auto") {
-    key.title <- paste0(x$SPECIES_NAME[1]," ",x$GEAR[1])
+    key.title <- x$SPECIES_NAME[1]
   }
-  
+
   # Load map layers---------------------------------------------------------------------------------
   map_layers <- akgfmaps::get_base_layers(select.region = region, set.crs = out.crs)
-  
+
   # Set up mapping region---------------------------------------------------------------------------
   if(is.null(extrap.box)) {
     extrap.box <- sf::st_bbox(map_layers$survey.area)
   }
-  
+
   # Assign CRS to handle automatic selection--------------------------------------------------------
   if(out.crs == "auto") {
     out.crs <- map_layers$crs
@@ -76,37 +111,43 @@ make_idw_map_FSH <- function(x = NA,
 
   # Use survey bathymetry---------------------------------------------------------------------------
   if(use.survey.bathymetry) {
-    map_layers$bathymetry <- akgfmaps::get_survey_bathymetry(select.region = region, set.crs = out.crs)
+    map_layers$bathymetry <- akgfmaps::get_survey_bathymetry(select.region = region,
+                                                             set.crs = out.crs)
   }
-  
+
   # Assign CRS to input data------------------------------------------------------------------------
-  x <- sf::st_as_sf(x, 
-                    coords = c(x = "LONGITUDE", y = "LATITUDE"), 
-                    crs = sf::st_crs(in.crs)) %>% 
+  x <- sf::st_as_sf(x,
+                    coords = c(x = "LONGITUDE", y = "LATITUDE"),
+                    crs = sf::st_crs(in.crs)) |>
     sf::st_transform(crs = map_layers$crs)
-  
+
   # Inverse distance weighting----------------------------------------------------------------------
-  idw_fit <- gstat::gstat(formula = CPUE~1, locations = x, nmax = idw.nmax)
-  
+  idw_fit <- gstat::gstat(formula = CPUE~1,
+                          locations = x,maxdist=grid.cell[1],
+                          nmax = idw.nmax)
+
   # Predict station points--------------------------------------------------------------------------
   stn.predict <- predict(idw_fit, x)
 
-  # Generate extrapolation grid---------------------------------------------------------------------
-  sp_extrap.raster <- raster::raster(xmn = extrap.box['xmin'],
-                                     xmx = extrap.box['xmax'],
-                                     ymn = extrap.box['ymin'],
-                                     ymx = extrap.box['ymax'],
+  # Generate interpolation grid---------------------------------------------------------------------
+  extrap_raster <- terra::rast(xmin = extrap.box['xmin'],
+                                     xmax = extrap.box['xmax'],
+                                     ymin = extrap.box['ymin'],
+                                     ymax = extrap.box['ymax'],
                                      ncol = (extrap.box['xmax']-extrap.box['xmin'])/grid.cell[1],
                                      nrow = (extrap.box['ymax']-extrap.box['ymin'])/grid.cell[2],
-                                     crs = raster::crs(out.crs))
-  
+                                     crs = out.crs)
+
   # Predict, rasterize, mask------------------------------------------------------------------------
-  extrap.grid <- predict(idw_fit, as(sp_extrap.raster, "SpatialPoints")) %>% 
-    sf::st_as_sf() %>% 
-    sf::st_transform(crs = raster::crs(x)) %>% 
-    stars::st_rasterize() %>% 
-    sf::st_join(map_layers$survey.area, join = st_intersects) 
-  
+  loc_df <- suppressWarnings(terra::crds(extrap_raster, df = TRUE, na.rm = FALSE)) |>
+    sf::st_as_sf(coords = c("x", "y"),
+                 crs = out.crs)
+
+  extrap.grid <- predict(idw_fit, loc_df) |>
+    sf::st_transform(crs = sf::st_crs(x)) |>
+    stars::st_rasterize() |>
+    sf::st_join(map_layers$survey.area, join = st_intersects)
+
   # Return continuous grid if return.continuous.grid is TRUE ---------------------------------------
   if(return.continuous.grid) {
     continuous.grid <- extrap.grid
@@ -117,38 +158,38 @@ make_idw_map_FSH <- function(x = NA,
   # Format breaks for plotting----------------------------------------------------------------------
   # Automatic break selection based on character vector.
   alt.round <- 0 # Set alternative rounding factor to zero based on user-specified breaks
-  
+
   if(is.character(set.breaks[1])) {
     set.breaks <- tolower(set.breaks)
-    
+
     # Set breaks ----
     break.vals <- classInt::classIntervals(x$CPUE, n = 5, style = set.breaks)$brks
-    
+
     # Setup rounding for small CPUE ----
     alt.round <- floor(-1*(min((log10(break.vals)-2)[abs(break.vals) > 0])))
-    
+
     set.breaks <- c(-1, round(break.vals, alt.round))
   }
-  
+
   # Ensure breaks go to zero------------------------------------------------------------------------
   if(min(set.breaks) > 0) {
     set.breaks <- c(0, set.breaks)
   }
-  
+
   if(min(set.breaks) == 0) {
     set.breaks <- c(-1, set.breaks)
   }
-  
+
   # Ensure breaks span the full range---------------------------------------------------------------
   if(max(set.breaks) < max(stn.predict$var1.pred)){
     set.breaks[length(set.breaks)] <- max(stn.predict$var1.pred) + 1
   }
-  
-  
+
+
   # Trim breaks to significant digits to account for differences in range among species-------------
   dig.lab <- 7
   set.levels <- cut(stn.predict$var1.pred, set.breaks, right = TRUE, dig.lab = dig.lab)
-  
+
   if(alt.round > 0) {
     while(dig.lab > alt.round) { # Rounding for small CPUE
         dig.lab <- dig.lab - 1
@@ -160,61 +201,132 @@ make_idw_map_FSH <- function(x = NA,
         set.levels <- cut(stn.predict$var1.pred, set.breaks, right = TRUE, dig.lab = dig.lab)
       }
     }
-      
+
   # Cut extrapolation grid to support discrete scale------------------------------------------------
   extrap.grid$var1.pred <- cut(extrap.grid$var1.pred, set.breaks, right = TRUE, dig.lab = dig.lab)
 
   # Which breaks need commas?-----------------------------------------------------------------------
   sig.dig <- round(set.breaks[which(nchar(round(set.breaks)) >= 4)])
-  
+
   # Drop brackets, add commas, create 'No catch' level to legend labels-----------------------------
   make_level_labels <- function(vec) {
     vec <- as.character(vec)
     vec[grep("-1", vec)] <- "No catch"
     vec <- sub("\\(", "\\>", vec)
-    vec <- sub("\\,", "–", vec)
+    vec <- sub("\\,", "-", vec)
     vec <- sub("\\]", "", vec)
-    if(length(sig.dig) > 3) {
+
+    if(length(sig.dig) > 0) {
+
+      sig.dig.format <- trimws(
+        format(
+          sort(sig.dig,
+               decreasing = TRUE),
+          scientific = FALSE,
+          nsmall=0,
+          big.mark=",")
+      )
+
+      sig.dig.desc <- trimws(
+        format(
+          sort(sig.dig,
+               decreasing = TRUE),
+          scientific = FALSE)
+      )
+
       for(j in 1:length(sig.dig)) {
-        vec <- sub(sig.dig[j], format(sig.dig[j], nsmall=0, big.mark=","), vec)
+        vec <- sub(pattern = sig.dig.desc[j], replacement = sig.dig.format[j], x = vec)
       }
     }
     return(vec)
   }
-  
+
   # Assign level names to breaks for plotting-------------------------------------------------------
-  extrap.grid$var1.pred <- factor(make_level_labels(extrap.grid$var1.pred), 
+  extrap.grid$var1.pred <- factor(make_level_labels(extrap.grid$var1.pred),
                                   levels = make_level_labels(levels(set.levels)))
-  
+
   # Number of breaks for color adjustments----------------------------------------------------------
   n.breaks <- length(levels(set.levels))
-  
+
   # Make plot---------------------------------------------------------------------------------------
+
+  if(extrapolation.grid.type %in% c("sf", "sf.simple")) {
+
+    extrap.grid <- extrap.grid |>
+      sf::st_as_sf()
+
+    extrap.grid <- subset(extrap.grid, select = -var1.var)
+
+    extrap.grid <- aggregate(extrap.grid,
+                             by = list(id_temp = extrap.grid$var1.pred),
+                             FUN = function(x) x[1],
+                             do_union = TRUE)
+
+    extrap.grid <- subset(extrap.grid, select = -id_temp) |>
+      sf::st_intersection(map_layers$survey.area)
+
+    extrap.grid <- extrap.grid[c("var1.pred", "SURVEY_NAME", "SURVEY_DEFINITION_ID",  "geometry")]
+
+    # Simplify geometry using ms_simplify function from the rmapshaper package
+    if(extrapolation.grid.type == "sf.simple") {
+      extrap.grid <- extrap.grid |>
+        rmapshaper::ms_simplify(keep_shapes = TRUE,
+                                keep = 0.04)
+    }
+
     p1 <- ggplot2::ggplot() +
-    ggplot2::geom_sf(data = map_layers$survey.area, fill = NA) +
-    stars::geom_stars(data = extrap.grid) +
-    ggplot2::geom_sf(data = map_layers$survey.area, fill = NA) +
-    ggplot2::geom_sf(data = map_layers$akland, fill = "grey80") +
-    ggplot2::geom_sf(data = map_layers$bathymetry) +
-    ggplot2::geom_sf(data = map_layers$graticule, color = alpha("grey70", 0.3)) +
-    ggplot2::scale_fill_manual(name = paste0(key.title, "\nCPUE"), 
-                        values = c("white", RColorBrewer::brewer.pal(9, name = "Reds")[c(2,4,6,8,9)]), 
-                        na.translate = FALSE, # Don't use NA
-                        drop = FALSE) + # Keep all levels in the plot
-    ggplot2::scale_x_continuous(breaks = map_layers$lon.breaks) + 
-    ggplot2::scale_y_continuous(breaks = map_layers$lat.breaks) + 
-    ggplot2::coord_sf(xlim = map_layers$plot.boundary$x,
-               ylim = map_layers$plot.boundary$y) +
-    ggplot2::theme(panel.border = element_rect(color = "black", fill = NA),
-            panel.background = element_rect(fill = NA, color = "black"),
-            legend.key = element_rect(fill = NA, color = "grey70"),
-            legend.position = c(0.12, 0.18),
-            axis.title = element_blank(),
-            axis.text = element_text(size = 10),
-            legend.text = element_text(size = 10),
-            legend.title = element_text(size = 10),
-            plot.background = element_rect(fill = NA, color = NA))
-  
+      ggplot2::geom_sf(data = map_layers$survey.area, fill = NA) +
+      ggplot2::geom_sf(data = extrap.grid,
+                       aes(fill = var1.pred),
+                       color = NA) +
+      ggplot2::geom_sf(data = map_layers$survey.area, fill = NA) +
+      ggplot2::geom_sf(data = map_layers$akland, fill = "grey80") +
+      ggplot2::geom_sf(data = map_layers$bathymetry) +
+      ggplot2::geom_sf(data = map_layers$graticule, color = alpha("grey70", 0.3)) +
+      ggplot2::scale_fill_manual(name = paste0(key.title, "\n", key.title.units),
+                                 values = c("white", RColorBrewer::brewer.pal(9, name = "Blues")[c(2,4,6,8,9)]),
+                                 na.translate = FALSE, # Don't use NA
+                                 drop = FALSE) + # Keep all levels in the plot
+      ggplot2::scale_x_continuous(breaks = map_layers$lon.breaks) +
+      ggplot2::scale_y_continuous(breaks = map_layers$lat.breaks) +
+      ggplot2::coord_sf(xlim = map_layers$plot.boundary$x,
+                        ylim = map_layers$plot.boundary$y) +
+      ggplot2::theme(panel.border = element_rect(color = "black", fill = NA),
+                     panel.background = element_rect(fill = NA, color = "black"),
+                     legend.key = element_rect(fill = NA, color = "grey70"),
+                     legend.position = c(0.12, 0.18),
+                     axis.title = element_blank(),
+                     axis.text = element_text(size = 10),
+                     legend.text = element_text(size = 10),
+                     legend.title = element_text(size = 10),
+                     plot.background = element_rect(fill = NA, color = NA))
+  } else {
+    p1 <- ggplot2::ggplot() +
+      ggplot2::geom_sf(data = map_layers$survey.area, fill = NA) +
+      stars::geom_stars(data = extrap.grid) +
+      ggplot2::geom_sf(data = map_layers$survey.area, fill = NA) +
+      ggplot2::geom_sf(data = map_layers$akland, fill = "grey80") +
+      ggplot2::geom_sf(data = map_layers$bathymetry) +
+      ggplot2::geom_sf(data = map_layers$graticule, color = alpha("grey70", 0.3)) +
+      ggplot2::scale_fill_manual(name = paste0(key.title, "\n",  "key.title.units"),
+                                 values = c("white", RColorBrewer::brewer.pal(9, name = "Blues")[c(2,4,6,8,9)]),
+                                 na.translate = FALSE, # Don't use NA
+                                 drop = FALSE) + # Keep all levels in the plot
+      ggplot2::scale_x_continuous(breaks = map_layers$lon.breaks) +
+      ggplot2::scale_y_continuous(breaks = map_layers$lat.breaks) +
+      ggplot2::coord_sf(xlim = map_layers$plot.boundary$x,
+                        ylim = map_layers$plot.boundary$y) +
+      ggplot2::theme(panel.border = element_rect(color = "black", fill = NA),
+                     panel.background = element_rect(fill = NA, color = "black"),
+                     legend.key = element_rect(fill = NA, color = "grey70"),
+                     legend.position = c(0.12, 0.18),
+                     axis.title = element_blank(),
+                     axis.text = element_text(size = 10),
+                     legend.text = element_text(size = 10),
+                     legend.title = element_text(size = 10),
+                     plot.background = element_rect(fill = NA, color = NA))
+  }
+
   return(list(plot = p1,
               map_layers = map_layers,
               extrapolation.grid = extrap.grid,

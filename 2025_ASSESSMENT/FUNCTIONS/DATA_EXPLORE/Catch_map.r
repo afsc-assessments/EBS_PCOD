@@ -39,10 +39,93 @@ CATCH[GEAR_TYPE%in%c(1,2,3,4)]$CPUE<-CATCH[GEAR_TYPE%in%c(1,2,3,4)]$EXTRAPOLATED
 CATCH1<-data.frame(CATCH)
 
 
-make_idw_map_FSH(x = subset(CATCH1,YEAR==2021&GEAR_TYPE%in%c(1:4)), # Pass data as a data frame
-             region = "bs.all", # Predefined bs.all area
-             set.breaks = "Jenks", # Gets Jenks breaks from classint::classIntervals()
-             in.crs = "+proj=longlat", # Set input coordinate reference system
-             out.crs = "EPSG:3338", # Set output coordinate reference system
-             grid.cell = c(20000, 20000), # 20x20km grid
-             key.title = "test")
+
+pdf("EBS_COD_LONGLINE20.pdf",width=8, height=8)
+
+Years=sort(unique(CATCH1$YEAR))
+
+for(i in 1:length(Years)){
+    cod<-subset(CATCH1,YEAR==Years[i]&GEAR_TYPE%in%c(8))
+  
+opt1<-make_idw_map_FSH(x = cod,
+                         COMMON_NAME = NA,
+                         LATITUDE = NA,
+                         LONGITUDE = NA,
+                         CPUE = NA,
+                         region = "bs.all",
+                         extrap.box = NULL,
+                         extrapolation.grid.type = "sf",
+                         set.breaks = 'fisher',
+                         grid.cell = c(20000,20000),
+                         in.crs = "+proj=longlat",
+                         out.crs = "EPSG:3338",
+                         key.title = paste0("Pacific cod Longline ",Years[i]),
+                         key.title.units = "CPUE (kg/hook)",
+                         log.transform = TRUE,
+                         idw.nmax = 4,
+                         use.survey.bathymetry = FALSE,
+                         return.continuous.grid = FALSE)
+
+    print(opt1$plot)
+ }
+dev.off()
+
+
+pdf("EBS_COD_POT20.pdf",width=8, height=8)
+
+for(i in 1:length(Years)){
+    cod<-subset(CATCH1, YEAR==Years[i] & GEAR_TYPE%in%c(6))
+  
+
+opt1<-make_idw_map_FSH(x = cod,
+                         COMMON_NAME = NA,
+                         LATITUDE = NA,
+                         LONGITUDE = NA,
+                         CPUE = NA,
+                         region = "bs.all",
+                         extrap.box = NULL,
+                         extrapolation.grid.type = "sf",
+                         set.breaks = 'fisher',
+                         grid.cell = c(20000,20000),
+                         in.crs = "+proj=longlat",
+                         out.crs = "EPSG:3338",
+                         key.title = paste0("Pacific cod Pot ",Years[i]),
+                         key.title.units = "CPUE (kg/pot)",
+                         log.transform = TRUE,
+                         idw.nmax = 4,
+                         use.survey.bathymetry = FALSE,
+                         return.continuous.grid = FALSE)
+
+    print(opt1$plot)
+ }
+dev.off()
+
+
+pdf("EBS_COD_TRAWL20.pdf",width=8, height=8)
+
+for(i in 1:length(Years)){
+    cod<-subset(CATCH1,YEAR==Years[i]&GEAR_TYPE%in%c(1:4))
+
+
+opt1<-make_idw_map_FSH(x = cod,
+                         COMMON_NAME = NA,
+                         LATITUDE = NA,
+                         LONGITUDE = NA,
+                         CPUE = NA,
+                         region = "bs.all",
+                         extrap.box = NULL,
+                         extrapolation.grid.type = "sf",
+                         set.breaks = 'fisher',
+                         grid.cell = c(20000,20000),
+                         in.crs = "+proj=longlat",
+                         out.crs = "EPSG:3338",
+                         key.title = paste0("Pacific cod Trawl ",Years[i]),
+                         key.title.units = "CPUE (kg/minute)",
+                         log.transform = TRUE,
+                         idw.nmax = 4,
+                         use.survey.bathymetry = FALSE,
+                         return.continuous.grid = FALSE)
+
+    print(opt1$plot)
+ }
+dev.off()
